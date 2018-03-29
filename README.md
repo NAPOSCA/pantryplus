@@ -1,4 +1,4 @@
-Food pantry
+Food pantry - Pantry Plus
 
 By:
 - Matt
