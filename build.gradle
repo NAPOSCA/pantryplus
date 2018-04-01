@@ -10,9 +10,18 @@ buildscript {
 	}
 }
 
+plugins {
+	id 'com.craigburke.karma' version '1.4.4'
+}
+
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
+
+karma {
+	frameworks = ['jasmine']
+	failOnEmptyTestSuite = false
+}
 
 group = 'org.wecancodeit'
 version = '0.0.1-SNAPSHOT'
