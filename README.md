@@ -1,4 +1,5 @@
 # Food pantry - Pantry Plus
+[![Coverage Status](https://coveralls.io/repos/github/NAPOSCA/pantryplus/badge.svg?branch=master)](https://coveralls.io/github/NAPOSCA/pantryplus?branch=master)
 
 ## Collaborators
 - [Matt]
