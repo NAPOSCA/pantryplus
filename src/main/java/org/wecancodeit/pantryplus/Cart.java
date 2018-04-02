@@ -19,4 +19,8 @@ public class Cart {
 		products.remove(product);
 	}
 
+	public long getId() {
+		return 0;
+	}
+
 }
