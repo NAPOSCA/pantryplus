@@ -12,6 +12,6 @@ public class LineItemTest {
 		Product product = new Product("testFruit");
 		LineItem underTest = new LineItem(product);
 
-		assertThat(product.getName(), is("testFruit"));
+		assertThat(underTest.getProduct().getName(), is("testFruit"));
 	}
 }
