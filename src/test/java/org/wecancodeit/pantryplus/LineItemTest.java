@@ -3,23 +3,39 @@ package org.wecancodeit.pantryplus;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
+import org.junit.Before;
 import org.junit.Test;
 
 public class LineItemTest {
 
+	private Product product;
+	private Product product2;
+	private LineItem lineItem;
+
+	@Before
+	public void setUp() {
+		product = new Product("testFruit", null);
+		product2 = new Product("testFruit2", null);
+		lineItem = new LineItem(product, 1);
+	}
+
 	@Test
 	public void lineItemShouldHaveProduct() {
-		Product product = new Product("testFruit", null);
-		LineItem underTest = new LineItem(product);
-
-		assertThat(underTest.getProduct().getName(), is("testFruit"));
+		assertThat(lineItem.getProduct().getName(), is("testFruit"));
 	}
 
 	@Test
 	public void lineItemShouldHaveQuantity() {
-		Product product = new Product("testFruit", null);
-		LineItem underTest = new LineItem(product, 1);
+		assertThat(lineItem.getQuantity(), is(1));
+	}
 
-		assertThat(underTest.getQuantity(), is(1));
+	@Test
+	public void shouldHaveEqualsReturnFalseIfNull() {
+		assertThat(lineItem.equals(null), is(false));
+	}
+
+	@Test
+	public void shouldHaveEqualsReturnFalseIFDifferentClass() {
+		assertThat(lineItem.equals(product2), is(false));
 	}
 }
