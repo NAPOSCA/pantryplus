@@ -18,6 +18,9 @@ public class ProductJpaTest {
 	@Resource
 	private TestEntityManager entityManager;
 	
+	@Resource
+	private CategoryRepository categoryRepo;
+	
 	@Test
 	public void shouldSaveAndLoadCategory() {
 		Category underTest = new Category("Fruit");
