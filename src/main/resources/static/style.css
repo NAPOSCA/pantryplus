@@ -1,0 +1,14 @@
+:root {
+	--category-spacing: 0.3rem;
+}
+
+section.category {
+	background-color: red;
+	padding: 0.3rem;
+	margin: var(--category-spacing);
+	border-radius: 0.3rem;
+}
+
+main {
+	padding: var(--category-spacing);
+}
