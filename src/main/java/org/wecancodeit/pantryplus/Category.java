@@ -34,4 +34,9 @@ public class Category {
 		return id;
 	}
 
+	public Collection<Product> getProducts() {
+		
+		return products;
+	}
+
 }

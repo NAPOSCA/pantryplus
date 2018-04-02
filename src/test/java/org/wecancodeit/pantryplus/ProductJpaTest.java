@@ -1,6 +1,7 @@
 package org.wecancodeit.pantryplus;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.junit.Assert.assertThat;
 
 import javax.annotation.Resource;
@@ -52,6 +53,25 @@ public class ProductJpaTest {
 		underTest = productRepo.findOne(productId);
 		
 		assertThat(underTest.getName(), is("pineapple"));		
+	}
+	
+	@Test
+	public void shouldSaveManyProductsToOneCategory() {
+		Category category = new Category("fruit");
+		Product underTest1 = new Product("pineapple", category);
+		Product underTest2 = new Product("apple", category);
+		category = categoryRepo.save(category);
+		underTest1 = productRepo.save(underTest1);
+		underTest2 = productRepo.save(underTest2);
+		long categoryId = category.getId();
+		
+		entityManager.flush();
+		entityManager.clear();
+		
+		category = categoryRepo.findOne(categoryId);
+		
+		assertThat(category.getProducts(), containsInAnyOrder(underTest1, underTest2));
+		
 	}
 	
 	
