@@ -1,8 +1,11 @@
 package org.wecancodeit.pantryplus;
 
+import java.util.Collection;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Cart {
@@ -11,7 +14,11 @@ public class Cart {
 	@GeneratedValue
 	private long id;
 
-	// Set<Product> products = new HashSet<Product>();
+	@OneToMany(mappedBy = "cart")
+	Collection<LineItem> lineItems;
+
+	public Cart() {
+	}
 
 	// public Set<Product> getProducts() {
 	// return products;
