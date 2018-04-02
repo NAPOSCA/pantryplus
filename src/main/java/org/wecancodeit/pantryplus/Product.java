@@ -1,9 +1,12 @@
 package org.wecancodeit.pantryplus;
 
+import java.util.Collection;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Product {
@@ -16,6 +19,9 @@ public class Product {
 	@ManyToOne
 	private Category category;
 
+	@OneToMany(mappedBy = "product")
+	private Collection<LineItem> lineItem;
+
 	@SuppressWarnings("unused")
 	private Product() {
 	}
@@ -25,17 +31,24 @@ public class Product {
 		this.category = category;
 	}
 
-	public String getName() {
-		return name;
-	}
-
 	public long getId() {
 		return id;
 	}
 
+	public String getName() {
+		return name;
+	}
+
+	public Category getCategory() {
+		return category;
+	}
+
+	public Collection<LineItem> getLineItem() {
+		return lineItem;
+	}
+
 	@Override
 	public int hashCode() {
-
 		return ((Long) id).hashCode();
 	}
 
@@ -45,7 +58,11 @@ public class Product {
 			return true;
 		}
 
-		if (obj == null || getClass() != obj.getClass()) {
+		if (obj == null ) {
+			return false;
+		}
+		
+		if(getClass() != obj.getClass()) {
 			return false;
 		}
 

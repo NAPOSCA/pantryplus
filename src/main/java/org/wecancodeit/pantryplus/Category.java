@@ -30,12 +30,12 @@ public class Category {
 		this.products = new HashSet<Product>(asList(products));
 	}
 
-	public String getName() {
-		return name;
-	}
-
 	public long getId() {
 		return id;
+	}
+
+	public String getName() {
+		return name;
 	}
 
 	public Collection<Product> getProducts() {

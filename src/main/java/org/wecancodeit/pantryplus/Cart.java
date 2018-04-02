@@ -1,22 +1,40 @@
 package org.wecancodeit.pantryplus;
 
-import java.util.HashSet;
+import java.util.Collection;
 import java.util.Set;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+@Entity
 public class Cart {
 
-	Set<Product> products = new HashSet<Product>();
+	@Id
+	@GeneratedValue
+	private long id;
 
-	public Set<Product> getProducts() {
-		return products;
+	@OneToMany(mappedBy = "cart")
+	Set<LineItem> lineItems;
+
+	public Cart() {
 	}
 
-	public void addProduct(Product product) {
-		products.add(product);
+	public long getId() {
+		return id;
 	}
 
-	public void deleteProduct(Product product) {
-		products.remove(product);
+	public Set<LineItem> getLineItems() {
+		return lineItems;
+	}
+
+	public int getCartQuantity() {
+		int totalQuantity = 0;
+		for (LineItem item : lineItems) {
+			totalQuantity += item.getQuantity();
+		}
+		return totalQuantity;
 	}
 
 }
