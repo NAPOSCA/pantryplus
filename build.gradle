@@ -24,7 +24,6 @@ apply plugin: 'org.springframework.boot'
 
 karma {
 	frameworks = ['jasmine']
-	failOnEmptyTestSuite = false
 }
 
 group = 'org.wecancodeit'
