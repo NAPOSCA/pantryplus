@@ -21,24 +21,39 @@ public class ProductJpaTest {
 	@Resource
 	private CategoryRepository categoryRepo;
 	
+	@Resource
+	private ProductRepository productRepo;
+	
 	@Test
 	public void shouldSaveAndLoadCategory() {
 		Category underTest = new Category("Fruit");
 		underTest = categoryRepo.save(underTest);
 		long categoryId = underTest.getId();
 		
-		
 		entityManager.flush();
 		entityManager.clear();
 		
 		underTest = categoryRepo.findOne(categoryId);
 		
-		assertThat(underTest.getName(), is("Fruit"));
-		
-		
-		
-		
-		
+		assertThat(underTest.getName(), is("Fruit"));		
 	}
+	
+	@Test
+	public void shouldSaveAndLoadProduct() {
+		Category category = new Category("Fruit");
+		Product underTest = new Product("pineapple", category);
+		category = categoryRepo.save(category);
+		underTest = productRepo.save(underTest);
+		long productId = underTest.getId();
+		
+		entityManager.flush();
+		entityManager.clear();
+		
+		underTest = productRepo.findOne(productId);
+		
+		assertThat(underTest.getName(), is("pineapple"));		
+	}
+	
+	
 
 }

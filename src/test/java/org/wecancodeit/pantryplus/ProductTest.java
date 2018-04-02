@@ -9,7 +9,7 @@ public class ProductTest {
 
 	@Test
 	public void shouldHaveName() {
-		Product underTest = new Product("Apple");
+		Product underTest = new Product("Apple", null);
 
 		assertThat(underTest.getName(), is("Apple"));
 	}
