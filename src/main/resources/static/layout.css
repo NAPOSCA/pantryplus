@@ -15,7 +15,10 @@ header {
 	justify-content: space-around;
 }
 
-main {}
+main {
+	display: flex;
+	flex-direction: column;
+}
 
 footer {
 	display: flex;
