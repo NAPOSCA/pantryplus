@@ -14,4 +14,12 @@ public class LineItemTest {
 
 		assertThat(underTest.getProduct().getName(), is("testFruit"));
 	}
+
+	@Test
+	public void lineItemShouldHaveQuantity() {
+		Product product = new Product("testFruit");
+		LineItem underTest = new LineItem(product, 1);
+
+		assertThat(underTest.getQuantity(), is(1));
+	}
 }
