@@ -1,0 +1,27 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+div.container {
+	display: grid;
+	grid-template-rows: min-content auto 2rem;
+	height: 100vh;
+	grid-gap: 1rem;
+}
+
+header {
+	display: flex;
+	justify-content: space-around;
+}
+
+main {
+	display: flex;
+	flex-direction: column;
+}
+
+footer {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
