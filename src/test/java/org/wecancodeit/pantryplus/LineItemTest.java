@@ -9,7 +9,7 @@ public class LineItemTest {
 
 	@Test
 	public void lineItemShouldHaveProduct() {
-		Product product = new Product("testFruit");
+		Product product = new Product("testFruit", null);
 		LineItem underTest = new LineItem(product);
 
 		assertThat(underTest.getProduct().getName(), is("testFruit"));
@@ -17,7 +17,7 @@ public class LineItemTest {
 
 	@Test
 	public void lineItemShouldHaveQuantity() {
-		Product product = new Product("testFruit");
+		Product product = new Product("testFruit", null);
 		LineItem underTest = new LineItem(product, 1);
 
 		assertThat(underTest.getQuantity(), is(1));
