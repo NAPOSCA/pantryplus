@@ -1,6 +1,6 @@
 # Food pantry - Pantry Plus
 [![Build Status](https://travis-ci.org/NAPOSCA/pantryplus.svg?branch=master)](https://travis-ci.org/NAPOSCA/pantryplus)
-[![Coverage Status](https://coveralls.io/repos/github/NAPOSCA/pantryplus/badge.svg?branch=master)](https://coveralls.io/github/NAPOSCA/pantryplus?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/NAPOSCA/pantryplus/badge.svg?branch=master&service=github)](https://coveralls.io/github/NAPOSCA/pantryplus?branch=master)
 
 ## Collaborators
 - [Matt]
