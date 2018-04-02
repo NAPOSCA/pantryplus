@@ -7,6 +7,7 @@ div.container {
 	display: grid;
 	grid-template-rows: min-content auto 2rem;
 	height: 100vh;
+	grid-gap: 1rem;
 }
 
 header {
@@ -16,4 +17,8 @@ header {
 
 main {}
 
-footer {}
+footer {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
