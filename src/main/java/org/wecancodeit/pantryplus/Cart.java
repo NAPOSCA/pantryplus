@@ -1,6 +1,7 @@
 package org.wecancodeit.pantryplus;
 
 import java.util.Collection;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,25 +16,25 @@ public class Cart {
 	private long id;
 
 	@OneToMany(mappedBy = "cart")
-	Collection<LineItem> lineItems;
+	Set<LineItem> lineItems;
 
 	public Cart() {
 	}
 
-	// public Set<Product> getProducts() {
-	// return products;
-	// }
-
-	// public void addProduct(Product product) {
-	// products.add(product);
-	// }
-	//
-	// public void deleteProduct(Product product) {
-	// products.remove(product);
-	// }
-
 	public long getId() {
 		return id;
+	}
+
+	public Set<LineItem> getLineItems() {
+		return lineItems;
+	}
+
+	public int getCartQuantity() {
+		int totalQuantity = 0;
+		for (LineItem item : lineItems) {
+			totalQuantity += item.getQuantity();
+		}
+		return totalQuantity;
 	}
 
 }

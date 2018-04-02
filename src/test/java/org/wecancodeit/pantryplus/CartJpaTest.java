@@ -1,7 +1,8 @@
 package org.wecancodeit.pantryplus;
 
-import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.greaterThan;
+import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
 import javax.annotation.Resource;
@@ -59,5 +60,58 @@ public class CartJpaTest {
 
 		assertThat(underTest.getProduct(), is(product));
 	}
+	
+	@Test
+	public void shouldSaveManyLineItemsToOneCart() {
+		Cart cart = new Cart();
+		Product product = new Product("grapefruit", null);
+		Product product2 = new Product("apple", null);
+		
+		LineItem lineItem = new LineItem(cart, product, 1);
+		LineItem lineItem2 = new LineItem(cart, product2, 1);
+		
+		cart = cartRepo.save(cart);
+		product = productRepo.save(product);
+		product2 = productRepo.save(product2);
+		lineItem = lineItemRepo.save(lineItem);
+		lineItem2 = lineItemRepo.save(lineItem2);
+		long cartId = cart.getId();
+
+		entityManager.flush();
+		entityManager.clear();
+
+		cart = cartRepo.findOne(cartId);
+		
+		assertThat(cart.getLineItems(), containsInAnyOrder(lineItem, lineItem2));
+	}
+	
+	@Test
+	public void shouldCalculateSumOfAllLineItemQuantities() {
+		Cart cart = new Cart();
+		cart = cartRepo.save(cart);
+
+		Product product = new Product("grapefruit", null);
+		Product product2 = new Product("apple", null);
+		
+		LineItem lineItem = new LineItem(cart, product, 1);
+		LineItem lineItem2 = new LineItem(cart, product2, 2);
+		
+		product = productRepo.save(product);
+		product2 = productRepo.save(product2);
+		lineItem = lineItemRepo.save(lineItem);
+		lineItem2 = lineItemRepo.save(lineItem2);
+		long cartId = cart.getId();
+
+		entityManager.flush();
+		entityManager.clear();
+
+		cart = cartRepo.findOne(cartId);
+		
+		assertThat(cart.getCartQuantity(), is(3));
+	}
+	
+	
+	
+	
 
 }
