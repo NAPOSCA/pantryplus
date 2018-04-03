@@ -1,6 +1,5 @@
 package org.wecancodeit.pantryplus;
 
-import java.util.Collection;
 import java.util.Set;
 
 import javax.persistence.Entity;

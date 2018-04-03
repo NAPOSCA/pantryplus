@@ -6,6 +6,7 @@ import static org.junit.Assert.assertThat;
 
 import javax.annotation.Resource;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -25,52 +26,45 @@ public class ProductJpaTest {
 	@Resource
 	private ProductRepository productRepo;
 
+	private Category category;
+	private Product product1;
+	private Product product2;
+
+	@Before
+	public void setUp() {
+		category = new Category("fruit");
+		product1 = new Product("pineapple", category);
+		product2 = new Product("apple", category);
+		category = categoryRepo.save(category);
+		product1 = productRepo.save(product1);
+		product2 = productRepo.save(product2);
+	}
+
 	@Test
 	public void shouldSaveAndLoadCategory() {
-		Category underTest = new Category("Fruit");
-		underTest = categoryRepo.save(underTest);
-		long categoryId = underTest.getId();
-
+		long categoryId = category.getId();
 		entityManager.flush();
 		entityManager.clear();
-
-		underTest = categoryRepo.findOne(categoryId);
-
-		assertThat(underTest.getName(), is("Fruit"));
+		category = categoryRepo.findOne(categoryId);
+		assertThat(category.getName(), is("fruit"));
 	}
 
 	@Test
 	public void shouldSaveAndLoadProduct() {
-		Category category = new Category("Fruit");
-		Product underTest = new Product("pineapple", category);
-		category = categoryRepo.save(category);
-		underTest = productRepo.save(underTest);
-		long productId = underTest.getId();
-
+		long productId = product1.getId();
 		entityManager.flush();
 		entityManager.clear();
-
-		underTest = productRepo.findOne(productId);
-
-		assertThat(underTest.getName(), is("pineapple"));
+		product1 = productRepo.findOne(productId);
+		assertThat(product1.getName(), is("pineapple"));
 	}
 
 	@Test
 	public void shouldSaveManyProductsToOneCategory() {
-		Category category = new Category("fruit");
-		Product underTest1 = new Product("pineapple", category);
-		Product underTest2 = new Product("apple", category);
-		category = categoryRepo.save(category);
-		underTest1 = productRepo.save(underTest1);
-		underTest2 = productRepo.save(underTest2);
 		long categoryId = category.getId();
-
 		entityManager.flush();
 		entityManager.clear();
-
 		category = categoryRepo.findOne(categoryId);
-
-		assertThat(category.getProducts(), containsInAnyOrder(underTest1, underTest2));
+		assertThat(category.getProducts(), containsInAnyOrder(product1, product2));
 	}
 
 }
