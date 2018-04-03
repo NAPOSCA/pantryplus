@@ -24,6 +24,11 @@ apply plugin: 'org.springframework.boot'
 
 karma {
 	frameworks = ['jasmine']
+	browsers = ['Chrome']
+	files = [
+		"src/test/**/*spec.js",
+		"src/main/resources/static/js/*.js"
+	]
 }
 
 group = 'org.wecancodeit'
