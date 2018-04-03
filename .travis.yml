@@ -1,3 +1,5 @@
 language: java
+addons:
+  chrome: stable
 after_success:
 - ./gradlew cobertura coveralls
