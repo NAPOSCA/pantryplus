@@ -25,13 +25,28 @@ describe("shopping.js", () => {
 		container.remove();
 	});
 	describe("toggleItemsDisplay()", () => {
-		let categoryItems;
+		let categoryItems, items;
 		beforeEach(() => {
 			categoryItems = container.querySelector(".category-items");
+			items = categoryItems.querySelector(".items");
 		});
 		it("should be called when a category is clicked", () => {
 			categoryItems.click();
 			expect(toggleItemsDisplaySpy).toHaveBeenCalled();
+		});
+		it("should add hidden class and remove visible class", () => {
+			items.classList.remove("hidden");
+			items.classList.add("visible");
+			categoryItems.click();
+			expect(items.classList.contains("hidden")).toBeTruthy();
+			expect(items.classList.contains("visible")).toBeFalsy();
+		});
+		it("should add visible class and remove hidden class", () => {
+			items.classList.remove("visible");
+			items.classList.add("hidden");
+			categoryItems.click();
+			expect(items.classList.contains("visible")).toBeTruthy();
+			expect(items.classList.contains("hidden")).toBeFalsy();
 		});
 	});
 });
