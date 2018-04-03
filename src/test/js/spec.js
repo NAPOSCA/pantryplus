@@ -1,8 +1,8 @@
 describe("shopping.js", () => {
-	let container, toggleItemsDisplaySpy;
+	let container, toggleVisibilitySpy;
 	beforeEach(() => {
 		//declare Spies
-		toggleItemsDisplaySpy = spyOn(window, "toggleItemsDisplay").and.callThrough();
+		toggleVisibilitySpy = spyOn(window, "toggleVisibility").and.callThrough();
 		//create fake container
 		container = document.createElement("div");
 		container.classList.add("container");
@@ -32,7 +32,7 @@ describe("shopping.js", () => {
 		});
 		it("should be called when a category is clicked", () => {
 			categoryItems.click();
-			expect(toggleItemsDisplaySpy).toHaveBeenCalled();
+			expect(toggleVisibilitySpy).toHaveBeenCalled();
 		});
 		it("should add hidden class and remove visible class", () => {
 			items.classList.remove("hidden");

@@ -4,12 +4,12 @@ function initialize() {
 		const categoryDiv = manyCategoryItemsDivs[i];
 		const items = categoryDiv.querySelector(".items");
 		categoryDiv.addEventListener("click", () => {
-			toggleItemsDisplay(items);
+			toggleVisibility(items);
 		});
 	}
 }
 
-function toggleItemsDisplay(items) {
+function toggleVisibility(items) {
 	items.classList.toggle("hidden");
 	items.classList.toggle("visible");
 }
