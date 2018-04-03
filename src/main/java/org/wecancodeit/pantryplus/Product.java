@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Product {
 
@@ -16,9 +18,11 @@ public class Product {
 	private long id;
 	private String name;
 
+	@JsonIgnore
 	@ManyToOne
 	private Category category;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "product")
 	private Collection<LineItem> lineItem;
 
@@ -58,11 +62,11 @@ public class Product {
 			return true;
 		}
 
-		if (obj == null ) {
+		if (obj == null) {
 			return false;
 		}
-		
-		if(getClass() != obj.getClass()) {
+
+		if (getClass() != obj.getClass()) {
 			return false;
 		}
 
