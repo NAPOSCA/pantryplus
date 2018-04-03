@@ -24,6 +24,6 @@ public class MvcCategoryTest {
 	
 	@Test
 	public void shouldRetrieveCategories() throws Exception {
-		mvc.perform(get("/index")).andExpect(status().isOk());
+		mvc.perform(get("/categories")).andExpect(status().isOk());
 	}
 }
