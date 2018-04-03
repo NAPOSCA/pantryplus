@@ -1,4 +1,3 @@
-"use strict";
 describe("shopping.js", () => {
 	let container, toggleItemsDisplaySpy;
 	beforeEach(() => {
