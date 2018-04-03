@@ -24,7 +24,7 @@ apply plugin: 'org.springframework.boot'
 
 karma {
 	frameworks = ['jasmine']
-	browsers = ['ChromeHeadless']
+	browsers = ['Chrome']
 	files = [
 		"src/test/**/*spec.js",
 		"src/main/resources/static/js/*.js"
