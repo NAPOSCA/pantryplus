@@ -34,3 +34,14 @@ function addToCart(productId) {
 	xhr.open("POST", `/cart/items?productId=${productId}&quantity=1`, true);
 	xhr.send();
 }
+
+function removeFromCart(productId) {
+	const xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = () => {
+		if (xhr.readyState == 4 && xhr.status == 200) {
+			console.log(xhr.response);
+		}
+	};
+	xhr.open("POST", `/cart/items?productId=${productId}&quantity=-1`, true);
+	xhr.send();
+}
