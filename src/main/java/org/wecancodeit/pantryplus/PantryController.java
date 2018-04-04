@@ -12,7 +12,7 @@ public class PantryController {
 	@Resource
 	private CategoryRepository categoryRepo;
 	
-	@RequestMapping("/index")
+	@RequestMapping("/")
 	public String displayMainPage(Model model) {
 		model.addAttribute("categories", categoryRepo.findAll());
 		return "index";
