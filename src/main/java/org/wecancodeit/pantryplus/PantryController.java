@@ -10,14 +10,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class PantryController {
 
 	@Resource
+	private CartRepository cartRepo;
+
+	@Resource
 	private CategoryRepository categoryRepo;
 
 	@Resource
 	private CartRepository cartRepo;
 
-	@RequestMapping("/index")
+	@RequestMapping("/")
 	public String displayMainPage(Model model) {
 		model.addAttribute("categories", categoryRepo.findAll());
+		model.addAttribute("cart", cartRepo.findOne(1L));
 		return "index";
 	}
 
