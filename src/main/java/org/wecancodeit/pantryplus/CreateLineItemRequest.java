@@ -1,11 +1,11 @@
 package org.wecancodeit.pantryplus;
 
-public class LineItemRequest {
+public class CreateLineItemRequest {
 
 	private long productId;
 	private int quantity;
 
-	public LineItemRequest(long productId, int quantity) {
+	public CreateLineItemRequest(long productId, int quantity) {
 		this.productId = productId;
 		this.quantity = quantity;
 	}

@@ -20,7 +20,7 @@ public class CartRestController {
 	LineItemRepository lineItemRepo;
 
 	@RequestMapping(path = "/cart/items", method = RequestMethod.POST)
-	public LineItem addItemToCart(@RequestBody LineItemRequest request) {
+	public LineItem addItemToCart(@RequestBody CreateLineItemRequest request) {
 		Cart cart = cartRepo.findOne(1L);
 		Product product = productRepo.findOne(request.getProductId());
 		LineItem newLineItem = new LineItem(cart, product, request.getQuantity());
