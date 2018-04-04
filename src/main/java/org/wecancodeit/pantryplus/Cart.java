@@ -28,6 +28,15 @@ public class Cart {
 		return lineItems;
 	}
 
+	public LineItem lineItemCheck(long productId) {
+		for(LineItem lineItem: lineItems) {
+			if(lineItem.getProduct().getId() == productId) {
+				return lineItem;
+			}	
+		}
+		return null;
+	}
+	
 	public int getCartQuantity() {
 		int totalQuantity = 0;
 		for (LineItem item : lineItems) {
