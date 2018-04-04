@@ -15,9 +15,6 @@ public class PantryController {
 	@Resource
 	private CategoryRepository categoryRepo;
 
-	@Resource
-	private CartRepository cartRepo;
-
 	@RequestMapping("/")
 	public String displayMainPage(Model model) {
 		model.addAttribute("categories", categoryRepo.findAll());
