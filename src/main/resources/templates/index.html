@@ -27,7 +27,11 @@
 				<ul class="items hidden">
 					<li class="item" th:each="product : ${category.products}">
 						<p th:text="${product.name}"/>
-						<button class="add" th:value="${product.id}">Add</button>
+						<div class="interface">
+							<button class="add" th:value="${product.id}">+</button>
+							<p th:text="${cart.getLineItemQuantityByProductId(product.id)}"></p>
+							<button class="remove" th:value="${product.id}">-</button>
+						</div>
 					</li>
 				</ul>
 			</div>
