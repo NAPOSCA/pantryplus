@@ -25,3 +25,12 @@ footer {
 	justify-content: center;
 	align-items: center;
 }
+
+li.item {
+	display: flex;
+	justify-content: space-between;
+}
+
+li.item button {
+	margin-right: 18rem;
+}
