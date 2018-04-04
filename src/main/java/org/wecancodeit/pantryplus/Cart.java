@@ -44,5 +44,13 @@ public class Cart {
 		}
 		return totalQuantity;
 	}
+	
+	public int getLineItemQuantityByProductId(long productId) {
+		LineItem lineItem = getLineItemByProductId(productId);
+		if(lineItem == null) {
+			return 0;
+		}
+		return lineItem.getQuantity();
+	}
 
 }
