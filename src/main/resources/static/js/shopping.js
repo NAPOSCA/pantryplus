@@ -2,8 +2,9 @@ function initialize() {
 	const manyCategoryItemsDivs = document.querySelectorAll(".category-items");
 	for (let i = 0; i < manyCategoryItemsDivs.length; i++) {
 		const categoryDiv = manyCategoryItemsDivs[i];
+		const categorySection = categoryDiv.querySelector(".category");
 		const items = categoryDiv.querySelector(".items");
-		categoryDiv.addEventListener("click", () => {
+		categorySection.addEventListener("click", () => {
 			toggleVisibility(items);
 		});
 	}
