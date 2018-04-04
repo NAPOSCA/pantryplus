@@ -41,7 +41,7 @@ public class CartRestController {
 	public LineItem updateLineItemQuantity(@RequestParam(value = "lineItemId") long id,
 			@RequestParam(value = "quantity") int quantity) {
 		LineItem lineItem = lineItemRepo.findOne(id);
-		lineItem.updateQuantity(quantity);
+		lineItem.addOneQuantity(quantity);
 		return lineItemRepo.save(lineItem);
 	}
 
