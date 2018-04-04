@@ -27,8 +27,7 @@ public class LineItem {
 	}
 
 	public LineItem(Product product) {
-		this.product = product;
-		quantity = 1;
+		this(product, 1);
 	}
 
 	public LineItem(Product product, int quantity) {
@@ -65,10 +64,6 @@ public class LineItem {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-
 		if (obj == null) {
 			return false;
 		}
@@ -76,8 +71,12 @@ public class LineItem {
 		if (getClass() != obj.getClass()) {
 			return false;
 		}
-
-		return id == ((LineItem) obj).id;
+		
+		if(id == ((LineItem) obj).id) {
+			return true;
+		}
+		
+		return false;
 	}
 
 }
