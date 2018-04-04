@@ -2,6 +2,7 @@ package org.wecancodeit.pantryplus;
 
 import javax.annotation.Resource;
 
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -28,8 +29,8 @@ public class CartRestController {
 		return newLineItem;
 	}
 
-	@RequestMapping(path = "/cart/items", method = RequestMethod.DELETE)
-	public Cart deleteItemFromCart(long lineItemId) {
+	@RequestMapping(path = "/cart/items/{id}", method = RequestMethod.DELETE)
+	public Cart deleteItemFromCart(@PathVariable long lineItemId) {
 		lineItemRepo.delete(lineItemId);
 		return cartRepo.findOne(1L);
 	}
