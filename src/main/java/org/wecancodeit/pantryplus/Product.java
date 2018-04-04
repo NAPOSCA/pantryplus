@@ -70,7 +70,11 @@ public class Product {
 			return false;
 		}
 
-		return id == ((Product) obj).id;
+		if (id == ((Product) obj).id) {
+			return true;
+		}
+
+		return false;
 	}
 
 }
