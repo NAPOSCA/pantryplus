@@ -1,0 +1,2 @@
+src/test/js/lib/**/*.js linguist-vendored
+src/test/js/SpecRunner.html linguist-vendored
