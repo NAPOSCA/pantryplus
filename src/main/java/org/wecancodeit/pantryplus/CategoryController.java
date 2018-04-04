@@ -10,10 +10,9 @@ public class CategoryController {
 
 	@Resource
 	private CategoryRepository categoryRepo;
-
-	@RequestMapping("/index")
+	
+	@RequestMapping("/categories")
 	public Iterable<Category> findAllCategories() {
-
 		return categoryRepo.findAll();
 	}
 

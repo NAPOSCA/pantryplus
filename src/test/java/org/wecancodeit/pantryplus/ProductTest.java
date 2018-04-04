@@ -19,8 +19,14 @@ public class ProductTest {
 		assertThat(underTest.equals(null), is(false));
 	}
 
+	@SuppressWarnings("unlikely-arg-type")
 	@Test
 	public void shouldHaveEqualsReturnFalseIfDifferentClass() {
 		assertThat(underTest.equals("Apple"), is(false));
+	}
+	
+	@Test
+	public void shouldHaveProductEqualsItself() {
+		assertThat(underTest.equals(underTest), is(true));
 	}
 }
