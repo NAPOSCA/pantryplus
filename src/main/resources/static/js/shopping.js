@@ -8,9 +8,29 @@ function initialize() {
 			toggleVisibility(items);
 		});
 	}
+
+	const buttons = document.querySelectorAll("button.add");
+	for(let i = 0; i < buttons.length; i++) {
+		const button = buttons[i];
+		const productId = parseInt(button.value);
+		button.addEventListener("click", () => {
+			addToCart(productId);
+		});
+	}
 }
 
 function toggleVisibility(items) {
 	items.classList.toggle("hidden");
 	items.classList.toggle("visible");
+}
+
+function addToCart(productId) {
+	const xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = () => {
+		if (xhr.readyState == 4 && xhr.status == 200) {
+			console.log(xhr.response);
+		}
+	};
+	xhr.open("POST", `/cart/items?productId=${productId}&quantity=1`, true);
+	xhr.send();
 }
