@@ -1,8 +1,9 @@
 describe("shopping.js", () => {
-	let container, toggleVisibilitySpy;
+	let container, toggleVisibilitySpy, addToCartSpy;
 	beforeEach(() => {
 		//declare Spies
 		toggleVisibilitySpy = spyOn(window, "toggleVisibility").and.callThrough();
+		addToCartSpy = spyOn(window, "addToCart").and.callThrough();
 		//create fake container
 		container = document.createElement("div");
 		container.classList.add("container");
@@ -13,13 +14,13 @@ describe("shopping.js", () => {
 			</section>
 			<ul class="items hidden">
 				<li class="item">
-					<button class="1"></button>
+					<button class="add" value="1"></button>
 				</li>
 				<li class="item">
-					<button class="2"></button>
+					<button class="add" value="2"></button>
 				</li>
 				<li class="item">
-					<button class="3"></button>
+					<button class="add" value="3"></button>
 				</li>
 			</ul>
 		</div>`;
@@ -57,6 +58,13 @@ describe("shopping.js", () => {
 		});
 	});
 	describe("addToCart()", () => {
-
+		let button;
+		beforeEach(() => {
+			button = container.querySelector("button.add");
+		});
+		it("should be called when button is clicked", () => {
+			button.click();
+			expect(addToCartSpy).toHaveBeenCalledWith(1);
+		});
 	})
 });

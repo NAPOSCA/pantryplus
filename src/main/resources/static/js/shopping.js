@@ -8,9 +8,19 @@ function initialize() {
 			toggleVisibility(items);
 		});
 	}
+
+	const buttons = document.querySelectorAll("button.add");
+	for(let i = 0; i < buttons.length; i++) {
+		const button = buttons[i];
+		button.addEventListener("click", () => {
+			addToCart(1);
+		});
+	}
 }
 
 function toggleVisibility(items) {
 	items.classList.toggle("hidden");
 	items.classList.toggle("visible");
 }
+
+function addToCart(productId) {}
