@@ -76,8 +76,12 @@ public class LineItem {
 		if (getClass() != obj.getClass()) {
 			return false;
 		}
-
-		return id == ((LineItem) obj).id;
+		
+		if(id == ((LineItem) obj).id) {
+			return true;
+		}
+		
+		return false;
 	}
 
 }
