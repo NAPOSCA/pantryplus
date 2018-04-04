@@ -25,7 +25,10 @@
 					<h2 th:text="${category.name}"/>
 				</section>
 				<ul class="items hidden">
-					<li class="item" th:each="product : ${category.products}" th:text="${product.name}"/>
+					<li class="item" th:each="product : ${category.products}">
+						<p th:text="${product.name}"/>
+						<button th:class="${product.id}">Add</button>
+					</li>
 				</ul>
 			</div>
 		</main>
