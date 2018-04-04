@@ -27,4 +27,5 @@ public class PantryController {
 		model.addAttribute("cart", cartRepo.findOne(1L));
 		return "cart";
 	}
+
 }
