@@ -1,14 +1,21 @@
 :root {
-	--category-spacing: 0.3rem;
+	--rounding-padding: 0.3rem;
 }
 
 section.category {
 	background-color: red;
 	padding: 0.3rem;
-	margin: var(--category-spacing);
+	margin: var(--rounding-padding);
 	border-radius: 0.3rem;
 }
 
 main {
-	padding: var(--category-spacing);
+	padding: var(--rounding-padding);
+}
+
+li.item {
+	background-color: #CD3636;
+	margin: 0.4rem 1.2rem;
+	border-radius: var(--rounding-padding);
+	padding: var(--rounding-padding);
 }
