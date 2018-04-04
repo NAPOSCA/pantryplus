@@ -15,10 +15,10 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.when;
 
-public class CartControllerTest {
+public class CartRestControllerTest {
 
 	@InjectMocks
-	private CartController cartController;
+	private CartRestController cartController;
 
 	@Mock
 	private CartRepository cartRepo;

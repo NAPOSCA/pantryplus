@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class CartController {
+public class CartRestController {
 
 	@Resource
 	CartRepository cartRepo;
@@ -25,10 +25,13 @@ public class CartController {
 		Cart cart = cartRepo.findOne(1L);
 		Product product = productRepo.findOne(productId);
 		LineItem newLineItem = new LineItem(cart, product, quantity);
-		lineItemRepo.save(newLineItem);
+		newLineItem = lineItemRepo.save(newLineItem);
 		return newLineItem;
 	}
 
-	// @RequestMapping()
-
+	@RequestMapping(path = "/cart/items", method = RequestMethod.DELETE)
+	public Cart deleteItemFromCart(long lineItemId) {
+		lineItemRepo.delete(lineItemId);
+		return cartRepo.findOne(1L);
+	}
 }
