@@ -43,14 +43,6 @@ public class Product {
 		return name;
 	}
 
-	public Category getCategory() {
-		return category;
-	}
-
-	public Collection<LineItem> getLineItem() {
-		return lineItem;
-	}
-
 	@Override
 	public int hashCode() {
 		return ((Long) id).hashCode();
@@ -58,10 +50,6 @@ public class Product {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-
 		if (obj == null) {
 			return false;
 		}
@@ -70,7 +58,11 @@ public class Product {
 			return false;
 		}
 
-		return id == ((Product) obj).id;
+		if (id == ((Product) obj).id) {
+			return true;
+		}
+
+		return false;
 	}
 
 }
