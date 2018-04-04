@@ -25,7 +25,15 @@ public class CartRestController {
 		Cart cart = cartRepo.findOne(1L);
 		Product product = productRepo.findOne(id);
 		LineItem newLineItem = new LineItem(cart, product, quantity);
-		newLineItem = lineItemRepo.save(newLineItem);
+		LineItem lineItemCheck = cart.lineItemCheck(id);
+		if(lineItemCheck == newLineItem) {
+			newLineItem = lineItemRepo.save(newLineItem);
+		}
+		
+		if(lineItemCheck == null) {
+			newLineItem.updateQuantity(quantity);
+		}
+		
 		return newLineItem;
 	}
 

@@ -58,7 +58,7 @@ public class LineItem {
 	}
 
 	public void updateQuantity(int quantity) {
-		this.quantity = quantity;
+		this.quantity += quantity;
 	}
 
 	@Override
