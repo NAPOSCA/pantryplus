@@ -22,4 +22,10 @@ public class PantryController {
 		return "index";
 	}
 
+	@RequestMapping("/cart")
+	public String displayCart(Model model) {
+		model.addAttribute("cart", cartRepo.findOne(1L));
+		return "cart";
+	}
+
 }
