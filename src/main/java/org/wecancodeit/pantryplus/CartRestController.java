@@ -20,29 +20,34 @@ public class CartRestController {
 	LineItemRepository lineItemRepo;
 
 	@RequestMapping(path = "/cart/items", method = RequestMethod.POST)
-	public LineItem addItemToCart(@RequestParam(value = "productId") long id,
+	public LineItem increaseQuantityOfProductInCart(@RequestParam(value = "productId") long id,
 			@RequestParam(value = "quantity") int quantity) {
 		Cart cart = cartRepo.findOne(1L);
-		Product product = productRepo.findOne(id);
-		LineItem newLineItem = new LineItem(cart, product, quantity);
-		LineItem lineItemCheck = cart.lineItemCheck(id);
-		if(lineItemCheck == newLineItem) {
-			newLineItem = lineItemRepo.save(newLineItem);
+		LineItem lineItem = cart.getLineItemByProductId(id);
+		if (lineItem == null) {
+			Product product = productRepo.findOne(id);
+			lineItem = new LineItem(cart, product, 0);
+			lineItem = lineItemRepo.save(lineItem);
 		}
-		
-		if(lineItemCheck == null) {
-			newLineItem.addOneQuantity(quantity);
-		}
-		
-		return newLineItem;
+		lineItem.addQuantity(quantity);
+
+		return lineItem;
 	}
 
 	@RequestMapping(path = "/cart/items", method = RequestMethod.PUT)
-	public LineItem updateLineItemQuantity(@RequestParam(value = "lineItemId") long id,
+	public LineItem updateQuantityOfProductInCart(@RequestParam(value = "productId") long id,
 			@RequestParam(value = "quantity") int quantity) {
-		LineItem lineItem = lineItemRepo.findOne(id);
-		lineItem.addOneQuantity(quantity);
-		return lineItemRepo.save(lineItem);
+		Cart cart = cartRepo.findOne(1L);
+		LineItem lineItem = cart.getLineItemByProductId(id);
+		if(lineItem == null) {
+			Product product = productRepo.findOne(id);
+			lineItem = new LineItem(cart, product, quantity);
+			lineItem = lineItemRepo.save(lineItem);
+		} else {
+			lineItem.setQuantity(quantity);
+		}
+		
+		return lineItem;
 	}
 
 	@RequestMapping(path = "/cart/items", method = RequestMethod.DELETE)
