@@ -57,10 +57,6 @@ public class LineItem {
 		return quantity;
 	}
 
-	public void addOneQuantity(int quantity) {
-		quantity += 1;
-	}
-
 	@Override
 	public int hashCode() {
 		return ((Long) id).hashCode();
@@ -81,6 +77,14 @@ public class LineItem {
 		}
 
 		return false;
+	}
+
+	public void addQuantity(int quantityToAdd) {
+		quantity += quantityToAdd;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
 	}
 
 }
