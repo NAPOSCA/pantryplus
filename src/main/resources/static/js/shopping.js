@@ -24,4 +24,13 @@ function toggleVisibility(items) {
 	items.classList.toggle("visible");
 }
 
-function addToCart(productId) {}
+function addToCart(productId) {
+	const xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = () => {
+		if (xhr.readyState == 4 && xhr.status == 200) {
+			console.log(xhr.response);
+		}
+	};
+	xhr.open("POST", `/cart/items?productId=${productId}`, true);
+	xhr.send();
+}
