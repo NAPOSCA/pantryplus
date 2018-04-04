@@ -27,8 +27,7 @@ public class LineItem {
 	}
 
 	public LineItem(Product product) {
-		this.product = product;
-		quantity = 1;
+		this(product, 1);
 	}
 
 	public LineItem(Product product, int quantity) {
