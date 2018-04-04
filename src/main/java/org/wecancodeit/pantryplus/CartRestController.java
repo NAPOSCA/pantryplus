@@ -27,9 +27,9 @@ public class CartRestController {
 		if (lineItem == null) {
 			Product product = productRepo.findOne(id);
 			lineItem = new LineItem(cart, product, 0);
-			lineItem = lineItemRepo.save(lineItem);
 		}
 		lineItem.addQuantity(quantity);
+		lineItem = lineItemRepo.save(lineItem);
 
 		return lineItem;
 	}
@@ -42,10 +42,10 @@ public class CartRestController {
 		if(lineItem == null) {
 			Product product = productRepo.findOne(id);
 			lineItem = new LineItem(cart, product, quantity);
-			lineItem = lineItemRepo.save(lineItem);
 		} else {
 			lineItem.setQuantity(quantity);
 		}
+		lineItem = lineItemRepo.save(lineItem);
 		
 		return lineItem;
 	}
