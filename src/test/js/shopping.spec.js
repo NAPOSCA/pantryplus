@@ -12,9 +12,15 @@ describe("shopping.js", () => {
 				<h2>Personal Hygiene</h2>
 			</section>
 			<ul class="items hidden">
-				<li class="item">Soap</li>
-				<li class="item">Shampoo</li>
-				<li class="item">Three-in-one</li>
+				<li class="item">
+					<button class="1"></button>
+				</li>
+				<li class="item">
+					<button class="2"></button>
+				</li>
+				<li class="item">
+					<button class="3"></button>
+				</li>
 			</ul>
 		</div>`;
 		document.body.append(container);
@@ -50,4 +56,7 @@ describe("shopping.js", () => {
 			expect(items.classList.contains("hidden")).toBeFalsy();
 		});
 	});
+	describe("addToCart()", () => {
+
+	})
 });
