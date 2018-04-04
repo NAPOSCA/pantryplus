@@ -43,14 +43,6 @@ public class Product {
 		return name;
 	}
 
-	public Category getCategory() {
-		return category;
-	}
-
-	public Collection<LineItem> getLineItem() {
-		return lineItem;
-	}
-
 	@Override
 	public int hashCode() {
 		return ((Long) id).hashCode();
