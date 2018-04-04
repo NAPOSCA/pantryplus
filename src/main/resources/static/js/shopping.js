@@ -12,8 +12,9 @@ function initialize() {
 	const buttons = document.querySelectorAll("button.add");
 	for(let i = 0; i < buttons.length; i++) {
 		const button = buttons[i];
+		const productId = parseInt(button.value);
 		button.addEventListener("click", () => {
-			addToCart(1);
+			addToCart(productId);
 		});
 	}
 }
