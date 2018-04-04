@@ -1,7 +1,5 @@
 package org.wecancodeit.pantryplus;
 
-import java.util.Collections;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
