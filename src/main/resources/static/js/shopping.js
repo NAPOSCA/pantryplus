@@ -31,6 +31,6 @@ function addToCart(productId) {
 			console.log(xhr.response);
 		}
 	};
-	xhr.open("POST", `/cart/items?productId=${productId}`, true);
+	xhr.open("POST", `/cart/items?productId=${productId}&quantity=1`, true);
 	xhr.send();
 }
