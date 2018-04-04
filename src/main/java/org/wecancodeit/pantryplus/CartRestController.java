@@ -31,7 +31,7 @@ public class CartRestController {
 		}
 		
 		if(lineItemCheck == null) {
-			newLineItem.updateQuantity(quantity);
+			newLineItem.addOneQuantity(quantity);
 		}
 		
 		return newLineItem;
