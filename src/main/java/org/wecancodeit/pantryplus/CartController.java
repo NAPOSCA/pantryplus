@@ -9,15 +9,26 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/cart")
 public class CartController {
 
 	@Resource
 	CartRepository cartRepo;
 
-	@RequestMapping(path = "/something", method = RequestMethod.GET)
-	public Cart findCart(long id) {
-		return cartRepo.findOne(id);
+	@Resource
+	ProductRepository productRepo;
+
+	@Resource
+	LineItemRepository lineItemRepo;
+
+	@RequestMapping(path = "/cart/items", method = RequestMethod.POST)
+	public LineItem addItemToCart(long productId, int quantity) {
+		Cart cart = cartRepo.findOne(1L);
+		Product product = productRepo.findOne(productId);
+		LineItem newLineItem = new LineItem(cart, product, quantity);
+		lineItemRepo.save(newLineItem);
+		return newLineItem;
 	}
+
+	// @RequestMapping()
 
 }

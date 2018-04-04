@@ -11,11 +11,19 @@ public class PantryController {
 
 	@Resource
 	private CategoryRepository categoryRepo;
-	
+
+	@Resource
+	private CartRepository cartRepo;
+
 	@RequestMapping("/index")
 	public String displayMainPage(Model model) {
 		model.addAttribute("categories", categoryRepo.findAll());
 		return "index";
 	}
-	
+
+	@RequestMapping("/cart")
+	public String displayCart(Model model) {
+		model.addAttribute("cart", cartRepo.findOne(1L));
+		return "cart";
+	}
 }

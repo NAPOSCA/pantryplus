@@ -16,11 +16,15 @@ import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.when;
 
 public class CartControllerTest {
+
 	@InjectMocks
 	private CartController cartController;
 
 	@Mock
 	private CartRepository cartRepo;
+
+	@Mock
+	private ProductRepository productRepo;
 
 	@Mock
 	private Cart cart;
@@ -37,15 +41,20 @@ public class CartControllerTest {
 
 		Cart result = cartRepo.findOne(id);
 
-		assertThat(result, is(result));
+		assertThat(result, is(cart));
 	}
 
-	/*
-	 * @Test public void shouldRetrievesIndividualLineItem() { long id = 1L;
-	 * when(lineItemRepo.findOne(id)).thenReturn(lineItem);
-	 * 
-	 * LineItem testLineItem = underTest.findLineItem(id);
-	 * 
-	 * assertThat(testLineItem, is(lineItem)); }
-	 */
+	// @Test
+	// public void shouldAddNewLineItemToCart() {
+	// long cartId = 34L;
+	// when(cartRepo.findOne(cartId)).thenReturn(cart);
+	// long productId = 1L;
+	// when(productRepo.findOne(productId)).thenReturn(product);
+	//
+	//
+	// Cart result = cartRepo.findOne(cartId);
+	//
+	// assertThat(result, is(cart));
+	// }
+
 }
