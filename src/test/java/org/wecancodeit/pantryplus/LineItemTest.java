@@ -38,4 +38,11 @@ public class LineItemTest {
 	public void shouldHaveEqualsReturnFalseIFDifferentClass() {
 		assertThat(lineItem.equals(product2), is(false));
 	}
+	
+	@Test
+	public void shouldCreateSingleElementLineItem() {
+		Product product = new Product("product", null);
+		LineItem underTest = new LineItem(product);
+		assertThat(underTest.getQuantity(), is(1));
+	}
 }
