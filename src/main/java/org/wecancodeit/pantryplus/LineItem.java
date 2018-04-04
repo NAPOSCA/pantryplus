@@ -57,6 +57,10 @@ public class LineItem {
 		return quantity;
 	}
 
+	public void updateQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
 	@Override
 	public int hashCode() {
 		return ((Long) id).hashCode();
@@ -71,11 +75,11 @@ public class LineItem {
 		if (getClass() != obj.getClass()) {
 			return false;
 		}
-		
-		if(id == ((LineItem) obj).id) {
+
+		if (id == ((LineItem) obj).id) {
 			return true;
 		}
-		
+
 		return false;
 	}
 
