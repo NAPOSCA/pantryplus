@@ -2,10 +2,12 @@
 <html>
 <head>
 	<title>Pantry+</title>
-	<link rel="stylesheet" type="text/css" href="../static/layout.css">
-	<link rel="stylesheet" type="text/css" href="../static/style.css">
+	<link rel="stylesheet" type="text/css" href="../static/css/layout.css"/>
+	<link rel="stylesheet" type="text/css" href="../static/css/style.css"/>
+	<link rel="stylesheet" type="text/css" href="../static/css/animation.css"/>
+	<script type="text/javascript" src="../static/js/shopping.js"></script>
 </head>
-<body>
+<body onload="initialize()">
 	<div class="container">
 		<header>
 			<h1>
@@ -18,30 +20,56 @@
 			</nav>
 		</header>
 		<main>
-			<section class="category">
-				<h2>Personal Hygiene</h2>
-			</section>
-			<section class="category">
-				<h2>Meal Starter</h2>
-			</section>
-			<section class="category">
-				<h2>Dairy</h2>
-			</section>
-			<section class="category">
-				<h2>Produce</h2>
-			</section>
-			<section class="category">
-				<h2>Coupon</h2>
-			</section>
-			<section class="category">
-				<h2>Bread</h2>
-			</section>
-			<section class="category">
-				<h2>Goodies</h2>
-			</section>
-			<section class="category">
-				<h2>Meat</h2>
-			</section>
+			<div class="category-items">
+				<section class="category">
+					<h2>Personal Hygiene</h2>
+				</section>
+				<ul class="items visible">
+					<li class="item">Soap</li>
+					<li class="item">Shampoo</li>
+					<li class="item">Three-in-one</li>
+				</ul>
+			</div>
+			<div class="category-items">
+				<section class="category">
+					<h2>Meal Starter</h2>
+				</section>
+				<ul class="items hidden">
+					<li class="item">Soup recipe</li>
+					<li class="item">Meatloaf recipe</li>
+					<li class="item">Lunchables</li>
+				</ul>
+			</div>
+			<div class="category-items">
+				<section class="category">
+					<h2>Dairy</h2>
+				</section>
+			</div>
+			<div class="category-items">
+				<section class="category">
+					<h2>Produce</h2>
+				</section>
+			</div>
+			<div class="category-items">
+				<section class="category">
+					<h2>Coupon</h2>
+				</section>
+			</div>
+			<div class="category-items">
+				<section class="category">
+					<h2>Bread</h2>
+				</section>
+			</div>
+			<div class="category-items">
+				<section class="category">
+					<h2>Goodies</h2>
+				</section>
+			</div>
+			<div class="category-items">
+				<section class="category">
+					<h2>Meat</h2>
+				</section>
+			</div>
 		</main>
 		<footer>
 			<small>Created by NAPOSCA</small>
