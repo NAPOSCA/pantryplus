@@ -2,9 +2,33 @@
 <html>
 <head>
 	<title>Pantry+ | Cart</title>
-	<link rel="stylesheet" type="text/css" href="../static/layout.css">
+	<link rel="stylesheet" type="text/css" href="/css/layout.css"/>
 </head>
 <body>
-
+	<div class="container">
+		<header>
+			<h1>
+				Pantry+
+			</h1>
+			<nav>
+				<ul>
+					<a href="/">Shopping</a>
+				</ul>
+			</nav>
+		</header>
+		<main>
+			<table style="text-align: center;">
+				<tr>
+					<th>Product</th>
+					<th>Quantity</th>
+				</tr>
+				<tr class="line-item" th:each="lineItem : ${cart.lineItems}">
+					<td th:text="${lineItem.product.name}"/>
+					<td th:text="${lineItem.quantity}"/>
+				</tr>
+			</table>
+		</main>
+		<footer th:replace="index :: footer"/>
+	</div>
 </body>
 </html>

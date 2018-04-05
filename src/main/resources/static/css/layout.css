@@ -29,11 +29,8 @@ footer {
 li.item {
 	display: flex;
 	justify-content: space-between;
+	align-items: center;
 }
-
-/*li.item button {
-	margin-right: 18rem;
-}*/
 
 div.interface {
 	display: flex;

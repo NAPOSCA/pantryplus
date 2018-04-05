@@ -4,9 +4,9 @@
 
 section.category {
 	background-color: #d3e3ea;
-	padding: 0.3rem;
+	padding: var(--rounding-padding);
 	margin: var(--rounding-padding);
-	border-radius: 0.3rem;
+	border-radius: var(--rounding-padding);
 	border: 1px solid black;
 }
 
