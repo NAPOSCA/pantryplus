@@ -41,8 +41,8 @@ public class ProductPopulator implements CommandLineRunner {
 		Product pear = productRepo.save(new Product("Pear", produce));
 
 		Category coupon = categoryRepo.save(new Category("Coupon"));
-		Product coupon1 = productRepo.save(new Product("I think this is a can or something", coupon));
-		Product coupon2 = productRepo.save(new Product("This is a new can", coupon));
+		Product coupon1 = productRepo.save(new CouponProduct("This can is worth 2 points", coupon, 2));
+		Product coupon2 = productRepo.save(new CouponProduct("This can is worth 1 point", coupon, 1));
 
 		Category bread = categoryRepo.save(new Category("Bread"));
 		Product whiteBread = productRepo.save(new Product("White Bread", bread));
