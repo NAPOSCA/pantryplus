@@ -9,7 +9,7 @@ public class UserTest {
 
 	@Test
 	public void shouldCalculateCouponTotalForOneOrTwoPersonFamily() {
-		User user = new User("name", "address", 1, 0, false);
+		User user = new User("name", "address", 1, 0, false, null);
 		int couponTotal = user.calculateCouponTotal();
 
 		assertThat(couponTotal, is(10));
@@ -17,7 +17,7 @@ public class UserTest {
 
 	@Test
 	public void shouldCalculateCouponTotalForThreePersonFamily() {
-		User user = new User("name", "address", 3, 0, false);
+		User user = new User("name", "address", 3, 0, false, null);
 		int couponTotal = user.calculateCouponTotal();
 
 		assertThat(couponTotal, is(15));
@@ -25,7 +25,7 @@ public class UserTest {
 
 	@Test
 	public void shouldCalculateMeatTotalForOneOrTwoPersonFamily() {
-		User user = new User("name", "address", 1, 0, false);
+		User user = new User("name", "address", 1, 0, false, null);
 		int meatTotal = user.calculateMeatTotal();
 
 		assertThat(meatTotal, is(4));
@@ -33,7 +33,7 @@ public class UserTest {
 
 	@Test
 	public void shouldCalculateMeatTotalForThreeToFivePersonFamily() {
-		User user = new User("name", "address", 3, 0, false);
+		User user = new User("name", "address", 3, 0, false, null);
 		int meatTotal = user.calculateMeatTotal();
 
 		assertThat(meatTotal, is(6));
@@ -41,7 +41,7 @@ public class UserTest {
 
 	@Test
 	public void shouldCalculateMeatTotalForSixOrMorePersonFamily() {
-		User user = new User("name", "address", 6, 0, false);
+		User user = new User("name", "address", 6, 0, false, null);
 		int meatTotal = user.calculateMeatTotal();
 
 		assertThat(meatTotal, is(8));
@@ -49,7 +49,7 @@ public class UserTest {
 
 	@Test
 	public void shouldCalculateCannedFoodTotalForFamilyWithOneOrTwoSchoolAgeKids() {
-		User user = new User("name", "address", 6, 1, false);
+		User user = new User("name", "address", 6, 1, false, null);
 		int cannedFoodTotal = user.calculateCannedFoodTotalForKids();
 
 		assertThat(cannedFoodTotal, is(2));
@@ -57,7 +57,7 @@ public class UserTest {
 
 	@Test
 	public void shouldCalculateCannedFoodTotalForFamilyWithThreeOrFourSchoolAgeKids() {
-		User user = new User("name", "address", 6, 3, false);
+		User user = new User("name", "address", 6, 3, false, null);
 		int cannedFoodTotal = user.calculateCannedFoodTotalForKids();
 
 		assertThat(cannedFoodTotal, is(4));
@@ -65,7 +65,7 @@ public class UserTest {
 
 	@Test
 	public void shouldCalculateCannedFoodTotalForFamilyWithFiveOrMoreSchoolAgeKids() {
-		User user = new User("name", "address", 6, 5, false);
+		User user = new User("name", "address", 6, 5, false, null);
 		int cannedFoodTotal = user.calculateCannedFoodTotalForKids();
 
 		assertThat(cannedFoodTotal, is(6));
@@ -73,7 +73,7 @@ public class UserTest {
 
 	@Test
 	public void shouldCalculateSnackTotalForFamilyWithSchoolAgeKids() {
-		User user = new User("name", "address", 6, 3, false);
+		User user = new User("name", "address", 6, 3, false, null);
 		int snackTotal = user.calculateSnackTotalForKids();
 
 		assertThat(snackTotal, is(15));
@@ -81,7 +81,7 @@ public class UserTest {
 
 	@Test
 	public void shouldCalculateFruitTotalForFamilyWithSchoolAgeKids() {
-		User user = new User("name", "address", 6, 3, false);
+		User user = new User("name", "address", 6, 3, false, null);
 		int snackTotal = user.calculateFruitTotalForKids();
 
 		assertThat(snackTotal, is(9));
@@ -89,7 +89,7 @@ public class UserTest {
 
 	@Test
 	public void shouldCalculateDairyProductTotalForFamilyWithSchoolAgeKids() {
-		User user = new User("name", "address", 6, 3, false);
+		User user = new User("name", "address", 6, 3, false, null);
 		int snackTotal = user.calculateDairyProductTotalForKids();
 
 		assertThat(snackTotal, is(3));

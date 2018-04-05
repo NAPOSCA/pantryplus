@@ -1,5 +1,7 @@
 package org.wecancodeit.pantryplus;
 
+import java.util.Date;
+
 public class User {
 
 	private String name;
@@ -7,13 +9,15 @@ public class User {
 	private int familySize;
 	private int schoolAgeChildren;
 	private boolean hasInfants;
+	private Date pickupDate;
 
-	public User(String name, String address, int familySize, int schoolAgeChildren, boolean hasInfants) {
+	public User(String name, String address, int familySize, int schoolAgeChildren, boolean hasInfants, Date pickupDate) {
 		this.name = name;
 		this.address = address;
 		this.familySize = familySize;
 		this.schoolAgeChildren = schoolAgeChildren;
 		this.hasInfants = hasInfants;
+		this.pickupDate = pickupDate;
 	}
 
 	public String getName() {
@@ -34,6 +38,10 @@ public class User {
 
 	public boolean getHasInfants() {
 		return hasInfants;
+	}
+
+	public Date getPickupDate() {
+		return pickupDate;
 	}
 
 	public int calculateCouponTotal() {
