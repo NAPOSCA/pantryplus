@@ -28,7 +28,7 @@
 				<ul class="items hidden">
 					<li class="item" th:each="product : ${category.products}">
 						<h3 th:text="${product.name}"/>
-						<img class="product_image" th:src="${product.image}"/>
+						<img class="product-image" th:src="${product.image}"/>
 						<div th:id="'product-'+${product.id}" th:switch="true" class="switch">
 							<div th:case="${category.name == 'Coupon'}" class="case">
 								<div th:replace="fragments/interfaces :: .coupon"/>
