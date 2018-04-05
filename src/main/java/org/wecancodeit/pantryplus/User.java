@@ -2,14 +2,26 @@ package org.wecancodeit.pantryplus;
 
 import java.time.LocalDate;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public class User {
 
+	@Id
+	@GeneratedValue
+	private long id;
 	private String name;
 	private String address;
 	private int familySize;
 	private int schoolAgeChildren;
 	private boolean hasInfants;
 	private LocalDate pickupDate;
+
+	@SuppressWarnings("unused")
+	private User() {
+	}
 
 	public User(String name, String address, int familySize, int schoolAgeChildren, boolean hasInfants, String pickupDateString) {
 		this.name = name;
@@ -18,6 +30,10 @@ public class User {
 		this.schoolAgeChildren = schoolAgeChildren;
 		this.hasInfants = hasInfants;
 		pickupDate = LocalDate.parse(pickupDateString);
+	}
+
+	public long getId() {
+		return id;
 	}
 
 	public String getName() {
