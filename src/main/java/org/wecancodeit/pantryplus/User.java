@@ -19,4 +19,14 @@ public class User {
 		return 15;
 	}
 
+	public int calculateMeatTotal() {
+		if (familySize <= 2) {
+			return 4;
+		} else if (familySize <= 5) {
+			return 6;
+		} else {
+			return 8;
+		}
+	}
+
 }
