@@ -18,7 +18,7 @@ public class Product {
 	private long id;
 	private String name;
 	private String image;
-	
+
 	@JsonIgnore
 	@ManyToOne
 	private Category category;
@@ -26,17 +26,15 @@ public class Product {
 	@JsonIgnore
 	@OneToMany(mappedBy = "product")
 	private Collection<LineItem> lineItem;
-	
 
-	@SuppressWarnings("unused")
-	private Product() {
+	protected Product() {
 	}
 
 	public Product(String name, Category category) {
 		this.name = name;
 		this.category = category;
 	}
-	
+
 	public Product(String name, Category category, String image) {
 		this.name = name;
 		this.category = category;
@@ -46,7 +44,7 @@ public class Product {
 	public long getId() {
 		return id;
 	}
-	
+
 	public String getImage() {
 		return image;
 	}
