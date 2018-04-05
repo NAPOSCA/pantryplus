@@ -79,4 +79,13 @@ public class LineItemTest {
 		int sum = underTest.totalCouponCost();
 		assertThat(sum, is(6));
 	}
+	
+	@Test
+	public void shouldReturnTwelveIfThreeProductsOfFourPoints() {
+		Product product = new CouponProduct("product", null, 4);
+		LineItem underTest = new LineItem(product);
+		underTest.setQuantity(3);
+		int sum = underTest.totalCouponCost();
+		assertThat(sum, is(12));
+	}
 }

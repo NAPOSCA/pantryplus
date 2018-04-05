@@ -93,7 +93,7 @@ public class LineItem {
 
 	public int totalCouponCost() {
 		if(hasCouponProduct()) {
-			return 6;
+			return quantity * ((CouponProduct) product).getCost();
 		}
 		return 0;
 	}
