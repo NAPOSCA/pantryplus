@@ -46,4 +46,46 @@ public class LineItemTest {
 		LineItem underTest = new LineItem(product);
 		assertThat(underTest.getQuantity(), is(1));
 	}
+	
+	@Test
+	public void shouldCheckIfProductIsCouponProductTrue() {
+		Product couponProduct = new CouponProduct("product", null, 1);
+		LineItem underTest = new LineItem(couponProduct);
+		boolean actual = underTest.hasCouponProduct();
+		assertThat(actual, is(true));
+	}
+	
+	@Test
+	public void shouldCheckIfProductIsNotCouponProduct() {
+		Product product = new Product("product", null);
+		LineItem underTest = new LineItem(product);
+		boolean actual = underTest.hasCouponProduct();
+		assertThat(actual, is(false));
+	}
+	
+	@Test
+	public void shouldReturnZeroIfNotCouponProduct() {
+		Product product = new Product("product", null);
+		LineItem underTest = new LineItem(product);
+		int sum = underTest.totalCouponCost();
+		assertThat(sum, is(0));
+	}
+	
+	@Test
+	public void shouldReturnSixIfTwoProductsOfThreePoints() {
+		Product couponProduct = new CouponProduct("product", null, 3);
+		LineItem underTest = new LineItem(couponProduct);
+		underTest.setQuantity(2);
+		int sum = underTest.totalCouponCost();
+		assertThat(sum, is(6));
+	}
+	
+	@Test
+	public void shouldReturnTwelveIfThreeProductsOfFourPoints() {
+		Product product = new CouponProduct("product", null, 4);
+		LineItem underTest = new LineItem(product);
+		underTest.setQuantity(3);
+		int sum = underTest.totalCouponCost();
+		assertThat(sum, is(12));
+	}
 }

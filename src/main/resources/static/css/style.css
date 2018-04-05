@@ -36,3 +36,7 @@ div.interface p {
 	margin: 0 0.5rem;
 	text-align: center;
 }
+
+.product_image {
+	width: 5%;
+}

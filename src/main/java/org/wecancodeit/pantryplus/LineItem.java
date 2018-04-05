@@ -87,4 +87,15 @@ public class LineItem {
 		this.quantity = quantity;
 	}
 
+	public boolean hasCouponProduct() {
+		return product instanceof CouponProduct;
+	}
+
+	public int totalCouponCost() {
+		if(hasCouponProduct()) {
+			return quantity * ((CouponProduct) product).getCost();
+		}
+		return 0;
+	}
+
 }
