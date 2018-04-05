@@ -1,6 +1,6 @@
 package org.wecancodeit.pantryplus;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class User {
 
@@ -9,15 +9,15 @@ public class User {
 	private int familySize;
 	private int schoolAgeChildren;
 	private boolean hasInfants;
-	private Date pickupDate;
+	private LocalDate pickupDate;
 
-	public User(String name, String address, int familySize, int schoolAgeChildren, boolean hasInfants, Date pickupDate) {
+	public User(String name, String address, int familySize, int schoolAgeChildren, boolean hasInfants, String pickupDateString) {
 		this.name = name;
 		this.address = address;
 		this.familySize = familySize;
 		this.schoolAgeChildren = schoolAgeChildren;
 		this.hasInfants = hasInfants;
-		this.pickupDate = pickupDate;
+		pickupDate = LocalDate.parse(pickupDateString);
 	}
 
 	public String getName() {
@@ -40,7 +40,7 @@ public class User {
 		return hasInfants;
 	}
 
-	public Date getPickupDate() {
+	public LocalDate getPickupDate() {
 		return pickupDate;
 	}
 
