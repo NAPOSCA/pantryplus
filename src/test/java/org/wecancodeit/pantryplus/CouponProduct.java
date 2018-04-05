@@ -2,12 +2,15 @@ package org.wecancodeit.pantryplus;
 
 public class CouponProduct extends Product {
 
+	private int cost;
+
 	public CouponProduct(String name, Category category, int cost) {
 		super(name, category);
+		this.cost = cost;
 	}
 	
 	public int getCost() {
-		return 1;
+		return cost;
 	}
 
 }

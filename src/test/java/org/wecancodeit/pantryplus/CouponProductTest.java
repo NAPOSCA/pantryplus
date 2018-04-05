@@ -14,4 +14,12 @@ public class CouponProductTest {
 		int actual = ((CouponProduct) underTest).getCost();
 		assertThat(actual, is(cost));
 	}
+	
+	@Test
+	public void shouldHaveCouponCostTwo() {
+		int cost = 2;
+		CouponProduct underTest = new CouponProduct("name", null, cost);
+		int actual = underTest.getCost();
+		assertThat(actual, is(cost));
+	}
 }
