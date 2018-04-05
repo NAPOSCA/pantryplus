@@ -23,30 +23,27 @@ public class ProductPopulator implements CommandLineRunner {
 		Cart cart = cartRepo.save(new Cart());
 
 		Category personalHygiene = categoryRepo.save(new Category("Personal Hygiene"));
-		Product threeInOne = productRepo.save(new Product("Three-in-one", personalHygiene));
-		Product soap = productRepo.save(new Product("Soap", personalHygiene));
-		Product shampoo = productRepo.save(new Product("Shampoo", personalHygiene));
+		Product bathroomTissue = productRepo.save(new Product("Bathroom Tissue", personalHygiene, "/images/bathroom-tissue.png"));
+		
 
 		Category mealStarter = categoryRepo.save(new Category("Meal Starter"));
-		Product recipeOfTheDay = productRepo.save(new Product("Recipe of the day", mealStarter));
+		Product recipeOfTheDay = productRepo.save(new Product("Recipe of the Month", mealStarter, "/images/recipe.png"));
 
 		Category dairy = categoryRepo.save(new Category("Dairy"));
-		Product milk = productRepo.save(new Product("Milk", dairy));
-		Product cheese = productRepo.save(new Product("Cheese", dairy));
-		Product ranch = productRepo.save(new Product("Ranch", dairy));
+		Product milk = productRepo.save(new Product("Milk", dairy, "/images/milk.png"));
+		Product cheese = productRepo.save(new Product("Eggs", dairy, "/images/eggs.png"));
 
 		Category produce = categoryRepo.save(new Category("Produce"));
-		Product apple = productRepo.save(new Product("Apple", produce));
-		Product strawberry = productRepo.save(new Product("Strawberry", produce));
-		Product pear = productRepo.save(new Product("Pear", produce));
-
+		Product apple = productRepo.save(new Product("Seasonal Vegetables", produce, "/images/produce.png"));
+		
+		Category bread = categoryRepo.save(new Category("Bakery Item"));
+		Product whiteBread = productRepo.save(new Product("Bread", bread, "/images/bread.png"));
+		
 		Category coupon = categoryRepo.save(new Category("Coupon"));
-		Product coupon1 = productRepo.save(new Product("I think this is a can or something", coupon));
-		Product coupon2 = productRepo.save(new Product("This is a new can", coupon));
+		Product coupon1 = productRepo.save(new CouponProduct("This can is worth 2 points", coupon, 2));
+		Product coupon2 = productRepo.save(new CouponProduct("This can is worth 1 point", coupon, 1));
 
-		Category bread = categoryRepo.save(new Category("Bread"));
-		Product whiteBread = productRepo.save(new Product("White Bread", bread));
-		Product healthyBread = productRepo.save(new Product("Healthy Bread", bread));
+		
 
 		Category goodies = categoryRepo.save(new Category("Goodies"));
 		Product candy = productRepo.save(new Product("Candy", goodies));
