@@ -41,4 +41,16 @@ public class User {
 		}
 	}
 
+	public int calculateSnackTotalForKids() {
+		return schoolAgeChildren * 5;
+	}
+
+	public int calculateFruitTotalForKids() {
+		return schoolAgeChildren * 3;
+	}
+
+	public int calculateDairyProductTotalForKids() {
+		return schoolAgeChildren;
+	}
+
 }
