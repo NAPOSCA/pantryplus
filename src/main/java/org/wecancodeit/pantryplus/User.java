@@ -32,7 +32,7 @@ public class User {
 		this.schoolAgeChildren = schoolAgeChildren;
 		this.hasInfants = hasInfants;
 
-		LocalDateTime localDateTime = LocalDateTime.parse(pickupDateTime + "TO:12:00:00");
+		LocalDateTime localDateTime = LocalDateTime.parse(pickupDateString + "TO:12:00:00");
 		ZoneId zoneId = ZoneId.of("US/Eastern");
 		pickupDateTime = ZonedDateTime.of(localDateTime, zoneId);
 	}
