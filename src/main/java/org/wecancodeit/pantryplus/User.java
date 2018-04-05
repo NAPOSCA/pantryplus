@@ -30,7 +30,7 @@ public class User {
 		this.schoolAgeChildren = schoolAgeChildren;
 		this.hasInfants = hasInfants;
 
-		pickupDateTime = ZonedDateTime.parse(pickupDateString + "TO:12:00:00-04:00[US/Eastern]");
+		pickupDateTime = ZonedDateTime.parse(pickupDateString + "T12:00:00-04:00[US/Eastern]");
 	}
 
 	public long getId() {
