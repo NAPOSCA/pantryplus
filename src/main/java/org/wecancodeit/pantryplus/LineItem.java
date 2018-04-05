@@ -88,7 +88,7 @@ public class LineItem {
 	}
 
 	public boolean hasCouponProduct() {
-		return true;
+		return product instanceof CouponProduct;
 	}
 
 }

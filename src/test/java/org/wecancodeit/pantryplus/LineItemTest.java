@@ -54,4 +54,12 @@ public class LineItemTest {
 		boolean actual = underTest.hasCouponProduct();
 		assertThat(actual, is(true));
 	}
+	
+	@Test
+	public void shouldCheckIfProductIsNotCouponProduct() {
+		Product product = new Product("product", null);
+		LineItem underTest = new LineItem(product);
+		boolean actual = underTest.hasCouponProduct();
+		assertThat(actual, is(false));
+	}
 }
