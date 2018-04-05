@@ -2,16 +2,38 @@ package org.wecancodeit.pantryplus;
 
 public class User {
 
+	private String name;
+	private String address;
 	private int familySize;
 	private int schoolAgeChildren;
+	private boolean hasInfants;
 
-	public User(int familySize, int schoolAgeChildren) {
+	public User(String name, String address, int familySize, int schoolAgeChildren, boolean hasInfants) {
+		this.name = name;
+		this.address = address;
 		this.familySize = familySize;
 		this.schoolAgeChildren = schoolAgeChildren;
+		this.hasInfants = hasInfants;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public String getAddress() {
+		return address;
 	}
 
 	public int getFamilySize() {
 		return familySize;
+	}
+
+	public int getSchoolAgeChildren() {
+		return schoolAgeChildren;
+	}
+
+	public boolean getHasInfants() {
+		return hasInfants;
 	}
 
 	public int calculateCouponTotal() {
