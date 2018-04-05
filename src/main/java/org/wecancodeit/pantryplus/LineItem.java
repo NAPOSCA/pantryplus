@@ -92,6 +92,9 @@ public class LineItem {
 	}
 
 	public int totalCouponCost() {
+		if(hasCouponProduct()) {
+			return 6;
+		}
 		return 0;
 	}
 

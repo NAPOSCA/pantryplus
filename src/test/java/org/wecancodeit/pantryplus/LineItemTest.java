@@ -70,4 +70,13 @@ public class LineItemTest {
 		int sum = underTest.totalCouponCost();
 		assertThat(sum, is(0));
 	}
+	
+	@Test
+	public void shouldReturnSixIfTwoProductsOfThreePoints() {
+		Product couponProduct = new CouponProduct("product", null, 3);
+		LineItem underTest = new LineItem(couponProduct);
+		underTest.setQuantity(2);
+		int sum = underTest.totalCouponCost();
+		assertThat(sum, is(6));
+	}
 }
