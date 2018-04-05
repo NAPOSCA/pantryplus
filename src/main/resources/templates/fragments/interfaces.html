@@ -1,11 +1,17 @@
-<div class="coupon interface">
-	<button class="add" th:value="${product.id}">+</button>
-	<p th:text="${cart.getLineItemQuantityByProductId(product.id)}"></p>
-	<button class="remove" th:value="${product.id}">-</button>
-</div>
+<div class="dichotomous interface">dichotomous</div>
 <div class="meat interface">
 	<button class="add" th:value="${product.id}">+</button>
-	<p th:text="${cart.getLineItemQuantityByProductId(product.id)}"></p>
+	<p>
+		<span class="value" th:text="${cart.getLineItemQuantityByProductId(product.id)}"/>
+		<span class="units">lbs.</span>
+	</p>
 	<button class="remove" th:value="${product.id}">-</button>
 </div>
-<div class="dichotomous interface">dichotomous</div>
+<div class="coupon interface">
+	<button class="add" th:value="${product.id}">+</button>
+	<p>
+		<span class="value" th:text="${cart.getLineItemQuantityByProductId(product.id)}"/>
+		<span class="units">Coupons</span>
+	</p>
+	<button class="remove" th:value="${product.id}">-</button>
+</div>
