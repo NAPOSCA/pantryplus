@@ -28,7 +28,7 @@ public class Cart {
 		return lineItems;
 	}
 
-	public LineItem lineItemCheck(long productId) {
+	public LineItem getLineItemByProductId(long productId) {
 		for(LineItem lineItem: lineItems) {
 			if(lineItem.getProduct().getId() == productId) {
 				return lineItem;
