@@ -62,4 +62,12 @@ public class LineItemTest {
 		boolean actual = underTest.hasCouponProduct();
 		assertThat(actual, is(false));
 	}
+	
+	@Test
+	public void shouldReturnZeroIfNotCouponProduct() {
+		Product product = new Product("product", null);
+		LineItem underTest = new LineItem(product);
+		int sum = underTest.totalCouponCost();
+		assertThat(sum, is(0));
+	}
 }

@@ -91,4 +91,8 @@ public class LineItem {
 		return product instanceof CouponProduct;
 	}
 
+	public int totalCouponCost() {
+		return 0;
+	}
+
 }
