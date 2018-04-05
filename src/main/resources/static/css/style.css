@@ -37,5 +37,5 @@ div.interface p {
 }
 
 .product_image {
-	width: 5%;
+	max-height: 170%;
 }
