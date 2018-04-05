@@ -6,6 +6,11 @@ import javax.persistence.Entity;
 public class CouponProduct extends Product {
 
 	private int cost;
+	
+	
+	protected CouponProduct() {
+		super();
+	}
 
 	public CouponProduct(String name, Category category, int cost) {
 		super(name, category);
