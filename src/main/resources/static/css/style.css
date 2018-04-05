@@ -3,10 +3,11 @@
 }
 
 section.category {
-	background-color: red;
+	background-color: #d3e3ea;
 	padding: 0.3rem;
 	margin: var(--rounding-padding);
 	border-radius: 0.3rem;
+	border: 1px solid black;
 }
 
 main {
@@ -14,8 +15,24 @@ main {
 }
 
 li.item {
-	background-color: #CD3636;
+	background-color: #f1d8d8;
 	margin: 0.4rem 1.2rem;
 	border-radius: var(--rounding-padding);
 	padding: var(--rounding-padding);
+	border: 1px solid black;
+}
+
+button {
+	padding: 0 0.8rem;
+}
+
+li.item h3 {
+	font-size: 1.4rem;
+}
+
+div.interface p {
+	font-size: 1.4rem;
+	width: 2rem;
+	margin: 0 0.5rem;
+	text-align: center;
 }

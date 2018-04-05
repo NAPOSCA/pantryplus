@@ -26,7 +26,7 @@
 				</section>
 				<ul class="items hidden">
 					<li class="item" th:each="product : ${category.products}">
-						<p th:text="${product.name}"/>
+						<h3 th:text="${product.name}"/>
 						<div th:id="'product-'+${product.id}" class="interface">
 							<button class="add" th:value="${product.id}">+</button>
 							<p th:text="${cart.getLineItemQuantityByProductId(product.id)}"></p>
