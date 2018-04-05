@@ -1,7 +1,5 @@
 package org.wecancodeit.pantryplus;
 
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
 import javax.persistence.Entity;
@@ -32,9 +30,7 @@ public class User {
 		this.schoolAgeChildren = schoolAgeChildren;
 		this.hasInfants = hasInfants;
 
-		LocalDateTime localDateTime = LocalDateTime.parse(pickupDateString + "TO:12:00:00");
-		ZoneId zoneId = ZoneId.of("US/Eastern");
-		pickupDateTime = ZonedDateTime.of(localDateTime, zoneId);
+		pickupDateTime = ZonedDateTime.parse(pickupDateString + "TO:12:00:00-04:00[US/Eastern]");
 	}
 
 	public long getId() {
