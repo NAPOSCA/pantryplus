@@ -1,6 +1,8 @@
 package org.wecancodeit.pantryplus;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,7 +19,7 @@ public class User {
 	private int familySize;
 	private int schoolAgeChildren;
 	private boolean hasInfants;
-	private LocalDate pickupDate;
+	private ZonedDateTime pickupDateTime;
 
 	@SuppressWarnings("unused")
 	private User() {
@@ -29,7 +31,10 @@ public class User {
 		this.familySize = familySize;
 		this.schoolAgeChildren = schoolAgeChildren;
 		this.hasInfants = hasInfants;
-		pickupDate = LocalDate.parse(pickupDateString);
+
+		LocalDateTime localDateTime = LocalDateTime.parse(pickupDateTime + "TO:12:00:00");
+		ZoneId zoneId = ZoneId.of("US/Eastern");
+		pickupDateTime = ZonedDateTime.of(localDateTime, zoneId);
 	}
 
 	public long getId() {
@@ -56,8 +61,8 @@ public class User {
 		return hasInfants;
 	}
 
-	public LocalDate getPickupDate() {
-		return pickupDate;
+	public ZonedDateTime getPickupDateTime() {
+		return pickupDateTime;
 	}
 
 	public int calculateCouponTotal() {
