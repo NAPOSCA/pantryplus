@@ -3,9 +3,11 @@ package org.wecancodeit.pantryplus;
 public class User {
 
 	private int familySize;
+	private int schoolAgeChildren;
 
-	public User(int familySize) {
+	public User(int familySize, int schoolAgeChildren) {
 		this.familySize = familySize;
+		this.schoolAgeChildren = schoolAgeChildren;
 	}
 
 	public int getFamilySize() {
@@ -26,6 +28,16 @@ public class User {
 			return 6;
 		} else {
 			return 8;
+		}
+	}
+
+	public int calculateCannedFoodTotalForKids() {
+		if (schoolAgeChildren <= 2) {
+			return 2;
+		} else if (schoolAgeChildren <= 4) {
+			return 4;
+		} else {
+			return 6;
 		}
 	}
 
