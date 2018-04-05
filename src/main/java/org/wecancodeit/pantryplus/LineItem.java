@@ -87,4 +87,8 @@ public class LineItem {
 		this.quantity = quantity;
 	}
 
+	public boolean hasCouponProduct() {
+		return true;
+	}
+
 }
