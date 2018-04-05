@@ -20,21 +20,16 @@
 			</nav>
 		</header>
 		<main>
-			<div th:each="category : ${categories}" class="category-items">
-				<section class="category">
-					<h2 th:text="${category.name}"/>
-				</section>
-				<ul class="items hidden">
-					<li class="item" th:each="product : ${category.products}">
-						<h3 th:text="${product.name}"/>
-						<img class="product_image" th:src="${product.image}"/>
-						<div th:id="'product-'+${product.id}" class="interface">
-							<button class="add" th:value="${product.id}">+</button>
-							<p th:text="${cart.getLineItemQuantityByProductId(product.id)}"></p>
-							<button class="remove" th:value="${product.id}">-</button>
-						</div>
-					</li>
-				</ul>
+			<div th:each="category : ${categories}" th:switch="true" class="category-items">
+				<div th:case="${category.name == 'Coupon'}" class="coupon">
+					<div th:replace="common :: .coupon"/>
+				</div>
+				<div th:case="${category.name == 'Meat'}" class="meat">
+					<div th:replace="common :: .meat"/>
+				</div>
+				<div th:case="true" class="resolver">
+					<div th:replace="common :: .dichotomous"/>
+				</div>
 			</div>
 		</main>
 		<footer>
