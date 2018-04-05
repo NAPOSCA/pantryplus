@@ -14,10 +14,14 @@ public class PantryController {
 
 	@Resource
 	private CategoryRepository categoryRepo;
+	
+	@Resource
+	private ProductRepository productRepo;
 
 	@RequestMapping("/")
 	public String displayMainPage(Model model) {
 		model.addAttribute("categories", categoryRepo.findAll());
+		model.addAttribute("coupons", productRepo.findByCostNotNull());
 		model.addAttribute("cart", cartRepo.findOne(1L));
 		return "index";
 	}
