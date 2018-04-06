@@ -16,29 +16,17 @@ public class LineItem {
 
 	@JsonIgnore
 	@ManyToOne
-	private Cart cart;
+	protected Cart cart;
 
 	@ManyToOne
-	private Product product;
-	private int quantity;
+	protected Product product;
 
-	@SuppressWarnings("unused")
-	private LineItem() {
+	protected LineItem() {
 	}
 
-	public LineItem(Product product) {
-		this(product, 1);
-	}
-
-	public LineItem(Product product, int quantity) {
+	public LineItem(Cart cart, Product product) {
 		this.product = product;
-		this.quantity = quantity;
-	}
-
-	public LineItem(Cart cart, Product product, int quantity) {
 		this.cart = cart;
-		this.product = product;
-		this.quantity = quantity;
 	}
 
 	public long getId() {
@@ -53,8 +41,8 @@ public class LineItem {
 		return product;
 	}
 
-	public int getQuantity() {
-		return quantity;
+	public boolean hasCouponProduct() {
+		return product instanceof CouponProduct;
 	}
 
 	@Override
@@ -77,25 +65,6 @@ public class LineItem {
 		}
 
 		return false;
-	}
-
-	public void addQuantity(int quantityToAdd) {
-		quantity += quantityToAdd;
-	}
-
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
-	}
-
-	public boolean hasCouponProduct() {
-		return product instanceof CouponProduct;
-	}
-
-	public int totalCouponCost() {
-		if(hasCouponProduct()) {
-			return quantity * ((CouponProduct) product).getCost();
-		}
-		return 0;
 	}
 
 }
