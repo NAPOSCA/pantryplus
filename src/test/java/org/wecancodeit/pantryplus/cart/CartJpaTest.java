@@ -3,6 +3,7 @@ package org.wecancodeit.pantryplus.cart;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertThat;
 
 import javax.annotation.Resource;
@@ -13,8 +14,6 @@ import org.junit.runner.RunWith;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.wecancodeit.pantryplus.cart.Cart;
-import org.wecancodeit.pantryplus.cart.CartRepository;
 import org.wecancodeit.pantryplus.lineitem.CountedLineItem;
 import org.wecancodeit.pantryplus.lineitem.LineItem;
 import org.wecancodeit.pantryplus.lineitem.LineItemRepository;
@@ -144,6 +143,21 @@ public class CartJpaTest {
 		cart = cartRepo.findOne(cartId);
 		LineItem actual = cart.getLineItemByProductId(productId);
 		assertThat(actual, is(countedLine));
+	}
+	
+	@Test
+	public void shouldReturnNullIfLineItemWithProductIdIsNotFound() {
+		cart = cartRepo.save(cart);
+		long cartId = cart.getId();
+		product = productRepo.save(product);
+		long productId = product.getId();
+		product2 = productRepo.save(product2);
+		lineItem2 = lineItemRepo.save(lineItem2);
+		entityManager.flush();
+		entityManager.clear();
+		cart = cartRepo.findOne(cartId);
+		LineItem actual = cart.getLineItemByProductId(productId);
+		assertThat(actual, nullValue());
 	}
 
 }
