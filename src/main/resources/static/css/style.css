@@ -39,3 +39,8 @@ div.interface p {
 .product-image {
 	max-height: 170%;
 }
+
+header nav {
+	display: flex;
+	align-items: center;
+}
