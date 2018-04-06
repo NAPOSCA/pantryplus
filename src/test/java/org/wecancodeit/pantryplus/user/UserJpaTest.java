@@ -1,4 +1,4 @@
-package org.wecancodeit.pantryplus;
+package org.wecancodeit.pantryplus.user;
 
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.is;
@@ -12,6 +12,8 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.wecancodeit.pantryplus.cart.CartRepository;
+import org.wecancodeit.pantryplus.user.User;
+import org.wecancodeit.pantryplus.user.UserRepository;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest

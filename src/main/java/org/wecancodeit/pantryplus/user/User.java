@@ -1,4 +1,4 @@
-package org.wecancodeit.pantryplus;
+package org.wecancodeit.pantryplus.user;
 
 import java.time.ZonedDateTime;
 

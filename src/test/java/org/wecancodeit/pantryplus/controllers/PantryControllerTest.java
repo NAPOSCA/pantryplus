@@ -12,13 +12,13 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.ui.Model;
-import org.wecancodeit.pantryplus.User;
-import org.wecancodeit.pantryplus.UserRepository;
 import org.wecancodeit.pantryplus.cart.Cart;
 import org.wecancodeit.pantryplus.cart.CartRepository;
 import org.wecancodeit.pantryplus.category.Category;
 import org.wecancodeit.pantryplus.category.CategoryRepository;
 import org.wecancodeit.pantryplus.controllers.PantryController;
+import org.wecancodeit.pantryplus.user.User;
+import org.wecancodeit.pantryplus.user.UserRepository;
 
 public class PantryControllerTest {
 
