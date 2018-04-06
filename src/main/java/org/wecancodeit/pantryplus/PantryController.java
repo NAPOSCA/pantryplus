@@ -22,7 +22,7 @@ public class PantryController {
 	public String displayUserForm(Model model) {
 		return "user-form";
 	}
-	
+
 	@RequestMapping("/user-form")
 	public String userFormProcessing(Model model) {
 		return "redirect:/shopping";
