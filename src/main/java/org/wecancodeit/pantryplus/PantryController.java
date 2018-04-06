@@ -15,16 +15,29 @@ public class PantryController {
 	@Resource
 	private CategoryRepository categoryRepo;
 
+	@Resource
+	private UserRepository userRepo;
+
 	@RequestMapping("/")
-	public String displayMainPage(Model model) {
+	public String displayUserForm(Model model) {
+		return "user-form";
+	}
+
+	@RequestMapping("/user-form")
+	public String userFormProcessing(Model model) {
+		return "redirect:/shopping";
+	}
+
+	@RequestMapping("/shopping")
+	public String displayShopping(Model model) {
 		model.addAttribute("categories", categoryRepo.findAll());
 		model.addAttribute("cart", cartRepo.findOne(1L));
-		return "index";
+		model.addAttribute("user", userRepo.findOne(1L));
+		return "shopping";
 	}
 
 	@RequestMapping("/cart")
 	public String displayCart(Model model) {
-		model.addAttribute("cart", cartRepo.findOne(1L));
 		return "cart";
 	}
 
