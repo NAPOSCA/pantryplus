@@ -131,5 +131,19 @@ public class CartJpaTest {
 		LineItem actual = cart.getLineItemByProductId(productId);
 		assertThat(actual, is(lineItem));
 	}
+	
+	@Test
+	public void shouldGetCountedLineItemByProductId() {
+		cart = cartRepo.save(cart);
+		long cartId = cart.getId();
+		product = productRepo.save(product);
+		long productId = product.getId();
+		countedLine = lineItemRepo.save(countedLine);
+		entityManager.flush();
+		entityManager.clear();
+		cart = cartRepo.findOne(cartId);
+		LineItem actual = cart.getLineItemByProductId(productId);
+		assertThat(actual, is(countedLine));
+	}
 
 }

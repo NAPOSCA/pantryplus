@@ -33,10 +33,6 @@ public class Cart {
 
 	public LineItem getLineItemByProductId(long productId) {
 		for (LineItem lineItem : lineItems) {
-//			if (isCountedLineItem(lineItem)) {
-//				if (lineItem.getProduct().getId() == productId)
-//					return lineItem;
-//			}
 			if (lineItem.getProduct().getId() == productId) {
 				return lineItem;
 			}
