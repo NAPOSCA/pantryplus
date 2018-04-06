@@ -47,7 +47,6 @@ public class Cart {
 		return totalQuantity;
 	}
 
-	@SuppressWarnings("unused")
 	public int getLineItemQuantityByProductId(long productId) {
 		LineItem lineItem = getLineItemByProductId(productId);
 		if (lineItem == null) {
