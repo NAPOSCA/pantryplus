@@ -105,7 +105,15 @@ public class UserTest {
 		int check = underTest.getZipCode();
 		
 		assertThat(check, is(zip));
+	}
+	
+	@Test
+	public void shouldTakeZipCode54321() {
+		int zip = 54321;
+		User underTest = new User(1, 1, true, date, zip);
+		int check = underTest.getZipCode();
 		
+		assertThat(check, is(zip));
 	}
 
 }

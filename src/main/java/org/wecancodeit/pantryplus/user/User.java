@@ -16,6 +16,7 @@ public class User {
 	private int schoolAgeChildren;
 	private boolean hasInfants;
 	private ZonedDateTime pickupDateTime;
+	private int zipCode;
 
 	@SuppressWarnings("unused")
 	private User() {
@@ -25,7 +26,7 @@ public class User {
 		this.familySize = familySize;
 		this.schoolAgeChildren = schoolAgeChildren;
 		this.hasInfants = hasInfants;
-
+		this.zipCode = zipCode;
 		pickupDateTime = ZonedDateTime.parse(pickupDateString + "T12:00:00-04:00[US/Eastern]");
 	}
 
@@ -79,7 +80,7 @@ public class User {
 	}
 
 	public int getZipCode() {
-		return 12345;
+		return zipCode;
 	}
 
 }
