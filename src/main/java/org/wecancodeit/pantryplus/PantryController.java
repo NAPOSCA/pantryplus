@@ -10,6 +10,10 @@ public class PantryController {
 		return "user-form";
 	}
 
+	public String displayShopping(Model model) {
+		return "shopping";
+	}
+
 	// @Resource
 	// private CartRepository cartRepo;
 	//

@@ -28,4 +28,10 @@ public class PantryControllerTest {
 		String templateName = underTest.displayUserForm(model);
 		assertThat(templateName, is("user-form"));
 	}
+	
+	@Test
+	public void shouldHaveDisplayShoppingReturnShopping() {
+		String templateName = underTest.displayShopping(model);
+		assertThat(templateName, is("shopping"));
+	}
 }
