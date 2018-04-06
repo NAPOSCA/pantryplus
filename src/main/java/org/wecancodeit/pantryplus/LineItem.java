@@ -24,6 +24,11 @@ public class LineItem {
 	protected LineItem() {
 	}
 
+	public LineItem(Cart cart, Product product) {
+		this.product = product;
+		this.cart = cart;
+	}
+
 	public long getId() {
 		return id;
 	}

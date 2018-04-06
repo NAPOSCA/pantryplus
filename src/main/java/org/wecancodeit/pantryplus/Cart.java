@@ -40,17 +40,23 @@ public class Cart {
 	public int getCartQuantity() {
 		int totalQuantity = 0;
 		for (LineItem item : lineItems) {
-			totalQuantity += item.getQuantity();
+			if (item instanceof CountedLineItem) {
+				totalQuantity += ((CountedLineItem) item).getQuantity();
+			}
 		}
 		return totalQuantity;
 	}
 
+	@SuppressWarnings("unused")
 	public int getLineItemQuantityByProductId(long productId) {
 		LineItem lineItem = getLineItemByProductId(productId);
-		if (lineItem == null) {
-			return 0;
+		if (lineItem instanceof CountedLineItem) {
+			if (lineItem == null) {
+				return 0;
+			}
+			return ((CountedLineItem) lineItem).getQuantity();
 		}
-		return lineItem.getQuantity();
+		return 0;
 	}
 
 }
