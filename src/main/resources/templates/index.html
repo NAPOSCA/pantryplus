@@ -5,6 +5,7 @@
 	<link rel="stylesheet" type="text/css" href="/css/layout.css"/>
 	<link rel="stylesheet" type="text/css" href="/css/style.css"/>
 	<link rel="stylesheet" type="text/css" href="/css/animation.css"/>
+	<link rel="stylesheet" type="text/css" href="/css/slide-toggle.css"/>
 	<script type="text/javascript" src="/js/shopping.js"></script>
 </head>
 <body onload="initialize()">
@@ -27,11 +28,17 @@
 				<ul class="items hidden">
 					<li class="item" th:each="product : ${category.products}">
 						<h3 th:text="${product.name}"/>
-						<img class="product_image" th:src="${product.image}"/>
-						<div th:id="'product-'+${product.id}" class="interface">
-							<button class="add" th:value="${product.id}">+</button>
-							<p th:text="${cart.getLineItemQuantityByProductId(product.id)}"></p>
-							<button class="remove" th:value="${product.id}">-</button>
+						<img class="product-image" th:src="${product.image}"/>
+						<div th:id="'product-'+${product.id}" th:switch="true" class="switch">
+							<div th:case="${category.name == 'Coupon'}" class="case">
+								<div th:replace="fragments/interfaces :: .coupon"/>
+							</div>
+							<div th:case="${category.name == 'Meat'}" class="case">
+								<div th:replace="fragments/interfaces :: .meat"/>
+							</div>
+							<div th:case="true" class="case">
+								<div th:replace="fragments/interfaces :: .dichotomous"/>
+							</div>
 						</div>
 					</li>
 				</ul>

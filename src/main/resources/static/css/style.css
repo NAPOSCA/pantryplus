@@ -32,11 +32,15 @@ li.item h3 {
 
 div.interface p {
 	font-size: 1.4rem;
-	width: 2rem;
 	margin: 0 0.5rem;
 	text-align: center;
 }
 
-.product_image {
-	width: 5%;
+.product-image {
+	max-height: 170%;
+}
+
+header nav {
+	display: flex;
+	align-items: center;
 }

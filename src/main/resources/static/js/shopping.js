@@ -59,6 +59,6 @@ function removeFromCart(productId) {
 
 function updateCartNumber(response) {
 	const interface = document.querySelector(`div#product-${response.product.id}`);
-	const paragraph = interface.querySelector("p");
-	paragraph.innerText = response.quantity;
+	const value = interface.querySelector("span.value");
+	value.innerText = response.quantity;
 }

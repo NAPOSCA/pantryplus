@@ -1,0 +1,25 @@
+<div class="dichotomous interface">
+	<label class="switch switch_type1" role="switch">
+		<input type="checkbox" class="switch__toggle"/>
+		<span class="switch__label"></span>
+	</label>
+</div>
+<div class="meat interface">
+	<button class="remove" th:value="${product.id}">-</button>
+	<p>
+		<span class="value" th:text="${cart.getLineItemQuantityByProductId(product.id)}"/>
+		<span class="units">lbs.</span>
+	</p>
+	<button class="add" th:value="${product.id}">+</button>
+</div>
+<div class="coupon interface">
+	<p>Cost:
+		<span th:text="${product.cost}"/>
+		<span class="units">Coupons</span>
+	</p>
+	<button class="remove" th:value="${product.id}">-</button>
+	<p>
+		<span class="value" th:text="${cart.getLineItemQuantityByProductId(product.id)}"/>
+	</p>
+	<button class="add" th:value="${product.id}">+</button>
+</div>
