@@ -29,14 +29,14 @@ public class Cart {
 	}
 
 	public LineItem getLineItemByProductId(long productId) {
-		for(LineItem lineItem: lineItems) {
-			if(lineItem.getProduct().getId() == productId) {
+		for (LineItem lineItem : lineItems) {
+			if (lineItem.getProduct().getId() == productId) {
 				return lineItem;
-			}	
+			}
 		}
 		return null;
 	}
-	
+
 	public int getCartQuantity() {
 		int totalQuantity = 0;
 		for (LineItem item : lineItems) {
@@ -44,10 +44,10 @@ public class Cart {
 		}
 		return totalQuantity;
 	}
-	
+
 	public int getLineItemQuantityByProductId(long productId) {
 		LineItem lineItem = getLineItemByProductId(productId);
-		if(lineItem == null) {
+		if (lineItem == null) {
 			return 0;
 		}
 		return lineItem.getQuantity();
