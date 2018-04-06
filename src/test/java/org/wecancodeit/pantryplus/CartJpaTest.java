@@ -35,14 +35,18 @@ public class CartJpaTest {
 	private Product product2;
 	private LineItem lineItem;
 	private LineItem lineItem2;
+	private CountedLineItem countedLine;
+	private CountedLineItem countedLine2;
 
 	@Before
 	public void setUp() {
 		cart = new Cart();
 		product = new Product("grapefruit", null);
 		product2 = new Product("apple", null);
-		lineItem = new LineItem(cart, product, 1);
-		lineItem2 = new LineItem(cart, product2, 2);
+		lineItem = new LineItem(cart, product);
+		lineItem2 = new LineItem(cart, product2);
+		countedLine = new CountedLineItem(cart, product, 1);
+		countedLine2 = new CountedLineItem(cart, product2, 2);
 	}
 
 	@Test
@@ -98,8 +102,8 @@ public class CartJpaTest {
 		cart = cartRepo.save(cart);
 		product = productRepo.save(product);
 		product2 = productRepo.save(product2);
-		lineItem = lineItemRepo.save(lineItem);
-		lineItem2 = lineItemRepo.save(lineItem2);
+		countedLine = lineItemRepo.save(countedLine);
+		countedLine2 = lineItemRepo.save(countedLine2);
 		long cartId = cart.getId();
 		entityManager.flush();
 		entityManager.clear();
