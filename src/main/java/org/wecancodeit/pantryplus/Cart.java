@@ -30,6 +30,10 @@ public class Cart {
 
 	public LineItem getLineItemByProductId(long productId) {
 		for (LineItem lineItem : lineItems) {
+			if (lineItem instanceof CountedLineItem) {
+				if (lineItem.getProduct().getId() == productId)
+					return lineItem;
+			}
 			if (lineItem.getProduct().getId() == productId) {
 				return lineItem;
 			}
@@ -40,7 +44,9 @@ public class Cart {
 	public int getCartQuantity() {
 		int totalQuantity = 0;
 		for (LineItem item : lineItems) {
-			totalQuantity += item.getQuantity();
+			if (item instanceof CountedLineItem) {
+				totalQuantity += ((CountedLineItem) item).getQuantity();
+			}
 		}
 		return totalQuantity;
 	}
@@ -50,7 +56,10 @@ public class Cart {
 		if (lineItem == null) {
 			return 0;
 		}
-		return lineItem.getQuantity();
+		if (lineItem instanceof CountedLineItem) {
+			return ((CountedLineItem) lineItem).getQuantity();
+		}
+		return 1;
 	}
 
 }

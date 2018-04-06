@@ -26,9 +26,9 @@ public class CartRestController {
 		LineItem lineItem = cart.getLineItemByProductId(id);
 		if (lineItem == null) {
 			Product product = productRepo.findOne(id);
-			lineItem = new LineItem(cart, product, 0);
+			lineItem = new CountedLineItem(cart, product, 0);
 		}
-		lineItem.addQuantity(quantity);
+		((CountedLineItem) lineItem).addQuantity(quantity);
 		lineItem = lineItemRepo.save(lineItem);
 
 		return lineItem;
@@ -39,14 +39,14 @@ public class CartRestController {
 			@RequestParam(value = "quantity") int quantity) {
 		Cart cart = cartRepo.findOne(1L);
 		LineItem lineItem = cart.getLineItemByProductId(id);
-		if(lineItem == null) {
+		if (lineItem == null) {
 			Product product = productRepo.findOne(id);
-			lineItem = new LineItem(cart, product, quantity);
+			lineItem = new CountedLineItem(cart, product, quantity);
 		} else {
-			lineItem.setQuantity(quantity);
+			((CountedLineItem) lineItem).setQuantity(quantity);
 		}
 		lineItem = lineItemRepo.save(lineItem);
-		
+
 		return lineItem;
 	}
 

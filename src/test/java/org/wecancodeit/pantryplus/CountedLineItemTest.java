@@ -6,17 +6,17 @@ import static org.junit.Assert.assertThat;
 import org.junit.Before;
 import org.junit.Test;
 
-public class LineItemTest {
+public class CountedLineItemTest {
 
 	private Product product;
 	private Product product2;
-	private LineItem lineItem;
+	private CountedLineItem lineItem;
 
 	@Before
 	public void setUp() {
 		product = new Product("testFruit", null);
 		product2 = new Product("testFruit2", null);
-		lineItem = new LineItem(product, 1);
+		lineItem = new CountedLineItem(null, product, 1);
 	}
 
 	@Test
@@ -39,51 +39,51 @@ public class LineItemTest {
 	public void shouldHaveEqualsReturnFalseIFDifferentClass() {
 		assertThat(lineItem.equals(product2), is(false));
 	}
-	
+
 	@Test
 	public void shouldCreateSingleElementLineItem() {
 		Product product = new Product("product", null);
-		LineItem underTest = new LineItem(product);
+		CountedLineItem underTest = new CountedLineItem(null, product, 1);
 		assertThat(underTest.getQuantity(), is(1));
 	}
-	
+
 	@Test
 	public void shouldCheckIfProductIsCouponProductTrue() {
 		Product couponProduct = new CouponProduct("product", null, 1);
-		LineItem underTest = new LineItem(couponProduct);
+		CountedLineItem underTest = new CountedLineItem(null, couponProduct, 0);
 		boolean actual = underTest.hasCouponProduct();
 		assertThat(actual, is(true));
 	}
-	
+
 	@Test
 	public void shouldCheckIfProductIsNotCouponProduct() {
 		Product product = new Product("product", null);
-		LineItem underTest = new LineItem(product);
+		CountedLineItem underTest = new CountedLineItem(null, product, 0);
 		boolean actual = underTest.hasCouponProduct();
 		assertThat(actual, is(false));
 	}
-	
+
 	@Test
 	public void shouldReturnZeroIfNotCouponProduct() {
 		Product product = new Product("product", null);
-		LineItem underTest = new LineItem(product);
+		CountedLineItem underTest = new CountedLineItem(null, product, 0);
 		int sum = underTest.totalCouponCost();
 		assertThat(sum, is(0));
 	}
-	
+
 	@Test
 	public void shouldReturnSixIfTwoProductsOfThreePoints() {
 		Product couponProduct = new CouponProduct("product", null, 3);
-		LineItem underTest = new LineItem(couponProduct);
+		CountedLineItem underTest = new CountedLineItem(null, couponProduct, 0);
 		underTest.setQuantity(2);
 		int sum = underTest.totalCouponCost();
 		assertThat(sum, is(6));
 	}
-	
+
 	@Test
 	public void shouldReturnTwelveIfThreeProductsOfFourPoints() {
 		Product product = new CouponProduct("product", null, 4);
-		LineItem underTest = new LineItem(product);
+		CountedLineItem underTest = new CountedLineItem(null, product, 0);
 		underTest.setQuantity(3);
 		int sum = underTest.totalCouponCost();
 		assertThat(sum, is(12));
