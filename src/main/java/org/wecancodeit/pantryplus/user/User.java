@@ -12,8 +12,6 @@ public class User {
 	@Id
 	@GeneratedValue
 	private long id;
-	// private String name;
-	// private String address;
 	private int familySize;
 	private int schoolAgeChildren;
 	private boolean hasInfants;
@@ -33,14 +31,6 @@ public class User {
 
 	public long getId() {
 		return id;
-	}
-
-	public int getFamilySize() {
-		return familySize;
-	}
-
-	public int getSchoolAgeChildren() {
-		return schoolAgeChildren;
 	}
 
 	public boolean getHasInfants() {
