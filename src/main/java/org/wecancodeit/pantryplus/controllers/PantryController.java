@@ -1,10 +1,13 @@
-package org.wecancodeit.pantryplus;
+package org.wecancodeit.pantryplus.controllers;
 
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.wecancodeit.pantryplus.CartRepository;
+import org.wecancodeit.pantryplus.CategoryRepository;
+import org.wecancodeit.pantryplus.UserRepository;
 
 @Controller
 public class PantryController {

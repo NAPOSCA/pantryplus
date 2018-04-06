@@ -1,4 +1,4 @@
-package org.wecancodeit.pantryplus;
+package org.wecancodeit.pantryplus.controllers;
 
 import javax.annotation.Resource;
 
@@ -6,6 +6,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.wecancodeit.pantryplus.Cart;
+import org.wecancodeit.pantryplus.CartRepository;
+import org.wecancodeit.pantryplus.CountedLineItem;
+import org.wecancodeit.pantryplus.LineItem;
+import org.wecancodeit.pantryplus.LineItemRepository;
+import org.wecancodeit.pantryplus.Product;
+import org.wecancodeit.pantryplus.ProductRepository;
 
 @RestController
 public class CartRestController {

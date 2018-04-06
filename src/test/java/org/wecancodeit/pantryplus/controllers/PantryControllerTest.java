@@ -1,4 +1,4 @@
-package org.wecancodeit.pantryplus;
+package org.wecancodeit.pantryplus.controllers;
 
 import static java.util.Arrays.asList;
 import static org.hamcrest.Matchers.is;
@@ -12,6 +12,13 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.ui.Model;
+import org.wecancodeit.pantryplus.Cart;
+import org.wecancodeit.pantryplus.CartRepository;
+import org.wecancodeit.pantryplus.Category;
+import org.wecancodeit.pantryplus.CategoryRepository;
+import org.wecancodeit.pantryplus.User;
+import org.wecancodeit.pantryplus.UserRepository;
+import org.wecancodeit.pantryplus.controllers.PantryController;
 
 public class PantryControllerTest {
 
