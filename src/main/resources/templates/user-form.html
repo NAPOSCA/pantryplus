@@ -6,6 +6,17 @@
 <body>
 	<div class="container">
 		<form action="/user-creation">
+
+			<p>What is your zip code?</p>
+			<select name="zip-code">
+				<option selected="true" disabled="true" hidden="true">Select...</option>
+				<option value="1">zip code 1</option>
+				<option value="2">zip code 2</option>
+				<option value="3">zip code 3</option>
+				<option value="4">zip code 4</option>
+				<option value="5">zip code 5</option>
+			</select>
+
 			<p>Please select your total family size:</p>
 			<select name="family-size">
 				<option selected="true" disabled="true" hidden="true">Select...</option>
@@ -35,6 +46,9 @@
 				<option value="9">9</option>
 				<option value="10">10+</option>
 			</select>
+
+			<p>Do you have any children below the age of x?</p>
+			<input type="checkbox" name="infants" value="true"/>
 
 			<input type="submit"/>
 		</form> 
