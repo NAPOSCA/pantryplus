@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import org.wecancodeit.pantryplus.lineitem.LineItem;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity

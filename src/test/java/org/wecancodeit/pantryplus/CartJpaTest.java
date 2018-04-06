@@ -13,6 +13,9 @@ import org.junit.runner.RunWith;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.wecancodeit.pantryplus.lineitem.CountedLineItem;
+import org.wecancodeit.pantryplus.lineitem.LineItem;
+import org.wecancodeit.pantryplus.lineitem.LineItemRepository;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
