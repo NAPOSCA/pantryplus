@@ -4,6 +4,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class PantryController {
@@ -17,10 +18,12 @@ public class PantryController {
 	@Resource
 	private UserRepository userRepo;
 
+	@RequestMapping("/")
 	public String displayUserForm(Model model) {
 		return "user-form";
 	}
 
+	@RequestMapping("/shopping")
 	public String displayShopping(Model model) {
 		model.addAttribute("categories", categoryRepo.findAll());
 		model.addAttribute("cart", cartRepo.findOne(1L));
@@ -28,6 +31,7 @@ public class PantryController {
 		return "shopping";
 	}
 
+	@RequestMapping("/cart")
 	public String displayCart(Model model) {
 		return "cart";
 	}
