@@ -30,7 +30,7 @@ public class UserJpaTest {
 
 	@Test
 	public void shouldSaveAndLoadUser() {
-		User user = new User("name", "address", 1, 1, true, "1954-02-15");
+		User user = new User(1, 1, true, "1954-02-15");
 		user = userRepo.save(user);
 		long userId = user.getId();
 
