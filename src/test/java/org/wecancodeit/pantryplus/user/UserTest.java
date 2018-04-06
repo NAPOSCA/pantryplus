@@ -8,9 +8,11 @@ import org.wecancodeit.pantryplus.user.User;
 
 public class UserTest {
 
+	private String date = "2018-04-04";
+
 	@Test
 	public void shouldCalculateCouponTotalForOneOrTwoPersonFamily() {
-		User user = new User(1, 0, false, "2018-04-04");
+		User user = new User(1, 0, false, date, 00000);
 		int couponTotal = user.calculateCouponTotal();
 
 		assertThat(couponTotal, is(10));
@@ -18,7 +20,7 @@ public class UserTest {
 
 	@Test
 	public void shouldCalculateCouponTotalForThreePersonFamily() {
-		User user = new User(3, 0, false, "2018-04-04");
+		User user = new User(3, 0, false, date, 00000);
 		int couponTotal = user.calculateCouponTotal();
 
 		assertThat(couponTotal, is(15));
@@ -26,7 +28,7 @@ public class UserTest {
 
 	@Test
 	public void shouldCalculateMeatTotalForOneOrTwoPersonFamily() {
-		User user = new User(1, 0, false, "2018-04-04");
+		User user = new User(1, 0, false, date, 00000);
 		int meatTotal = user.calculateMeatTotal();
 
 		assertThat(meatTotal, is(4));
@@ -34,7 +36,7 @@ public class UserTest {
 
 	@Test
 	public void shouldCalculateMeatTotalForThreeToFivePersonFamily() {
-		User user = new User(3, 0, false, "2018-04-04");
+		User user = new User(3, 0, false, date, 00000);
 		int meatTotal = user.calculateMeatTotal();
 
 		assertThat(meatTotal, is(6));
@@ -42,7 +44,7 @@ public class UserTest {
 
 	@Test
 	public void shouldCalculateMeatTotalForSixOrMorePersonFamily() {
-		User user = new User(6, 0, false, "2018-04-04");
+		User user = new User(6, 0, false, date, 00000);
 		int meatTotal = user.calculateMeatTotal();
 
 		assertThat(meatTotal, is(8));
@@ -50,7 +52,7 @@ public class UserTest {
 
 	@Test
 	public void shouldCalculateCannedFoodTotalForFamilyWithOneOrTwoSchoolAgeKids() {
-		User user = new User(6, 1, false, "2018-04-04");
+		User user = new User(6, 1, false, date, 00000);
 		int cannedFoodTotal = user.calculateCannedFoodTotalForKids();
 
 		assertThat(cannedFoodTotal, is(2));
@@ -58,7 +60,7 @@ public class UserTest {
 
 	@Test
 	public void shouldCalculateCannedFoodTotalForFamilyWithThreeOrFourSchoolAgeKids() {
-		User user = new User(6, 3, false, "2018-04-04");
+		User user = new User(6, 3, false, date, 00000);
 		int cannedFoodTotal = user.calculateCannedFoodTotalForKids();
 
 		assertThat(cannedFoodTotal, is(4));
@@ -66,7 +68,7 @@ public class UserTest {
 
 	@Test
 	public void shouldCalculateCannedFoodTotalForFamilyWithFiveOrMoreSchoolAgeKids() {
-		User user = new User(6, 5, false, "2018-04-04");
+		User user = new User(6, 5, false, date, 00000);
 		int cannedFoodTotal = user.calculateCannedFoodTotalForKids();
 
 		assertThat(cannedFoodTotal, is(6));
@@ -74,7 +76,7 @@ public class UserTest {
 
 	@Test
 	public void shouldCalculateSnackTotalForFamilyWithSchoolAgeKids() {
-		User user = new User(6, 3, false, "2018-04-04");
+		User user = new User(6, 3, false, date, 00000);
 		int snackTotal = user.calculateSnackTotalForKids();
 
 		assertThat(snackTotal, is(15));
@@ -82,7 +84,7 @@ public class UserTest {
 
 	@Test
 	public void shouldCalculateFruitTotalForFamilyWithSchoolAgeKids() {
-		User user = new User(6, 3, false, "2018-04-04");
+		User user = new User(6, 3, false, date, 00000);
 		int snackTotal = user.calculateFruitTotalForKids();
 
 		assertThat(snackTotal, is(9));
@@ -90,10 +92,20 @@ public class UserTest {
 
 	@Test
 	public void shouldCalculateDairyProductTotalForFamilyWithSchoolAgeKids() {
-		User user = new User(6, 3, false, "2018-04-04");
+		User user = new User(6, 3, false, date, 00000);
 		int snackTotal = user.calculateDairyProductTotalForKids();
 
 		assertThat(snackTotal, is(3));
+	}
+
+	@Test
+	public void shouldTakeZipCode12345() {
+		int zip = 12345;
+		User underTest = new User(1, 1, true, date, zip);
+		int check = underTest.getZipCode();
+		
+		assertThat(check, is(zip));
+		
 	}
 
 }

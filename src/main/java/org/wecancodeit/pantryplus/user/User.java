@@ -21,7 +21,7 @@ public class User {
 	private User() {
 	}
 
-	public User(int familySize, int schoolAgeChildren, boolean hasInfants, String pickupDateString) {
+	public User(int familySize, int schoolAgeChildren, boolean hasInfants, String pickupDateString, int zipCode) {
 		this.familySize = familySize;
 		this.schoolAgeChildren = schoolAgeChildren;
 		this.hasInfants = hasInfants;
@@ -76,6 +76,10 @@ public class User {
 
 	public int calculateDairyProductTotalForKids() {
 		return schoolAgeChildren;
+	}
+
+	public int getZipCode() {
+		return 12345;
 	}
 
 }
