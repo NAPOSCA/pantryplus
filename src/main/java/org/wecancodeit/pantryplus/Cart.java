@@ -50,13 +50,13 @@ public class Cart {
 	@SuppressWarnings("unused")
 	public int getLineItemQuantityByProductId(long productId) {
 		LineItem lineItem = getLineItemByProductId(productId);
+		if (lineItem == null) {
+			return 0;
+		}
 		if (lineItem instanceof CountedLineItem) {
-			if (lineItem == null) {
-				return 0;
-			}
 			return ((CountedLineItem) lineItem).getQuantity();
 		}
-		return 0;
+		return 1;
 	}
 
 }
