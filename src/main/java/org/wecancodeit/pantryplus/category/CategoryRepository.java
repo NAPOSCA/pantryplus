@@ -1,4 +1,4 @@
-package org.wecancodeit.pantryplus;
+package org.wecancodeit.pantryplus.category;
 
 import org.springframework.data.repository.CrudRepository;
 

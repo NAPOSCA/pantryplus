@@ -1,4 +1,4 @@
-package org.wecancodeit.pantryplus;
+package org.wecancodeit.pantryplus.category;
 
 import static java.util.Arrays.asList;
 
