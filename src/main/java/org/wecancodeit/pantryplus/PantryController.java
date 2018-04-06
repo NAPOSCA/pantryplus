@@ -7,12 +7,15 @@ import org.springframework.ui.Model;
 
 @Controller
 public class PantryController {
-	
+
 	@Resource
 	private CartRepository cartRepo;
-	
+
 	@Resource
 	private CategoryRepository categoryRepo;
+
+	@Resource
+	private UserRepository userRepo;
 
 	public String displayUserForm(Model model) {
 		return "user-form";
@@ -21,6 +24,7 @@ public class PantryController {
 	public String displayShopping(Model model) {
 		model.addAttribute("categories", categoryRepo.findAll());
 		model.addAttribute("cart", cartRepo.findOne(1L));
+		model.addAttribute("user", userRepo.findOne(1L));
 		return "shopping";
 	}
 
