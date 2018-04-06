@@ -9,8 +9,8 @@ import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.wecancodeit.pantryplus.Cart;
-import org.wecancodeit.pantryplus.CartRepository;
+import org.wecancodeit.pantryplus.cart.Cart;
+import org.wecancodeit.pantryplus.cart.CartRepository;
 import org.wecancodeit.pantryplus.controllers.CartRestController;
 import org.wecancodeit.pantryplus.product.ProductRepository;
 
