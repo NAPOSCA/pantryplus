@@ -159,5 +159,33 @@ public class CartJpaTest {
 		LineItem actual = cart.getLineItemByProductId(productId);
 		assertThat(actual, nullValue());
 	}
+	
+	@Test
+	public void shouldReturnLineItemQuantityByProductIdOne() {
+		cart = cartRepo.save(cart);
+		long cartId = cart.getId();
+		product = productRepo.save(product);
+		long productId = product.getId();
+		countedLine = lineItemRepo.save(countedLine);
+		entityManager.flush();
+		entityManager.clear();
+		cart = cartRepo.findOne(cartId);
+		int actual = cart.getLineItemQuantityByProductId(productId);
+		assertThat(actual, is(countedLine.getQuantity()));
+	}
+	
+	@Test
+	public void shouldReturnLineItemQuantityByProductIdTwo() {
+		cart = cartRepo.save(cart);
+		long cartId = cart.getId();
+		product2 = productRepo.save(product2);
+		long productId = product2.getId();
+		countedLine2 = lineItemRepo.save(countedLine2);
+		entityManager.flush();
+		entityManager.clear();
+		cart = cartRepo.findOne(cartId);
+		int actual = cart.getLineItemQuantityByProductId(productId);
+		assertThat(actual, is(countedLine2.getQuantity()));
+	}
 
 }

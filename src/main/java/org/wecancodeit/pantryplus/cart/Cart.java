@@ -60,7 +60,8 @@ public class Cart {
 			return 0;
 		}
 		if (isCountedLineItem(lineItem)) {
-			return ((CountedLineItem) lineItem).getQuantity();
+			CountedLineItem countedLineItem = (CountedLineItem) lineItem;
+			return countedLineItem.getQuantity();
 		}
 		return 1;
 	}
