@@ -13,10 +13,13 @@
 	<button class="remove" th:value="${product.id}">-</button>
 </div>
 <div class="coupon interface">
+	<p>Cost:
+		<span th:text="${product.cost}"/>
+		<span class="units">Coupons</span>
+	</p>
 	<button class="add" th:value="${product.id}">+</button>
 	<p>
 		<span class="value" th:text="${cart.getLineItemQuantityByProductId(product.id)}"/>
-		<span class="units">Coupons</span>
 	</p>
 	<button class="remove" th:value="${product.id}">-</button>
 </div>
