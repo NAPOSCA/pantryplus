@@ -19,7 +19,7 @@ public class PantryController {
 	public String displayMainPage(Model model) {
 		model.addAttribute("categories", categoryRepo.findAll());
 		model.addAttribute("cart", cartRepo.findOne(1L));
-		return "index";
+		return "shopping";
 	}
 
 	@RequestMapping("/cart")
