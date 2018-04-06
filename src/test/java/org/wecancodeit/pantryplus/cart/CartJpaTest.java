@@ -117,5 +117,19 @@ public class CartJpaTest {
 		cart = cartRepo.findOne(cartId);
 		assertThat(cart.getCartQuantity(), is(3));
 	}
+	
+	@Test
+	public void shouldGetLineItemByProductId() {
+		cart = cartRepo.save(cart);
+		long cartId = cart.getId();
+		product = productRepo.save(product);
+		long productId = product.getId();
+		lineItem = lineItemRepo.save(lineItem);
+		entityManager.flush();
+		entityManager.clear();
+		cart = cartRepo.findOne(cartId);
+		LineItem actual = cart.getLineItemByProductId(productId);
+		assertThat(actual, is(lineItem));
+	}
 
 }
