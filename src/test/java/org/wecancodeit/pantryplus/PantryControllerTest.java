@@ -34,4 +34,10 @@ public class PantryControllerTest {
 		String templateName = underTest.displayShopping(model);
 		assertThat(templateName, is("shopping"));
 	}
+	
+	@Test
+	public void shouldHaveDisplayCartReturnCart() {
+		String templateName = underTest.displayCart(model);
+		assertThat(templateName, is("cart"));
+	}
 }

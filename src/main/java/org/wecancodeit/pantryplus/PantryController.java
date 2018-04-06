@@ -14,6 +14,10 @@ public class PantryController {
 		return "shopping";
 	}
 
+	public String displayCart(Model model) {
+		return "cart";
+	}
+
 	// @Resource
 	// private CartRepository cartRepo;
 	//
