@@ -5,9 +5,9 @@ import static org.junit.Assert.assertThat;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.wecancodeit.pantryplus.CouponProduct;
-import org.wecancodeit.pantryplus.Product;
 import org.wecancodeit.pantryplus.lineitem.CountedLineItem;
+import org.wecancodeit.pantryplus.product.CouponProduct;
+import org.wecancodeit.pantryplus.product.Product;
 
 public class CountedLineItemTest {
 

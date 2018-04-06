@@ -1,6 +1,8 @@
-package org.wecancodeit.pantryplus;
+package org.wecancodeit.pantryplus.product;
 
 import javax.persistence.Entity;
+
+import org.wecancodeit.pantryplus.Category;
 
 @Entity
 public class CouponProduct extends Product {

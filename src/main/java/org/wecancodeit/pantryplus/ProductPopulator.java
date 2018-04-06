@@ -4,6 +4,9 @@ import javax.annotation.Resource;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+import org.wecancodeit.pantryplus.product.CouponProduct;
+import org.wecancodeit.pantryplus.product.Product;
+import org.wecancodeit.pantryplus.product.ProductRepository;
 
 @Component
 public class ProductPopulator implements CommandLineRunner {

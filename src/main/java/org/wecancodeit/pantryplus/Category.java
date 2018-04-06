@@ -10,6 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import org.wecancodeit.pantryplus.product.Product;
+
 @Entity
 public class Category {
 

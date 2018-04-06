@@ -11,8 +11,8 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.wecancodeit.pantryplus.Cart;
 import org.wecancodeit.pantryplus.CartRepository;
-import org.wecancodeit.pantryplus.ProductRepository;
 import org.wecancodeit.pantryplus.controllers.CartRestController;
+import org.wecancodeit.pantryplus.product.ProductRepository;
 
 public class CartRestControllerTest {
 

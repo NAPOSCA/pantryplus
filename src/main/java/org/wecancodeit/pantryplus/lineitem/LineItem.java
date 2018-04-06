@@ -6,8 +6,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 import org.wecancodeit.pantryplus.Cart;
-import org.wecancodeit.pantryplus.CouponProduct;
-import org.wecancodeit.pantryplus.Product;
+import org.wecancodeit.pantryplus.product.CouponProduct;
+import org.wecancodeit.pantryplus.product.Product;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 

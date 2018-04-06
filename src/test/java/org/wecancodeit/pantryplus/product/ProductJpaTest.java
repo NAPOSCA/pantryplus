@@ -1,4 +1,4 @@
-package org.wecancodeit.pantryplus;
+package org.wecancodeit.pantryplus.product;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.containsInAnyOrder;
@@ -12,6 +12,10 @@ import org.junit.runner.RunWith;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.wecancodeit.pantryplus.Category;
+import org.wecancodeit.pantryplus.CategoryRepository;
+import org.wecancodeit.pantryplus.product.Product;
+import org.wecancodeit.pantryplus.product.ProductRepository;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest

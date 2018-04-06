@@ -8,11 +8,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.wecancodeit.pantryplus.Cart;
 import org.wecancodeit.pantryplus.CartRepository;
-import org.wecancodeit.pantryplus.Product;
-import org.wecancodeit.pantryplus.ProductRepository;
 import org.wecancodeit.pantryplus.lineitem.CountedLineItem;
 import org.wecancodeit.pantryplus.lineitem.LineItem;
 import org.wecancodeit.pantryplus.lineitem.LineItemRepository;
+import org.wecancodeit.pantryplus.product.Product;
+import org.wecancodeit.pantryplus.product.ProductRepository;
 
 @RestController
 public class CartRestController {
