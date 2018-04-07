@@ -70,7 +70,8 @@ public class Cart {
 		return null;
 	}
 
-	public void removeProduct(long productId) {
+	public LineItem removeProduct(long productId) {
+		return null;
 	}
 
 }

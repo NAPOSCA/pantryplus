@@ -36,6 +36,7 @@ public class CartRestControllerTest {
 		MockitoAnnotations.initMocks(this);
 		when(cartRepo.findOne(cartId)).thenReturn(cart);
 		when(cart.addProduct(productId)).thenReturn(lineItem);
+		when(cart.removeProduct(productId)).thenReturn(lineItem);
 	}
 
 	@Test
@@ -53,6 +54,12 @@ public class CartRestControllerTest {
 	@Test
 	public void shouldReturnChangedLineItemWhenAdding() {
 		LineItem actual = cartController.increaseQuantityOfProductInCart(productId, cartId);
+		assertThat(actual, is(lineItem));
+	}
+	
+	@Test
+	public void shouldReturnChangedLineItemWhenRemoving() {
+		LineItem actual = cartController.decreaseQuantityOfProductInCart(productId, cartId);
 		assertThat(actual, is(lineItem));
 	}
 
