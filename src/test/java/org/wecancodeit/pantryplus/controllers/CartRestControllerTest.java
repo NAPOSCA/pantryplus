@@ -31,24 +31,26 @@ public class CartRestControllerTest {
 
 	private long productId = 1L;
 
+	private long lineItemId = 1L;
+
 	@Before
 	public void setup() {
 		MockitoAnnotations.initMocks(this);
 		when(cartRepo.findOne(cartId)).thenReturn(cart);
-		when(cart.addProduct(productId)).thenReturn(lineItem);
-		when(cart.removeProduct(productId)).thenReturn(lineItem);
+		when(cart.addOneProduct(productId)).thenReturn(lineItem);
+		when(cart.removeOneProduct(productId)).thenReturn(lineItem);
 	}
 
 	@Test
 	public void shouldAddOneToQuantityInCountedLineItemInCart() {
 		cartController.increaseQuantityOfProductInCart(productId, cartId);
-		verify(cart).addProduct(productId);
+		verify(cart).addOneProduct(productId);
 	}
 	
 	@Test
 	public void shouldRemoveOneOfQuantityInCountedLineItemInCart() {
 		cartController.decreaseQuantityOfProductInCart(productId, cartId);
-		verify(cart).removeProduct(productId);
+		verify(cart).removeOneProduct(productId);
 	}
 	
 	@Test
@@ -61,6 +63,12 @@ public class CartRestControllerTest {
 	public void shouldReturnChangedLineItemWhenRemoving() {
 		LineItem actual = cartController.decreaseQuantityOfProductInCart(productId, cartId);
 		assertThat(actual, is(lineItem));
+	}
+	
+	@Test
+	public void shouldDeleteLineItemFromCart() {
+		cartController.deleteItemFromCart(lineItemId , cartId);
+		verify(cart).removeItem(lineItemId);
 	}
 
 }
