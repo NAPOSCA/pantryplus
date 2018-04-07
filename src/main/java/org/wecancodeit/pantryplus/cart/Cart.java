@@ -66,7 +66,8 @@ public class Cart {
 		return 1;
 	}
 
-	public void addProduct(long productId) {
+	public LineItem addProduct(long productId) {
+		return null;
 	}
 
 	public void removeProduct(long productId) {

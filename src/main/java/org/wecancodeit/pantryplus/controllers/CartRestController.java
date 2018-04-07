@@ -5,6 +5,7 @@ import javax.annotation.Resource;
 import org.springframework.web.bind.annotation.RestController;
 import org.wecancodeit.pantryplus.cart.Cart;
 import org.wecancodeit.pantryplus.cart.CartRepository;
+import org.wecancodeit.pantryplus.lineitem.LineItem;
 
 @RestController
 public class CartRestController {
@@ -12,9 +13,9 @@ public class CartRestController {
 	@Resource
 	CartRepository cartRepo;
 
-	public void increaseQuantityOfProductInCart(long productId, long cartId) {
+	public LineItem increaseQuantityOfProductInCart(long productId, long cartId) {
 		Cart cart = cartRepo.findOne(cartId);
-		cart.addProduct(productId);
+		return cart.addProduct(productId);
 	}
 
 	public void decreaseQuantityOfProductInCart(long productId, long cartId) {
