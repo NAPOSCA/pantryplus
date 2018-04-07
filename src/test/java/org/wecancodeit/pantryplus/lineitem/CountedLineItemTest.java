@@ -1,10 +1,13 @@
-package org.wecancodeit.pantryplus;
+package org.wecancodeit.pantryplus.lineitem;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.wecancodeit.pantryplus.lineitem.CountedLineItem;
+import org.wecancodeit.pantryplus.product.CouponProduct;
+import org.wecancodeit.pantryplus.product.Product;
 
 public class CountedLineItemTest {
 

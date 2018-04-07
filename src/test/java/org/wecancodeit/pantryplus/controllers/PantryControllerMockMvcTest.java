@@ -1,4 +1,4 @@
-package org.wecancodeit.pantryplus;
+package org.wecancodeit.pantryplus.controllers;
 
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -16,6 +16,11 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.wecancodeit.pantryplus.cart.Cart;
+import org.wecancodeit.pantryplus.cart.CartRepository;
+import org.wecancodeit.pantryplus.category.CategoryRepository;
+import org.wecancodeit.pantryplus.controllers.PantryController;
+import org.wecancodeit.pantryplus.user.UserRepository;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(PantryController.class)

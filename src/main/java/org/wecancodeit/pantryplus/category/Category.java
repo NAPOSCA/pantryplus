@@ -1,4 +1,4 @@
-package org.wecancodeit.pantryplus;
+package org.wecancodeit.pantryplus.category;
 
 import static java.util.Arrays.asList;
 
@@ -9,6 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+
+import org.wecancodeit.pantryplus.product.Product;
 
 @Entity
 public class Category {

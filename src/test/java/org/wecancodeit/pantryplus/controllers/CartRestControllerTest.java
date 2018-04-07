@@ -1,4 +1,4 @@
-package org.wecancodeit.pantryplus;
+package org.wecancodeit.pantryplus.controllers;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
@@ -9,6 +9,10 @@ import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.wecancodeit.pantryplus.cart.Cart;
+import org.wecancodeit.pantryplus.cart.CartRepository;
+import org.wecancodeit.pantryplus.controllers.CartRestController;
+import org.wecancodeit.pantryplus.product.ProductRepository;
 
 public class CartRestControllerTest {
 

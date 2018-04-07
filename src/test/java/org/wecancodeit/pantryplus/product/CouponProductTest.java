@@ -1,9 +1,11 @@
-package org.wecancodeit.pantryplus;
+package org.wecancodeit.pantryplus.product;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
+import org.wecancodeit.pantryplus.product.CouponProduct;
+import org.wecancodeit.pantryplus.product.Product;
 
 public class CouponProductTest {
 	

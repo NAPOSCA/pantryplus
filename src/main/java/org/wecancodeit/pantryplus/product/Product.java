@@ -1,4 +1,4 @@
-package org.wecancodeit.pantryplus;
+package org.wecancodeit.pantryplus.product;
 
 import java.util.Collection;
 
@@ -7,6 +7,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+
+import org.wecancodeit.pantryplus.category.Category;
+import org.wecancodeit.pantryplus.lineitem.LineItem;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 

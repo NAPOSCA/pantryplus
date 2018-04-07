@@ -1,6 +1,10 @@
-package org.wecancodeit.pantryplus;
+package org.wecancodeit.pantryplus.lineitem;
 
 import javax.persistence.Entity;
+
+import org.wecancodeit.pantryplus.cart.Cart;
+import org.wecancodeit.pantryplus.product.CouponProduct;
+import org.wecancodeit.pantryplus.product.Product;
 
 @Entity
 public class CountedLineItem extends LineItem {
