@@ -12,45 +12,26 @@ public class User {
 	@Id
 	@GeneratedValue
 	private long id;
-	private String name;
-	private String address;
 	private int familySize;
 	private int schoolAgeChildren;
 	private boolean hasInfants;
 	private ZonedDateTime pickupDateTime;
+	private int zipCode;
 
 	@SuppressWarnings("unused")
 	private User() {
 	}
 
-	public User(String name, String address, int familySize, int schoolAgeChildren, boolean hasInfants, String pickupDateString) {
-		this.name = name;
-		this.address = address;
+	public User(int familySize, int schoolAgeChildren, boolean hasInfants, String pickupDateString, int zipCode) {
 		this.familySize = familySize;
 		this.schoolAgeChildren = schoolAgeChildren;
 		this.hasInfants = hasInfants;
-
+		this.zipCode = zipCode;
 		pickupDateTime = ZonedDateTime.parse(pickupDateString + "T12:00:00-04:00[US/Eastern]");
 	}
 
 	public long getId() {
 		return id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public String getAddress() {
-		return address;
-	}
-
-	public int getFamilySize() {
-		return familySize;
-	}
-
-	public int getSchoolAgeChildren() {
-		return schoolAgeChildren;
 	}
 
 	public boolean getHasInfants() {
@@ -73,9 +54,8 @@ public class User {
 			return 4;
 		} else if (familySize <= 5) {
 			return 6;
-		} else {
-			return 8;
 		}
+		return 8;
 	}
 
 	public int calculateCannedFoodTotalForKids() {
@@ -83,9 +63,8 @@ public class User {
 			return 2;
 		} else if (schoolAgeChildren <= 4) {
 			return 4;
-		} else {
-			return 6;
 		}
+		return 6;
 	}
 
 	public int calculateSnackTotalForKids() {
@@ -98,6 +77,10 @@ public class User {
 
 	public int calculateDairyProductTotalForKids() {
 		return schoolAgeChildren;
+	}
+
+	public int getZipCode() {
+		return zipCode;
 	}
 
 }
