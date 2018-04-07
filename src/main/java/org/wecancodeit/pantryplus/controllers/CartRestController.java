@@ -13,17 +13,17 @@ public class CartRestController {
 	@Resource
 	CartRepository cartRepo;
 
-	public LineItem increaseQuantityOfProductInCart(long productId, long cartId) {
+	public LineItem tellCartToAddOneProduct(long productId, long cartId) {
 		Cart cart = cartRepo.findOne(cartId);
 		return cart.addOneProduct(productId);
 	}
 
-	public LineItem decreaseQuantityOfProductInCart(long productId, long cartId) {
+	public LineItem tellCartToRemoveOneProduct(long productId, long cartId) {
 		Cart cart = cartRepo.findOne(cartId);
 		return cart.removeOneProduct(productId);
 	}
 
-	public void deleteItemFromCart(long lineItemId, long cartId) {
+	public void tellCartToRemoveItem(long lineItemId, long cartId) {
 		Cart cart = cartRepo.findOne(cartId);
 		cart.removeItem(lineItemId);
 	}

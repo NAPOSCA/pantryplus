@@ -43,31 +43,31 @@ public class CartRestControllerTest {
 
 	@Test
 	public void shouldAddOneToQuantityInCountedLineItemInCart() {
-		cartController.increaseQuantityOfProductInCart(productId, cartId);
+		cartController.tellCartToAddOneProduct(productId, cartId);
 		verify(cart).addOneProduct(productId);
 	}
 	
 	@Test
 	public void shouldRemoveOneOfQuantityInCountedLineItemInCart() {
-		cartController.decreaseQuantityOfProductInCart(productId, cartId);
+		cartController.tellCartToRemoveOneProduct(productId, cartId);
 		verify(cart).removeOneProduct(productId);
 	}
 	
 	@Test
 	public void shouldReturnChangedLineItemWhenAdding() {
-		LineItem actual = cartController.increaseQuantityOfProductInCart(productId, cartId);
+		LineItem actual = cartController.tellCartToAddOneProduct(productId, cartId);
 		assertThat(actual, is(lineItem));
 	}
 	
 	@Test
 	public void shouldReturnChangedLineItemWhenRemoving() {
-		LineItem actual = cartController.decreaseQuantityOfProductInCart(productId, cartId);
+		LineItem actual = cartController.tellCartToRemoveOneProduct(productId, cartId);
 		assertThat(actual, is(lineItem));
 	}
 	
 	@Test
 	public void shouldDeleteLineItemFromCart() {
-		cartController.deleteItemFromCart(lineItemId , cartId);
+		cartController.tellCartToRemoveItem(lineItemId , cartId);
 		verify(cart).removeItem(lineItemId);
 	}
 
