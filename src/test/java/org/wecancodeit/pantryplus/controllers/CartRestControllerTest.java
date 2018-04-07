@@ -1,12 +1,15 @@
 package org.wecancodeit.pantryplus.controllers;
 
+import static org.mockito.Mockito.verify;
+
 import org.junit.Before;
+import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.wecancodeit.pantryplus.cart.Cart;
 import org.wecancodeit.pantryplus.cart.CartRepository;
-import org.wecancodeit.pantryplus.product.ProductRepository;
 
 public class CartRestControllerTest {
 
@@ -17,14 +20,20 @@ public class CartRestControllerTest {
 	private CartRepository cartRepo;
 
 	@Mock
-	private ProductRepository productRepo;
-
-	@Mock
 	private Cart cart;
+	long cartId = 1L;
 
 	@Before
 	public void setup() {
 		MockitoAnnotations.initMocks(this);
+		Mockito.when(cartRepo.findOne(cartId)).thenReturn(cart);
+	}
+
+	@Test
+	public void shouldAddOneToQuantityInCountedLineItemInCart() {
+		long productId = 1L;
+		cartController.increaseQuantityOfProductInCart(productId, cartId);
+		verify(cart).increaseQuantityOfProduct(productId);
 	}
 
 }
