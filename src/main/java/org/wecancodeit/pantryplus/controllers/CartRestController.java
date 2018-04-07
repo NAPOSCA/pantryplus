@@ -23,9 +23,10 @@ public class CartRestController {
 		return cart.removeOneProduct(productId);
 	}
 
-	public void tellCartToRemoveItem(long lineItemId, long cartId) {
+	public Cart tellCartToRemoveItem(long lineItemId, long cartId) {
 		Cart cart = cartRepo.findOne(cartId);
 		cart.removeItem(lineItemId);
+		return cart;
 	}
 
 }

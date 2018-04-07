@@ -70,5 +70,11 @@ public class CartRestControllerTest {
 		cartController.tellCartToRemoveItem(lineItemId , cartId);
 		verify(cart).removeItem(lineItemId);
 	}
+	
+	@Test
+	public void shouldReturnCartAfterTellingItToDeleteAItem() {
+		Cart actual = cartController.tellCartToRemoveItem(lineItemId, cartId);
+		assertThat(actual, is(cart));
+	}
 
 }
