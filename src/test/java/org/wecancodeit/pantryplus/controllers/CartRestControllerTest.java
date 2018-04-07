@@ -33,7 +33,14 @@ public class CartRestControllerTest {
 	public void shouldAddOneToQuantityInCountedLineItemInCart() {
 		long productId = 1L;
 		cartController.increaseQuantityOfProductInCart(productId, cartId);
-		verify(cart).increaseQuantityOfProduct(productId);
+		verify(cart).addProduct(productId);
+	}
+	
+	@Test
+	public void shouldRemoveOneOfQuantityInCountedLineItemInCart() {
+		long productId = 1L;
+		cartController.decreaseQuantityOfProductInCart(productId, cartId);
+		verify(cart).removeProduct(productId);
 	}
 
 }

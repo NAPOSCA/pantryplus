@@ -66,7 +66,10 @@ public class Cart {
 		return 1;
 	}
 
-	public void increaseQuantityOfProduct(long productId) {
+	public void addProduct(long productId) {
+	}
+
+	public void removeProduct(long productId) {
 	}
 
 }

@@ -14,7 +14,12 @@ public class CartRestController {
 
 	public void increaseQuantityOfProductInCart(long productId, long cartId) {
 		Cart cart = cartRepo.findOne(cartId);
-		cart.increaseQuantityOfProduct(productId);
+		cart.addProduct(productId);
+	}
+
+	public void decreaseQuantityOfProductInCart(long productId, long cartId) {
+		Cart cart = cartRepo.findOne(cartId);
+		cart.removeProduct(productId);
 	}
 
 }
