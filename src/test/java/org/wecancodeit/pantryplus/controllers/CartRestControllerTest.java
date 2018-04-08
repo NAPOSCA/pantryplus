@@ -48,6 +48,7 @@ public class CartRestControllerTest {
 		when(cartRepo.findOne(cartId)).thenReturn(cart);
 		when(cart.addOneProduct(productId)).thenReturn(countedLineItem);
 		when(cart.removeOneProduct(productId)).thenReturn(countedLineItem);
+		when(cart.addItem(anotherProductId)).thenReturn(lineItem);
 	}
 
 	@Test
@@ -124,6 +125,13 @@ public class CartRestControllerTest {
 		boolean dichotomous = false;
 		cartController.receivePostOnCart(cartId, productId, dichotomous);
 		verify(cart, never()).addItem(productId);
+	}
+	
+	@Test
+	public void shouldReturnLineItemWhenReceivingAPostRequest() {
+		boolean dichotomous = true;
+		LineItem actual = cartController.receivePostOnCart(cartId, anotherProductId, dichotomous);
+		assertThat(actual, is(lineItem));
 	}
 
 }

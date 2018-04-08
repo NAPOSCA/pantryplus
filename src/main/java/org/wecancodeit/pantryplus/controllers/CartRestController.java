@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.wecancodeit.pantryplus.cart.Cart;
 import org.wecancodeit.pantryplus.cart.CartRepository;
 import org.wecancodeit.pantryplus.lineitem.CountedLineItem;
+import org.wecancodeit.pantryplus.lineitem.LineItem;
 
 @RestController
 public class CartRestController {
@@ -29,9 +30,9 @@ public class CartRestController {
 		return cart;
 	}
 
-	public void tellCartToAddDichotomousProduct(long productId, long cartId) {
+	public LineItem tellCartToAddDichotomousProduct(long productId, long cartId) {
 		Cart cart = cartRepo.findOne(cartId);
-		cart.addItem(productId);
+		return cart.addItem(productId);
 	}
 
 	public void tellCartToAddCountedProduct(long productId, long cartId) {
@@ -39,12 +40,13 @@ public class CartRestController {
 		cart.addCountedItem(productId);
 	}
 
-	public void receivePostOnCart(long cartId, long productId, boolean dichotomous) {
+	public LineItem receivePostOnCart(long cartId, long productId, boolean dichotomous) {
 		if (dichotomous) {
-			tellCartToAddDichotomousProduct(productId, cartId);
+			return tellCartToAddDichotomousProduct(productId, cartId);
 		} else {
 			tellCartToAddCountedProduct(productId, cartId);
 		}
+		return null;
 	}
 
 }
