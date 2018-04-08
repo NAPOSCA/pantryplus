@@ -77,4 +77,10 @@ public class Cart {
 	public void removeItem(long lineItemId) {
 	}
 
+	public void addItem(long productId) {
+	}
+
+	public void addCountedItem(long productId) {
+	}
+
 }

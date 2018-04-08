@@ -29,4 +29,23 @@ public class CartRestController {
 		return cart;
 	}
 
+	public void tellCartToAddDichotomousProduct(long productId, long cartId) {
+		Cart cart = cartRepo.findOne(cartId);
+		cart.addItem(productId);
+	}
+
+	public void tellCartToAddCountedProduct(long productId, long cartId) {
+		Cart cart = cartRepo.findOne(cartId);
+		cart.addCountedItem(productId);
+	}
+
+	public void receivePostOnCart(long cartId, long productId, boolean dichotomous) {
+		Cart cart = cartRepo.findOne(cartId);
+		if (dichotomous) {
+			cart.addItem(productId);
+		} else {
+			cart.addCountedItem(productId);
+		}
+	}
+
 }
