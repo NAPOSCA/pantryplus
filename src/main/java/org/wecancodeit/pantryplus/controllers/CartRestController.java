@@ -40,11 +40,10 @@ public class CartRestController {
 	}
 
 	public void receivePostOnCart(long cartId, long productId, boolean dichotomous) {
-		Cart cart = cartRepo.findOne(cartId);
 		if (dichotomous) {
-			cart.addItem(productId);
+			tellCartToAddDichotomousProduct(productId, cartId);
 		} else {
-			cart.addCountedItem(productId);
+			tellCartToAddCountedProduct(productId, cartId);
 		}
 	}
 
