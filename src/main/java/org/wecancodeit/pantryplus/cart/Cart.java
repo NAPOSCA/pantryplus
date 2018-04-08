@@ -81,7 +81,8 @@ public class Cart {
 		return null;
 	}
 
-	public void addCountedItem(long productId) {
+	public LineItem addCountedItem(long productId) {
+		return null;
 	}
 
 }

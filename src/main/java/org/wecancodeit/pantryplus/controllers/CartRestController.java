@@ -35,18 +35,17 @@ public class CartRestController {
 		return cart.addItem(productId);
 	}
 
-	public void tellCartToAddCountedProduct(long productId, long cartId) {
+	public LineItem tellCartToAddCountedProduct(long productId, long cartId) {
 		Cart cart = cartRepo.findOne(cartId);
-		cart.addCountedItem(productId);
+		return cart.addCountedItem(productId);
 	}
 
 	public LineItem receivePostOnCart(long cartId, long productId, boolean dichotomous) {
 		if (dichotomous) {
 			return tellCartToAddDichotomousProduct(productId, cartId);
 		} else {
-			tellCartToAddCountedProduct(productId, cartId);
+			return tellCartToAddCountedProduct(productId, cartId);
 		}
-		return null;
 	}
 
 }

@@ -27,19 +27,19 @@ public class CartRestControllerTest {
 	@Mock
 	private Cart cart;
 	long cartId = 1L;
-	
+
 	@Mock
 	private CountedLineItem countedLineItem;
-	
+
 	@Mock
 	private LineItem lineItem;
 
 	private long productId = 1L;
-	
+
 	private long anotherProductId = 2L;
 
 	private long countedLineItemId = 1L;
-	
+
 	private long lineItemId = 2L;
 
 	@Before
@@ -49,6 +49,7 @@ public class CartRestControllerTest {
 		when(cart.addOneProduct(productId)).thenReturn(countedLineItem);
 		when(cart.removeOneProduct(productId)).thenReturn(countedLineItem);
 		when(cart.addItem(anotherProductId)).thenReturn(lineItem);
+		when(cart.addCountedItem(productId)).thenReturn(countedLineItem);
 	}
 
 	@Test
@@ -56,82 +57,89 @@ public class CartRestControllerTest {
 		cartController.tellCartToAddOneProduct(productId, cartId);
 		verify(cart).addOneProduct(productId);
 	}
-	
+
 	@Test
 	public void shouldRemoveOneOfQuantityInCountedLineItemInCart() {
 		cartController.tellCartToRemoveOneProduct(productId, cartId);
 		verify(cart).removeOneProduct(productId);
 	}
-	
+
 	@Test
 	public void shouldReturnChangedLineItemWhenAdding() {
 		LineItem actual = cartController.tellCartToAddOneProduct(productId, cartId);
 		assertThat(actual, is(countedLineItem));
 	}
-	
+
 	@Test
 	public void shouldReturnChangedLineItemWhenRemoving() {
 		LineItem actual = cartController.tellCartToRemoveOneProduct(productId, cartId);
 		assertThat(actual, is(countedLineItem));
 	}
-	
+
 	@Test
 	public void shouldDeleteLineItemFromCart() {
 		cartController.tellCartToRemoveItem(countedLineItemId, cartId);
 		verify(cart).removeItem(countedLineItemId);
 	}
-	
+
 	@Test
 	public void shouldReturnCartAfterTellingItToDeleteAItem() {
 		Cart actual = cartController.tellCartToRemoveItem(countedLineItemId, cartId);
 		assertThat(actual, is(cart));
 	}
-	
+
 	@Test
 	public void shouldAddProductToCart() {
 		cartController.tellCartToAddDichotomousProduct(productId, cartId);
 		verify(cart).addItem(productId);
 	}
-	
+
 	@Test
 	public void shouldAddCountedProductToCart() {
 		cartController.tellCartToAddCountedProduct(productId, cartId);
 		verify(cart).addCountedItem(productId);
 	}
-	
+
 	@Test
 	public void shouldReceivePostRequestOnCartAndTellCartToCreateDichotomousLineItem() {
 		boolean dichotomous = true;
 		cartController.receivePostOnCart(cartId, productId, dichotomous);
 		verify(cart).addItem(productId);
 	}
-	
+
 	@Test
 	public void shouldReceivePostRequestOnCartAndTellCartToCreateCountedLineItem() {
 		boolean dichotomous = false;
 		cartController.receivePostOnCart(cartId, productId, dichotomous);
 		verify(cart).addCountedItem(productId);
 	}
-	
+
 	@Test
 	public void shouldReceivePostRequestOnCartAndNotCreateCountedItemWhenCreatingDichotomous() {
 		boolean dichotomous = true;
 		cartController.receivePostOnCart(cartId, productId, dichotomous);
 		verify(cart, never()).addCountedItem(productId);
 	}
-	
+
 	@Test
 	public void shouldReceivePostRequestOnCartAndNotCreateDichotomousItemWhenCreatingCounted() {
 		boolean dichotomous = false;
 		cartController.receivePostOnCart(cartId, productId, dichotomous);
 		verify(cart, never()).addItem(productId);
 	}
-	
+
 	@Test
 	public void shouldReturnLineItemWhenReceivingAPostRequest() {
 		boolean dichotomous = true;
 		LineItem actual = cartController.receivePostOnCart(cartId, anotherProductId, dichotomous);
 		assertThat(actual, is(lineItem));
+	}
+
+	@Test
+	public void shouldReturnCountedLineItemWhenReceivingAPostRequest() {
+		boolean dichotomous = false;
+		LineItem actual = cartController.receivePostOnCart(cartId, productId, dichotomous);
+		assertThat(actual, is(countedLineItem));
 	}
 
 }
