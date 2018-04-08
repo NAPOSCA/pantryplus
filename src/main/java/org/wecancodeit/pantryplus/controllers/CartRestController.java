@@ -48,4 +48,9 @@ public class CartRestController {
 		}
 	}
 
+	public void receivePutRequestOnProductInCart(long cartId, long productId, int quantity) {
+		Cart cart = cartRepo.findOne(cartId);
+		cart.updateQuantityOfProduct(productId, quantity);
+	}
+
 }

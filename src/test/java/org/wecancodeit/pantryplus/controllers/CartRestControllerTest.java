@@ -141,5 +141,12 @@ public class CartRestControllerTest {
 		LineItem actual = cartController.receivePostOnCart(cartId, productId, dichotomous);
 		assertThat(actual, is(countedLineItem));
 	}
+	
+	@Test
+	public void shouldReceivePutRequestOnProductInCartAndSetQuantity() {
+		int quantity = 5;
+		cartController.receivePutRequestOnProductInCart(cartId, productId, quantity);
+		verify(cart).updateQuantityOfProduct(productId, quantity);
+	}
 
 }

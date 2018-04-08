@@ -85,4 +85,8 @@ public class Cart {
 		return null;
 	}
 
+	public void updateQuantityOfProduct(long productId, int quantity) {
+		
+	}
+
 }
