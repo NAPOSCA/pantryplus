@@ -12,6 +12,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.wecancodeit.pantryplus.cart.Cart;
 import org.wecancodeit.pantryplus.cart.CartRepository;
+import org.wecancodeit.pantryplus.lineitem.CountedLineItem;
 import org.wecancodeit.pantryplus.lineitem.LineItem;
 
 public class CartRestControllerTest {
@@ -27,18 +28,25 @@ public class CartRestControllerTest {
 	long cartId = 1L;
 	
 	@Mock
+	private CountedLineItem countedLineItem;
+	
+	@Mock
 	private LineItem lineItem;
 
 	private long productId = 1L;
+	
+	private long anotherProductId = 2L;
 
-	private long lineItemId = 1L;
+	private long countedLineItemId = 1L;
+	
+	private long lineItemId = 2L;
 
 	@Before
 	public void setup() {
 		MockitoAnnotations.initMocks(this);
 		when(cartRepo.findOne(cartId)).thenReturn(cart);
-		when(cart.addOneProduct(productId)).thenReturn(lineItem);
-		when(cart.removeOneProduct(productId)).thenReturn(lineItem);
+		when(cart.addOneProduct(productId)).thenReturn(countedLineItem);
+		when(cart.removeOneProduct(productId)).thenReturn(countedLineItem);
 	}
 
 	@Test
@@ -56,24 +64,24 @@ public class CartRestControllerTest {
 	@Test
 	public void shouldReturnChangedLineItemWhenAdding() {
 		LineItem actual = cartController.tellCartToAddOneProduct(productId, cartId);
-		assertThat(actual, is(lineItem));
+		assertThat(actual, is(countedLineItem));
 	}
 	
 	@Test
 	public void shouldReturnChangedLineItemWhenRemoving() {
 		LineItem actual = cartController.tellCartToRemoveOneProduct(productId, cartId);
-		assertThat(actual, is(lineItem));
+		assertThat(actual, is(countedLineItem));
 	}
 	
 	@Test
 	public void shouldDeleteLineItemFromCart() {
-		cartController.tellCartToRemoveItem(lineItemId , cartId);
-		verify(cart).removeItem(lineItemId);
+		cartController.tellCartToRemoveItem(countedLineItemId , cartId);
+		verify(cart).removeItem(countedLineItemId);
 	}
 	
 	@Test
 	public void shouldReturnCartAfterTellingItToDeleteAItem() {
-		Cart actual = cartController.tellCartToRemoveItem(lineItemId, cartId);
+		Cart actual = cartController.tellCartToRemoveItem(countedLineItemId, cartId);
 		assertThat(actual, is(cart));
 	}
 

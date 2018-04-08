@@ -66,11 +66,11 @@ public class Cart {
 		return 1;
 	}
 
-	public LineItem addOneProduct(long productId) {
+	public CountedLineItem addOneProduct(long productId) {
 		return null;
 	}
 
-	public LineItem removeOneProduct(long productId) {
+	public CountedLineItem removeOneProduct(long productId) {
 		return null;
 	}
 
