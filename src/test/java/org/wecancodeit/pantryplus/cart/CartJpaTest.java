@@ -19,8 +19,6 @@ import org.wecancodeit.pantryplus.lineitem.LineItem;
 import org.wecancodeit.pantryplus.lineitem.LineItemRepository;
 import org.wecancodeit.pantryplus.product.Product;
 import org.wecancodeit.pantryplus.product.ProductRepository;
-import org.wecancodeit.pantryplus.user.User;
-import org.wecancodeit.pantryplus.user.UserRepository;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
@@ -28,9 +26,6 @@ public class CartJpaTest {
 
 	@Resource
 	private TestEntityManager entityManager;
-
-	@Resource
-	private UserRepository userRepo;
 
 	@Resource
 	private CartRepository cartRepo;
@@ -41,11 +36,8 @@ public class CartJpaTest {
 	@Resource
 	private LineItemRepository lineItemRepo;
 
-	private User user;
-	private long userId;
 	private Cart cart;
 	private long cartId;
-	private Cart anotherCart;
 	private Product product;
 	private long productId;
 	private Product anotherProduct;
@@ -57,18 +49,14 @@ public class CartJpaTest {
 
 	@Before
 	public void setUp() {
-		user = new User(3, 1, false, "2018-04-09", "43201");
-		cart = new Cart(user);
-		anotherCart = new Cart(user);
+		cart = new Cart();
 		product = new Product("grapefruit", null);
 		anotherProduct = new Product("apple", null);
 		lineItem = new LineItem(cart, product);
 		anotherLineItem = new LineItem(cart, anotherProduct);
 		countedLineItem = new CountedLineItem(cart, product, 1);
 		anotherCountedLineItem = new CountedLineItem(cart, anotherProduct, 2);
-
-		user = userRepo.save(user);
-		userId = user.getId();
+		
 		cart = cartRepo.save(cart);
 		cartId = cart.getId();
 		product = productRepo.save(product);
@@ -83,15 +71,6 @@ public class CartJpaTest {
 		entityManager.clear();
 		cart = cartRepo.findOne(cartId);
 		assertThat(cart.getId(), is(greaterThan(0L)));
-	}
-
-	@Test
-	public void shouldSaveManyCartsToOneUser() {
-		anotherCart = cartRepo.save(anotherCart);
-		entityManager.flush();
-		entityManager.clear();
-		user = userRepo.findOne(userId);
-		assertThat(user.getCarts(), containsInAnyOrder(cart, anotherCart));
 	}
 
 	@Test
@@ -134,7 +113,7 @@ public class CartJpaTest {
 		cart = cartRepo.findOne(cartId);
 		assertThat(cart.getCartQuantity(), is(3));
 	}
-
+	
 	@Test
 	public void shouldGetLineItemByProductId() {
 		lineItem = lineItemRepo.save(lineItem);
@@ -144,7 +123,7 @@ public class CartJpaTest {
 		LineItem actual = cart.getLineItemByProductId(productId);
 		assertThat(actual, is(lineItem));
 	}
-
+	
 	@Test
 	public void shouldGetCountedLineItemByProductId() {
 		countedLineItem = lineItemRepo.save(countedLineItem);
@@ -154,7 +133,7 @@ public class CartJpaTest {
 		LineItem actual = cart.getLineItemByProductId(productId);
 		assertThat(actual, is(countedLineItem));
 	}
-
+	
 	@Test
 	public void shouldReturnNullIfLineItemWithProductIdIsNotFound() {
 		anotherLineItem = lineItemRepo.save(anotherLineItem);
@@ -164,7 +143,7 @@ public class CartJpaTest {
 		LineItem actual = cart.getLineItemByProductId(productId);
 		assertThat(actual, nullValue());
 	}
-
+	
 	@Test
 	public void shouldReturnLineItemQuantityByProductIdOne() {
 		countedLineItem = lineItemRepo.save(countedLineItem);
@@ -174,7 +153,7 @@ public class CartJpaTest {
 		int actual = cart.getLineItemQuantityByProductId(productId);
 		assertThat(actual, is(countedLineItem.getQuantity()));
 	}
-
+	
 	@Test
 	public void shouldReturnLineItemQuantityByProductIdTwo() {
 		long productId = anotherProduct.getId();
@@ -185,7 +164,7 @@ public class CartJpaTest {
 		int actual = cart.getLineItemQuantityByProductId(productId);
 		assertThat(actual, is(anotherCountedLineItem.getQuantity()));
 	}
-
+	
 	@Test
 	public void shouldIncreaseProductQuantityByOne() {
 		countedLineItem = lineItemRepo.save(countedLineItem);
@@ -196,7 +175,7 @@ public class CartJpaTest {
 		int actual = cart.increaseProductByOne(productId).getQuantity();
 		assertThat(actual, is(check + 1));
 	}
-
+	
 	@Test
 	public void shouldDecreaseProductQuantityByOne() {
 		countedLineItem = lineItemRepo.save(countedLineItem);
@@ -207,7 +186,7 @@ public class CartJpaTest {
 		int actual = cart.decreaseProductByOne(productId).getQuantity();
 		assertThat(actual, is(check - 1));
 	}
-
+	
 	@Test
 	public void shouldUpdateQuantityOfProduct() {
 		countedLineItem = lineItemRepo.save(countedLineItem);
@@ -219,7 +198,7 @@ public class CartJpaTest {
 		int actual = cart.getLineItemQuantityByProductId(productId);
 		assertThat(actual, is(check));
 	}
-
+	
 	@Test
 	public void shouldNotFindLineItemIfRemoved() {
 		lineItem = lineItemRepo.save(lineItem);
@@ -230,7 +209,7 @@ public class CartJpaTest {
 		LineItem actual = cart.getLineItemByProductId(productId);
 		assertThat(actual, is(nullValue()));
 	}
-
+	
 	@Test
 	public void shouldNotFindAnyLineItemsIfAllAreRemoved() {
 		lineItem = lineItemRepo.save(lineItem);

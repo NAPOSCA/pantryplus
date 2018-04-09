@@ -12,6 +12,8 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.wecancodeit.pantryplus.cart.CartRepository;
+import org.wecancodeit.pantryplus.user.User;
+import org.wecancodeit.pantryplus.user.UserRepository;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
@@ -28,7 +30,7 @@ public class UserJpaTest {
 
 	@Test
 	public void shouldSaveAndLoadUser() {
-		User user = new User(1, 1, true, "1954-02-15", "00000");
+		User user = new User(1, 1, true, "1954-02-15", 00000);
 		user = userRepo.save(user);
 		long userId = user.getId();
 

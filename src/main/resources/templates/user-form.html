@@ -7,20 +7,20 @@
 </head>
 <body>
 	<div class="container">
-		<form action="/user-form">
+		<form action="/user-creation">
 
 			<p>What is your zip code?</p>
-			<select name="zipCode">
+			<select name="zip-code">
 				<option selected="true" disabled="true" hidden="true">Select...</option>
-				<option value="43203">43203</option>
-				<option value="43205">43205</option>
-				<option value="43209">43209</option>
-				<option value="43213">43213</option>
-				<option value="43215">43215</option>
+				<option value="1">43203</option>
+				<option value="2">43205</option>
+				<option value="3">43209</option>
+				<option value="4">43213</option>
+				<option value="5">43215</option>
 			</select>
 
 			<p>Please select your total family size:</p>
-			<select name="familySize">
+			<select name="family-size">
 				<option selected="true" disabled="true" hidden="true">Select...</option>
 				<option value="1">1</option>
 				<option value="2">2</option>
@@ -34,8 +34,8 @@
 				<option value="10">10+</option>
 			</select>
 
-			<p>Please select how many children between the ages of 5 and 17 you have:</p>
-			<select name="schoolkidsCount">
+			<p>Please select how many children between the ages of x and y you have:</p>
+			<select name="schoolkids-count">
 				<option selected="true" disabled="true" hidden="true">Select...</option>
 				<option value="1">1</option>
 				<option value="2">2</option>
@@ -49,16 +49,16 @@
 				<option value="10">10+</option>
 			</select>
 
-			<p>Do you have any children below the age of 5?</p>
+			<p>Do you have any children below the age of x?</p>
 			<input type="checkbox" name="infants" value="true"/>
 
 			<p>Please choose a pick up date:</p>
-			<select name="pickUpDate">
+			<select name="pick-up-date">
 				<option selected="true" disabled="true" hidden="true">Select...</option>
-				<option value="2018-04-17">04/17/2018</option>
-				<!-- <option value="2">Date 2</option>
+				<option value="1">Date 1</option>
+				<option value="2">Date 2</option>
 				<option value="3">Date 3</option>
-				<option value="4">Date 4</option> -->
+				<option value="4">Date 4</option>
 			</select>	
 				
 			<p><input type="submit"/></p>

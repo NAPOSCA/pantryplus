@@ -4,6 +4,8 @@ import javax.annotation.Resource;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+import org.wecancodeit.pantryplus.cart.Cart;
+import org.wecancodeit.pantryplus.cart.CartRepository;
 import org.wecancodeit.pantryplus.category.Category;
 import org.wecancodeit.pantryplus.category.CategoryRepository;
 import org.wecancodeit.pantryplus.product.CouponProduct;
@@ -14,6 +16,9 @@ import org.wecancodeit.pantryplus.product.ProductRepository;
 public class ProductPopulator implements CommandLineRunner {
 
 	@Resource
+	CartRepository cartRepo;
+
+	@Resource
 	CategoryRepository categoryRepo;
 
 	@Resource
@@ -22,6 +27,7 @@ public class ProductPopulator implements CommandLineRunner {
 	@SuppressWarnings("unused")
 	@Override
 	public void run(String... args) throws Exception {
+		Cart cart = cartRepo.save(new Cart());
 
 		Category personalHygiene = categoryRepo.save(new Category("Personal Hygiene"));
 		Product bathroomTissue = productRepo
