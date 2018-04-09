@@ -24,7 +24,7 @@ public class CartRestController {
 
 	@Resource
 	private CartRepository cartRepo;
-	
+
 	@Resource
 	private ProductRepository productRepo;
 

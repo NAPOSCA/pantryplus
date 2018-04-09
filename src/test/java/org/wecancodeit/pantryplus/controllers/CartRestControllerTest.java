@@ -27,10 +27,10 @@ public class CartRestControllerTest {
 
 	@Mock
 	private CartRepository cartRepo;
-	
+
 	@Mock
 	private ProductRepository productRepo;
-	
+
 	@Mock
 	private LineItemRepository lineItemRepo;
 
@@ -49,8 +49,6 @@ public class CartRestControllerTest {
 	@Mock
 	private Product product;
 	private long productId = 1L;
-
-	private long anotherProductId = 2L;
 
 	@Before
 	public void setup() {
@@ -109,7 +107,8 @@ public class CartRestControllerTest {
 	@Test
 	public void shouldAddCountedProductToCart() {
 		CountedLineItem check = new CountedLineItem(cart, product, 1);
-		CountedLineItem actual = (CountedLineItem) controller.tellLineItemRepoToSaveCountedLineItemBy(cartId, productId);
+		CountedLineItem actual = (CountedLineItem) controller.tellLineItemRepoToSaveCountedLineItemBy(cartId,
+				productId);
 		assertThat(actual, is(check));
 	}
 
@@ -127,22 +126,6 @@ public class CartRestControllerTest {
 		CountedLineItem check = new CountedLineItem(cart, product, 1);
 		LineItem actual = controller.receivePostOnCart(cartId, productId, dichotomous);
 		assertThat(actual, is(check));
-	}
-
-	@Ignore
-	@Test
-	public void shouldReceivePostRequestOnCartAndNotCreateCountedItemWhenCreatingDichotomous() {
-		boolean dichotomous = true;
-		controller.receivePostOnCart(cartId, productId, dichotomous);
-//		verify(cart, never()).addCountedItem(productId, product);
-	}
-
-	@Ignore
-	@Test
-	public void shouldReceivePostRequestOnCartAndNotCreateDichotomousItemWhenCreatingCounted() {
-		boolean dichotomous = false;
-		controller.receivePostOnCart(cartId, productId, dichotomous);
-//		verify(cart, never()).addItem(product);
 	}
 
 	@Test
