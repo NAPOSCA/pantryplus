@@ -4,8 +4,6 @@ import javax.annotation.Resource;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
-import org.wecancodeit.pantryplus.cart.Cart;
-import org.wecancodeit.pantryplus.cart.CartRepository;
 import org.wecancodeit.pantryplus.category.Category;
 import org.wecancodeit.pantryplus.category.CategoryRepository;
 import org.wecancodeit.pantryplus.product.CouponProduct;
@@ -16,9 +14,6 @@ import org.wecancodeit.pantryplus.product.ProductRepository;
 public class ProductPopulator implements CommandLineRunner {
 
 	@Resource
-	CartRepository cartRepo;
-
-	@Resource
 	CategoryRepository categoryRepo;
 
 	@Resource
@@ -27,14 +22,14 @@ public class ProductPopulator implements CommandLineRunner {
 	@SuppressWarnings("unused")
 	@Override
 	public void run(String... args) throws Exception {
-		Cart cart = cartRepo.save(new Cart());
 
 		Category personalHygiene = categoryRepo.save(new Category("Personal Hygiene"));
-		Product bathroomTissue = productRepo.save(new Product("Bathroom Tissue", personalHygiene, "/images/bathroom-tissue.png"));
-		
+		Product bathroomTissue = productRepo
+				.save(new Product("Bathroom Tissue", personalHygiene, "/images/bathroom-tissue.png"));
 
 		Category mealStarter = categoryRepo.save(new Category("Meal Starter"));
-		Product recipeOfTheDay = productRepo.save(new Product("Recipe of the Month", mealStarter, "/images/recipe.png"));
+		Product recipeOfTheDay = productRepo
+				.save(new Product("Recipe of the Month", mealStarter, "/images/recipe.png"));
 
 		Category dairy = categoryRepo.save(new Category("Dairy"));
 		Product milk = productRepo.save(new Product("Milk", dairy, "/images/milk.png"));
@@ -42,19 +37,19 @@ public class ProductPopulator implements CommandLineRunner {
 
 		Category produce = categoryRepo.save(new Category("Produce"));
 		Product apple = productRepo.save(new Product("Seasonal Vegetables", produce, "/images/produce.png"));
-		
+
 		Category bread = categoryRepo.save(new Category("Bakery Item"));
 		Product whiteBread = productRepo.save(new Product("Bread", bread, "/images/bread.png"));
-		
+
 		Category meat = categoryRepo.save(new Category("Meat"));
 		Product chicken = productRepo.save(new Product("Ground Chicken", meat, "/images/chicken.png"));
 		Product turkey = productRepo.save(new Product("Ground Turkey", meat, "/images/turkey.png"));
 		Product beef = productRepo.save(new Product("Ground Beef", meat, "/images/beef.png"));
-		
+
 		Category coupon = categoryRepo.save(new Category("Coupon"));
 		Product coupon1 = productRepo.save(new CouponProduct("This can is worth 2 points", coupon, 2));
 		Product coupon2 = productRepo.save(new CouponProduct("This can is worth 1 point", coupon, 1));
-		
+
 	}
 
 }
