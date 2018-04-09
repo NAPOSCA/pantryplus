@@ -66,4 +66,40 @@ public class Cart {
 		return 1;
 	}
 
+	public CountedLineItem increaseProductByOne(long productId) {
+		CountedLineItem countedLineItem = (CountedLineItem) getLineItemByProductId(productId);
+		countedLineItem.addQuantity(1);
+		return countedLineItem;
+	}
+
+	public CountedLineItem decreaseProductByOne(long productId) {
+		CountedLineItem countedLineItem = (CountedLineItem) getLineItemByProductId(productId);
+		countedLineItem.reduceQuantity(1);
+		return countedLineItem;
+	}
+
+	public CountedLineItem updateQuantityOfProduct(long productId, int quantity) {
+		CountedLineItem countedLineItem = (CountedLineItem) getLineItemByProductId(productId);
+		countedLineItem.setQuantity(quantity);
+		return countedLineItem;
+	}
+
+	public void removeItemByProductId(long productId) {
+		LineItem lineItem = getLineItemByProductId(productId);
+		lineItems.remove(lineItem);
+	}
+
+	public void removeAllItems() {
+		lineItems.removeIf((lineItem) -> {return true;});
+	}
+
+	public boolean has(long productId) {
+		for (LineItem lineItem : lineItems) {
+			if (lineItem.getProduct().getId() == productId) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 }

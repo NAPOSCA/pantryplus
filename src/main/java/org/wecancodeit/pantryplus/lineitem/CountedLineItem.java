@@ -62,4 +62,8 @@ public class CountedLineItem extends LineItem {
 		return true;
 	}
 
+	public void reduceQuantity(int quantityToReduceBy) {
+		quantity -= quantityToReduceBy;
+	}
+
 }

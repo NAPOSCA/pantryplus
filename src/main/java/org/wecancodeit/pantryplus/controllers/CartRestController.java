@@ -1,9 +1,14 @@
 package org.wecancodeit.pantryplus.controllers;
 
+import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
+import static org.springframework.web.bind.annotation.RequestMethod.PATCH;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
+import static org.springframework.web.bind.annotation.RequestMethod.PUT;
+
 import javax.annotation.Resource;
 
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.wecancodeit.pantryplus.cart.Cart;
@@ -18,49 +23,124 @@ import org.wecancodeit.pantryplus.product.ProductRepository;
 public class CartRestController {
 
 	@Resource
-	CartRepository cartRepo;
+	private CartRepository cartRepo;
 
 	@Resource
-	ProductRepository productRepo;
+	private ProductRepository productRepo;
 
 	@Resource
-	LineItemRepository lineItemRepo;
+	private LineItemRepository lineItemRepo;
 
-	@RequestMapping(path = "/cart/items", method = RequestMethod.POST)
-	public LineItem increaseQuantityOfProductInCart(@RequestParam(value = "productId") long id,
-			@RequestParam(value = "quantity") int quantity) {
-		Cart cart = cartRepo.findOne(1L);
-		LineItem lineItem = cart.getLineItemByProductId(id);
-		if (lineItem == null) {
-			Product product = productRepo.findOne(id);
-			lineItem = new CountedLineItem(cart, product, 0);
+	@RequestMapping(path = "/carts/{cartId}/items/{productId}", method = POST)
+	public LineItem receivePostOnCart(@PathVariable long cartId, @PathVariable long productId,
+			@RequestParam boolean dichotomous) {
+		cartId = 1L;
+		if (dichotomous) {
+			return tellLineItemRepoToSaveDichotomousLineItemBy(cartId, productId);
 		}
-		((CountedLineItem) lineItem).addQuantity(quantity);
-		lineItem = lineItemRepo.save(lineItem);
+		return tellLineItemRepoToSaveCountedLineItemBy(cartId, productId);
+	}
 
+	@RequestMapping(path = "/carts/{cartId}/items/{productId}", method = PUT)
+	public CountedLineItem receivePutRequestOnProductInCart(@PathVariable long cartId, @PathVariable long productId,
+			@RequestParam int quantity) {
+		cartId = 1L;
+		return tellCartToUpdateProductQuantity(cartId, productId, quantity);
+	}
+
+	@RequestMapping(path = "/carts/{cartId}/items/{productId}", method = PATCH)
+	public CountedLineItem receivePatchRequestOnProductInCart(@PathVariable long cartId, @PathVariable long productId,
+			@RequestParam boolean increase) {
+		cartId = 1L;
+		if (increase) {
+			return tellCartToIncreaseProductQuantityByOne(cartId, productId);
+		}
+		return tellCartToDecreaseProductQuantityByOne(cartId, productId);
+	}
+
+	@RequestMapping(path = "/carts/{cartId}/items/{productId}", method = DELETE)
+	public void receiveDeleteRequestOnProductInCart(@PathVariable long cartId, @PathVariable long productId) {
+		cartId = 1L;
+		tellCartToRemoveItem(cartId, productId);
+	}
+
+	@RequestMapping(path = "/carts/{cartId}/items", method = DELETE)
+	public void receiveDeleteRequestOnProductsInCart(@PathVariable long cartId) {
+		cartId = 1L;
+		tellCartToRemoveAllItems(cartId);
+	}
+
+	@RequestMapping(path = "/carts/{cartId}", method = DELETE)
+	public void receiveDeleteRequestOnCart(@PathVariable long cartId) {
+		cartId = 1L;
+		cartRepo.delete(cartId);
+	}
+
+	CountedLineItem tellCartToIncreaseProductQuantityByOne(long cartId, long productId) {
+		Cart cart = retrieveCartBy(cartId);
+		if (cart.has(productId)) {
+			CountedLineItem countedLineItem = cart.increaseProductByOne(productId);
+			return lineItemRepo.save(countedLineItem);
+		}
+		return tellLineItemRepoToSaveCountedLineItemBy(cartId, productId);
+	}
+
+	CountedLineItem tellCartToDecreaseProductQuantityByOne(long cartId, long productId) {
+		Cart cart = retrieveCartBy(cartId);
+		if (cart.has(productId)) {
+			CountedLineItem countedLineItem = cart.decreaseProductByOne(productId);
+			return lineItemRepo.save(countedLineItem);
+		}
+		return null;
+	}
+
+	Cart tellCartToRemoveItem(long cartId, long productId) {
+		Cart cart = retrieveCartBy(cartId);
+		cart.removeItemByProductId(productId);
+		return cart;
+	}
+
+	LineItem tellLineItemRepoToSaveDichotomousLineItemBy(long cartId, long productId) {
+		Cart cart = retrieveCartBy(cartId);
+		Product product = retrieveProductBy(productId);
+		LineItem lineItem = new LineItem(cart, product);
+		lineItemRepo.save(lineItem);
 		return lineItem;
 	}
 
-	@RequestMapping(path = "/cart/items", method = RequestMethod.PUT)
-	public LineItem updateQuantityOfProductInCart(@RequestParam(value = "productId") long id,
-			@RequestParam(value = "quantity") int quantity) {
-		Cart cart = cartRepo.findOne(1L);
-		LineItem lineItem = cart.getLineItemByProductId(id);
-		if (lineItem == null) {
-			Product product = productRepo.findOne(id);
-			lineItem = new CountedLineItem(cart, product, quantity);
-		} else {
-			((CountedLineItem) lineItem).setQuantity(quantity);
-		}
-		lineItem = lineItemRepo.save(lineItem);
-
-		return lineItem;
+	CountedLineItem tellLineItemRepoToSaveCountedLineItemBy(long cartId, long productId) {
+		return tellLineItemRepoToSaveCountedLineItemBy(cartId, productId, 1);
 	}
 
-	@RequestMapping(path = "/cart/items", method = RequestMethod.DELETE)
-	public Cart deleteItemFromCart(@RequestParam(value = "lineItemId") long lineItemId) {
-		lineItemRepo.delete(lineItemId);
-		return cartRepo.findOne(1L);
+	private CountedLineItem tellLineItemRepoToSaveCountedLineItemBy(long cartId, long productId, int quantity) {
+		Cart cart = retrieveCartBy(cartId);
+		Product product = retrieveProductBy(productId);
+		CountedLineItem countedLineItem = new CountedLineItem(cart, product, quantity);
+		lineItemRepo.save(countedLineItem);
+		return countedLineItem;
+
+	}
+
+	private CountedLineItem tellCartToUpdateProductQuantity(long cartId, long productId, int quantity) {
+		Cart cart = retrieveCartBy(cartId);
+		if (cart.has(productId)) {
+			return cart.updateQuantityOfProduct(productId, quantity);
+		}
+		return tellLineItemRepoToSaveCountedLineItemBy(cartId, productId, quantity);
+	}
+
+	private void tellCartToRemoveAllItems(long cartId) {
+		Cart cart = retrieveCartBy(cartId);
+		cart.removeAllItems();
+	}
+
+	private Cart retrieveCartBy(long cartId) {
+		return cartRepo.findOne(cartId);
+	}
+
+	private Product retrieveProductBy(long productId) {
+		Product product = productRepo.findOne(productId);
+		return product;
 	}
 
 }
