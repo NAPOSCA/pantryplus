@@ -58,6 +58,7 @@ public class CartRestControllerTest {
 		when(lineItemRepo.findOne(countedLineItemId)).thenReturn(countedLineItem);
 		when(lineItemRepo.findOne(lineItemId)).thenReturn(lineItem);
 		when(lineItem.getId()).thenReturn(lineItemId);
+		when(lineItemRepo.save(countedLineItem)).thenReturn(countedLineItem);
 	}
 
 	@Test
