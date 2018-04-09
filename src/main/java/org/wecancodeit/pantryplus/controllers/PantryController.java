@@ -30,8 +30,10 @@ public class PantryController {
 	}
 
 	@RequestMapping("/user-form")
-	public String userFormProcessing(Model model, int familySize, int schoolkidsCount, boolean infants, String pickUpDate, String zipCode) {
-		User user = userRepo.save(new User(familySize, schoolkidsCount, infants, pickUpDate, zipCode));
+	public String userFormProcessing(@RequestParam int familySize, @RequestParam int schoolkidsCount, @RequestParam boolean infants,
+			@RequestParam String pickUpDate, @RequestParam String zipCode) {
+		User user = new User(familySize, schoolkidsCount, infants, pickUpDate, zipCode);
+		user = userRepo.save(user);
 		Cart cart = cartRepo.save(new Cart(user));
 		long cartId = cart.getId();
 		return "redirect:/shopping?cartId=" + cartId;
@@ -41,7 +43,6 @@ public class PantryController {
 	public String displayShopping(Model model, @RequestParam long cartId) {
 		model.addAttribute("categories", categoryRepo.findAll());
 		model.addAttribute("cart", cartRepo.findOne(cartId));
-		// model.addAttribute("user", userRepo.findOne(1L));
 		return "shopping";
 	}
 
