@@ -99,33 +99,34 @@ public class CartRestControllerTest {
 		assertThat(actual, is(cart));
 	}
 
-	@Ignore
 	@Test
 	public void shouldAddProductToCart() {
-		controller.tellLineItemRepoToSaveDichotomousLineItemBy(cartId, productId);
+		LineItem check = new LineItem(cart, product);
+		LineItem actual = controller.tellLineItemRepoToSaveDichotomousLineItemBy(cartId, productId);
+		assertThat(actual, is(check));
 	}
 
-	@Ignore
 	@Test
 	public void shouldAddCountedProductToCart() {
-		controller.tellLineItemRepoToSaveCountedLineItemBy(cartId, productId);
-//		verify(cart).addCountedItem(productId, product);
+		CountedLineItem check = new CountedLineItem(cart, product, 1);
+		CountedLineItem actual = (CountedLineItem) controller.tellLineItemRepoToSaveCountedLineItemBy(cartId, productId);
+		assertThat(actual, is(check));
 	}
 
-	@Ignore
 	@Test
 	public void shouldReceivePostRequestOnCartAndTellCartToCreateDichotomousLineItem() {
 		boolean dichotomous = true;
-		controller.receivePostOnCart(cartId, productId, dichotomous);
-//		verify(cart).addItem(product);
+		LineItem check = new LineItem(cart, product);
+		LineItem actual = controller.receivePostOnCart(cartId, productId, dichotomous);
+		assertThat(actual, is(check));
 	}
 
-	@Ignore
 	@Test
 	public void shouldReceivePostRequestOnCartAndTellCartToCreateCountedLineItem() {
 		boolean dichotomous = false;
-		controller.receivePostOnCart(cartId, productId, dichotomous);
-//		verify(cart).addCountedItem(productId, product);
+		CountedLineItem check = new CountedLineItem(cart, product, 1);
+		LineItem actual = controller.receivePostOnCart(cartId, productId, dichotomous);
+		assertThat(actual, is(check));
 	}
 
 	@Ignore
@@ -142,22 +143,6 @@ public class CartRestControllerTest {
 		boolean dichotomous = false;
 		controller.receivePostOnCart(cartId, productId, dichotomous);
 //		verify(cart, never()).addItem(product);
-	}
-
-	@Ignore
-	@Test
-	public void shouldReturnLineItemWhenReceivingAPostRequest() {
-		boolean dichotomous = true;
-		LineItem actual = controller.receivePostOnCart(cartId, anotherProductId, dichotomous);
-		assertThat(actual, is(lineItem));
-	}
-
-	@Ignore
-	@Test
-	public void shouldReturnCountedLineItemWhenReceivingAPostRequest() {
-		boolean dichotomous = false;
-		LineItem actual = controller.receivePostOnCart(cartId, productId, dichotomous);
-		assertThat(actual, is(countedLineItem));
 	}
 
 	@Test

@@ -92,14 +92,16 @@ public class CartRestController {
 		Cart cart = retrieveCartBy(cartId);
 		Product product = retrieveProductBy(productId);
 		LineItem lineItem = new LineItem(cart, product);
-		return lineItemRepo.save(lineItem);
+		lineItemRepo.save(lineItem);
+		return lineItem;
 	}
 
-	LineItem tellLineItemRepoToSaveCountedLineItemBy(long cartId, long productId) {
+	CountedLineItem tellLineItemRepoToSaveCountedLineItemBy(long cartId, long productId) {
 		Cart cart = retrieveCartBy(cartId);
 		Product product = retrieveProductBy(productId);
 		CountedLineItem countedLineItem = new CountedLineItem(cart, product, 1);
-		return lineItemRepo.save(countedLineItem);
+		lineItemRepo.save(countedLineItem);
+		return countedLineItem;
 	}
 
 	private void tellCartToUpdateProductQuantity(long cartId, long productId, int quantity) {
