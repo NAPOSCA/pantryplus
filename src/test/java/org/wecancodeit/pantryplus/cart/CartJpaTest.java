@@ -217,5 +217,21 @@ public class CartJpaTest {
 		int actual = cart.decreaseProductByOne(productId).getQuantity();
 		assertThat(actual, is(check - 1));
 	}
+	
+	@Test
+	public void shouldUpdateQuantityOfProduct() {
+		cart = cartRepo.save(cart);
+		long cartId = cart.getId();
+		product = productRepo.save(product);
+		long productId = product.getId();
+		countedLineItem = lineItemRepo.save(countedLineItem);
+		entityManager.flush();
+		entityManager.clear();
+		cart = cartRepo.findOne(cartId);
+		int check = 5;
+		cart.updateQuantityOfProduct(productId, check);
+		int actual = cart.getLineItemQuantityByProductId(productId);
+		assertThat(actual, is(check));
+	}
 
 }

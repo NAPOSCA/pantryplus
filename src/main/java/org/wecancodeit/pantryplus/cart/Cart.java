@@ -87,7 +87,8 @@ public class Cart {
 	}
 
 	public void updateQuantityOfProduct(long productId, int quantity) {
-		
+		CountedLineItem countedLineItem = (CountedLineItem) getLineItemByProductId(productId);
+		countedLineItem.setQuantity(quantity);
 	}
 
 	public void removeItemByProductId(long productId) {
