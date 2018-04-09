@@ -73,7 +73,9 @@ public class Cart {
 	}
 
 	public CountedLineItem decreaseProductByOne(long productId) {
-		return null;
+		CountedLineItem countedLineItem = (CountedLineItem) getLineItemByProductId(productId);
+		countedLineItem.reduceQuantity(1);
+		return countedLineItem;
 	}
 
 	public LineItem addItem(long productId) {
