@@ -41,6 +41,7 @@ public class CartJpaTest {
 	private Product product;
 	private long productId;
 	private Product anotherProduct;
+	private long anotherProductId;
 	private LineItem lineItem;
 	private LineItem anotherLineItem;
 	private CountedLineItem countedLineItem;
@@ -61,6 +62,7 @@ public class CartJpaTest {
 		product = productRepo.save(product);
 		productId = product.getId();
 		anotherProduct = productRepo.save(anotherProduct);
+		anotherProductId = anotherProduct.getId();
 	}
 
 	@Test
@@ -206,6 +208,20 @@ public class CartJpaTest {
 		cart.removeItemByProductId(productId);
 		LineItem actual = cart.getLineItemByProductId(productId);
 		assertThat(actual, is(nullValue()));
+	}
+	
+	@Test
+	public void shouldNotFindAnyLineItemsIfAllAreRemoved() {
+		lineItem = lineItemRepo.save(lineItem);
+		anotherLineItem = lineItemRepo.save(anotherLineItem);
+		entityManager.flush();
+		entityManager.clear();
+		cart = cartRepo.findOne(cartId);
+		cart.removeAllItems();
+		lineItem = cart.getLineItemByProductId(productId);
+		anotherLineItem = cart.getLineItemByProductId(anotherProductId);
+		assertThat(lineItem, is(nullValue()));
+		assertThat(anotherLineItem, is(nullValue()));
 	}
 
 }
