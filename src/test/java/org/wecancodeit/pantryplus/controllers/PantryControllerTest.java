@@ -16,7 +16,6 @@ import org.wecancodeit.pantryplus.cart.Cart;
 import org.wecancodeit.pantryplus.cart.CartRepository;
 import org.wecancodeit.pantryplus.category.Category;
 import org.wecancodeit.pantryplus.category.CategoryRepository;
-import org.wecancodeit.pantryplus.controllers.PantryController;
 import org.wecancodeit.pantryplus.user.User;
 import org.wecancodeit.pantryplus.user.UserRepository;
 
@@ -29,12 +28,6 @@ public class PantryControllerTest {
 	private Model model;
 
 	@Mock
-	private Category category;
-
-	@Mock
-	private Category anotherCategory;
-
-	@Mock
 	private CategoryRepository categoryRepo;
 
 	@Mock
@@ -42,6 +35,12 @@ public class PantryControllerTest {
 
 	@Mock
 	private UserRepository userRepo;
+
+	@Mock
+	private Category category;
+
+	@Mock
+	private Category anotherCategory;
 
 	@Mock
 	private Cart cart;
@@ -62,7 +61,8 @@ public class PantryControllerTest {
 
 	@Test
 	public void shouldHaveDisplayShoppingReturnShopping() {
-		String templateName = underTest.displayShopping(model);
+		long cartId = 1L;
+		String templateName = underTest.displayShopping(model, cartId);
 		assertThat(templateName, is("shopping"));
 	}
 
@@ -78,13 +78,13 @@ public class PantryControllerTest {
 		when(categoryRepo.findAll()).thenReturn(categories);
 		long cartId = 1L;
 		when(cartRepo.findOne(cartId)).thenReturn(cart);
-		long userId = 1L;
-		when(userRepo.findOne(userId)).thenReturn(user);
+		// long userId = 1L;
+		// when(userRepo.findOne(userId)).thenReturn(user);
 
-		underTest.displayShopping(model);
+		underTest.displayShopping(model, cartId);
 
 		verify(model).addAttribute("categories", categories);
 		verify(model).addAttribute("cart", cart);
-		verify(model).addAttribute("user", user);
+		// verify(model).addAttribute("user", user);
 	}
 }
