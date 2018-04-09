@@ -2,6 +2,7 @@ package org.wecancodeit.pantryplus.cart;
 
 import java.util.Set;
 
+import javax.annotation.Resource;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -9,6 +10,8 @@ import javax.persistence.OneToMany;
 
 import org.wecancodeit.pantryplus.lineitem.CountedLineItem;
 import org.wecancodeit.pantryplus.lineitem.LineItem;
+import org.wecancodeit.pantryplus.lineitem.LineItemRepository;
+import org.wecancodeit.pantryplus.product.Product;
 
 @Entity
 public class Cart {
@@ -19,6 +22,9 @@ public class Cart {
 
 	@OneToMany(mappedBy = "cart")
 	Set<LineItem> lineItems;
+
+	@Resource
+	private LineItemRepository lineItemRepo;
 
 	public Cart() {
 	}
@@ -78,12 +84,14 @@ public class Cart {
 		return countedLineItem;
 	}
 
-	public LineItem addItem(long productId) {
-		return null;
+	public LineItem addItem(Product product) {
+		LineItem lineItem = new LineItem(this, product);
+		return lineItemRepo.save(lineItem);
 	}
 
-	public LineItem addCountedItem(long productId) {
-		return null;
+	public LineItem addCountedItem(long productId, Product product) {
+		CountedLineItem countedLineItem = new CountedLineItem(this, product, 1);
+		return lineItemRepo.save(countedLineItem);
 	}
 
 	public void updateQuantityOfProduct(long productId, int quantity) {
@@ -92,9 +100,12 @@ public class Cart {
 	}
 
 	public void removeItemByProductId(long productId) {
+		LineItem lineItem = getLineItemByProductId(productId);
+		lineItems.remove(lineItem);
 	}
 
 	public void removeAllItems() {
+		lineItems.removeIf((lineItem) -> {return true;});
 	}
 
 }

@@ -15,6 +15,7 @@ import org.wecancodeit.pantryplus.cart.Cart;
 import org.wecancodeit.pantryplus.cart.CartRepository;
 import org.wecancodeit.pantryplus.lineitem.CountedLineItem;
 import org.wecancodeit.pantryplus.lineitem.LineItem;
+import org.wecancodeit.pantryplus.product.Product;
 
 public class CartRestControllerTest {
 
@@ -34,6 +35,8 @@ public class CartRestControllerTest {
 	@Mock
 	private LineItem lineItem;
 
+	@Mock
+	private Product product;
 	private long productId = 1L;
 
 	private long anotherProductId = 2L;
@@ -44,8 +47,8 @@ public class CartRestControllerTest {
 		when(cartRepo.findOne(cartId)).thenReturn(cart);
 		when(cart.increaseProductByOne(productId)).thenReturn(countedLineItem);
 		when(cart.decreaseProductByOne(productId)).thenReturn(countedLineItem);
-		when(cart.addItem(anotherProductId)).thenReturn(lineItem);
-		when(cart.addCountedItem(productId)).thenReturn(countedLineItem);
+		when(cart.addItem(product)).thenReturn(lineItem);
+		when(cart.addCountedItem(productId, product)).thenReturn(countedLineItem);
 	}
 
 	@Test
@@ -87,41 +90,41 @@ public class CartRestControllerTest {
 	@Test
 	public void shouldAddProductToCart() {
 		controller.tellCartToAddDichotomousProduct(cartId, productId);
-		verify(cart).addItem(productId);
+		verify(cart).addItem(product);
 	}
 
 	@Test
 	public void shouldAddCountedProductToCart() {
 		controller.tellCartToAddCountedProduct(cartId, productId);
-		verify(cart).addCountedItem(productId);
+		verify(cart).addCountedItem(productId, product);
 	}
 
 	@Test
 	public void shouldReceivePostRequestOnCartAndTellCartToCreateDichotomousLineItem() {
 		boolean dichotomous = true;
 		controller.receivePostOnCart(cartId, productId, dichotomous);
-		verify(cart).addItem(productId);
+		verify(cart).addItem(product);
 	}
 
 	@Test
 	public void shouldReceivePostRequestOnCartAndTellCartToCreateCountedLineItem() {
 		boolean dichotomous = false;
 		controller.receivePostOnCart(cartId, productId, dichotomous);
-		verify(cart).addCountedItem(productId);
+		verify(cart).addCountedItem(productId, product);
 	}
 
 	@Test
 	public void shouldReceivePostRequestOnCartAndNotCreateCountedItemWhenCreatingDichotomous() {
 		boolean dichotomous = true;
 		controller.receivePostOnCart(cartId, productId, dichotomous);
-		verify(cart, never()).addCountedItem(productId);
+		verify(cart, never()).addCountedItem(productId, product);
 	}
 
 	@Test
 	public void shouldReceivePostRequestOnCartAndNotCreateDichotomousItemWhenCreatingCounted() {
 		boolean dichotomous = false;
 		controller.receivePostOnCart(cartId, productId, dichotomous);
-		verify(cart, never()).addItem(productId);
+		verify(cart, never()).addItem(product);
 	}
 
 	@Test

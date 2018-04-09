@@ -15,12 +15,17 @@ import org.wecancodeit.pantryplus.cart.Cart;
 import org.wecancodeit.pantryplus.cart.CartRepository;
 import org.wecancodeit.pantryplus.lineitem.CountedLineItem;
 import org.wecancodeit.pantryplus.lineitem.LineItem;
+import org.wecancodeit.pantryplus.product.Product;
+import org.wecancodeit.pantryplus.product.ProductRepository;
 
 @RestController
 public class CartRestController {
 
 	@Resource
 	private CartRepository cartRepo;
+	
+	@Resource
+	private ProductRepository productRepo;
 
 	@RequestMapping(path = "/carts/{cartId}/items/{productId}", method = POST)
 	public LineItem receivePostOnCart(@PathVariable long cartId, @PathVariable long productId,
@@ -81,12 +86,14 @@ public class CartRestController {
 
 	LineItem tellCartToAddDichotomousProduct(long cartId, long productId) {
 		Cart cart = retrieveCartBy(cartId);
-		return cart.addItem(productId);
+		Product product = retrieveProductBy(productId);
+		return cart.addItem(product);
 	}
 
 	LineItem tellCartToAddCountedProduct(long cartId, long productId) {
 		Cart cart = retrieveCartBy(cartId);
-		return cart.addCountedItem(productId);
+		Product product = retrieveProductBy(productId);
+		return cart.addCountedItem(productId, product);
 	}
 
 	private void tellCartToUpdateProductQuantity(long cartId, long productId, int quantity) {
@@ -101,6 +108,11 @@ public class CartRestController {
 
 	private Cart retrieveCartBy(long cartId) {
 		return cartRepo.findOne(cartId);
+	}
+
+	private Product retrieveProductBy(long productId) {
+		Product product = productRepo.findOne(productId);
+		return product;
 	}
 
 }
