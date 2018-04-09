@@ -1,7 +1,15 @@
 package org.wecancodeit.pantryplus.controllers;
 
+import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
+import static org.springframework.web.bind.annotation.RequestMethod.PATCH;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
+import static org.springframework.web.bind.annotation.RequestMethod.PUT;
+
 import javax.annotation.Resource;
 
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.wecancodeit.pantryplus.cart.Cart;
 import org.wecancodeit.pantryplus.cart.CartRepository;
@@ -14,7 +22,9 @@ public class CartRestController {
 	@Resource
 	private CartRepository cartRepo;
 
-	public LineItem receivePostOnCart(long cartId, long productId, boolean dichotomous) {
+	@RequestMapping(path = "/carts/{cartId}/items/{productId}", method = POST)
+	public LineItem receivePostOnCart(@PathVariable long cartId, @PathVariable long productId,
+			@RequestParam boolean dichotomous) {
 		if (dichotomous) {
 			return tellCartToAddDichotomousProduct(cartId, productId);
 		} else {
@@ -22,11 +32,15 @@ public class CartRestController {
 		}
 	}
 
-	public void receivePutRequestOnProductInCart(long cartId, long productId, int quantity) {
+	@RequestMapping(path = "/carts/{cartId}/items/{productId}", method = PUT)
+	public void receivePutRequestOnProductInCart(@PathVariable long cartId, @PathVariable long productId,
+			@RequestParam int quantity) {
 		tellCartToUpdateProductQuantity(cartId, productId, quantity);
 	}
 
-	public void receivePatchRequestOnProductInCart(long cartId, long productId, boolean increase) {
+	@RequestMapping(path = "/carts/{cartId}/items/{productId}", method = PATCH)
+	public void receivePatchRequestOnProductInCart(@PathVariable long cartId, @PathVariable long productId,
+			@RequestParam boolean increase) {
 		if (increase) {
 			tellCartToIncreaseProductQuantityByOne(cartId, productId);
 		} else {
@@ -34,15 +48,18 @@ public class CartRestController {
 		}
 	}
 
-	public void receiveDeleteRequestOnProductInCart(long cartId, long productId) {
+	@RequestMapping(path = "/carts/{cartId}/items/{productId}", method = DELETE)
+	public void receiveDeleteRequestOnProductInCart(@PathVariable long cartId, @PathVariable long productId) {
 		tellCartToRemoveItem(cartId, productId);
 	}
 
-	public void receiveDeleteRequestOnProductsInCart(long cartId) {
+	@RequestMapping(path = "/carts/{cartId}/items", method = DELETE)
+	public void receiveDeleteRequestOnProductsInCart(@PathVariable long cartId) {
 		tellCartToRemoveAllItems(cartId);
 	}
 
-	public void receiveDeleteRequestOnCart(long cartId) {
+	@RequestMapping(path = "/carts/{cartId}", method = DELETE)
+	public void receiveDeleteRequestOnCart(@PathVariable long cartId) {
 		cartRepo.delete(cartId);
 	}
 
