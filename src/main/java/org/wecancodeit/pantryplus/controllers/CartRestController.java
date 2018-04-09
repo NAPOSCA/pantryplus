@@ -15,6 +15,7 @@ import org.wecancodeit.pantryplus.cart.Cart;
 import org.wecancodeit.pantryplus.cart.CartRepository;
 import org.wecancodeit.pantryplus.lineitem.CountedLineItem;
 import org.wecancodeit.pantryplus.lineitem.LineItem;
+import org.wecancodeit.pantryplus.lineitem.LineItemRepository;
 import org.wecancodeit.pantryplus.product.Product;
 import org.wecancodeit.pantryplus.product.ProductRepository;
 
@@ -27,13 +28,16 @@ public class CartRestController {
 	@Resource
 	private ProductRepository productRepo;
 
+	@Resource
+	private LineItemRepository lineItemRepo;
+
 	@RequestMapping(path = "/carts/{cartId}/items/{productId}", method = POST)
 	public LineItem receivePostOnCart(@PathVariable long cartId, @PathVariable long productId,
 			@RequestParam boolean dichotomous) {
 		if (dichotomous) {
-			return tellCartToAddDichotomousProduct(cartId, productId);
+			return tellLineItemRepoToSaveDichotomousLineItemBy(cartId, productId);
 		} else {
-			return tellCartToAddCountedProduct(cartId, productId);
+			return tellLineItemRepoToSaveCountedLineItemBy(cartId, productId);
 		}
 	}
 
@@ -84,16 +88,18 @@ public class CartRestController {
 		return cart;
 	}
 
-	LineItem tellCartToAddDichotomousProduct(long cartId, long productId) {
+	LineItem tellLineItemRepoToSaveDichotomousLineItemBy(long cartId, long productId) {
 		Cart cart = retrieveCartBy(cartId);
 		Product product = retrieveProductBy(productId);
-		return cart.addItem(product);
+		LineItem lineItem = new LineItem(cart, product);
+		return lineItemRepo.save(lineItem);
 	}
 
-	LineItem tellCartToAddCountedProduct(long cartId, long productId) {
+	LineItem tellLineItemRepoToSaveCountedLineItemBy(long cartId, long productId) {
 		Cart cart = retrieveCartBy(cartId);
 		Product product = retrieveProductBy(productId);
-		return cart.addCountedItem(productId, product);
+		CountedLineItem countedLineItem = new CountedLineItem(cart, product, 1);
+		return lineItemRepo.save(countedLineItem);
 	}
 
 	private void tellCartToUpdateProductQuantity(long cartId, long productId, int quantity) {
