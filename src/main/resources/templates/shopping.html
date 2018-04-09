@@ -26,6 +26,14 @@
 			<div th:each="category : ${categories}" class="category-items">
 				<section class="category">
 					<h2 th:text="${category.name}"/>
+					<p th:if="${category.name == 'Meat'}">
+						<span>Available lbs of Meat: </span>
+						<span th:text="${cart.getUser().calculateMeatTotal()}"/>
+					</p>
+					<p th:if="${category.name == 'Coupon'}">
+						<span>Available points of Coupons: </span>
+						<span th:text="${cart.getUser().calculateCouponTotal()}" th:if="${category.name == 'Coupon'}"/>
+					</p>
 				</section>
 				<ul class="items hidden">
 					<li class="item" th:each="product : ${category.products}">
