@@ -16,7 +16,6 @@ import org.wecancodeit.pantryplus.cart.Cart;
 import org.wecancodeit.pantryplus.cart.CartRepository;
 import org.wecancodeit.pantryplus.category.Category;
 import org.wecancodeit.pantryplus.category.CategoryRepository;
-import org.wecancodeit.pantryplus.controllers.PantryController;
 import org.wecancodeit.pantryplus.user.User;
 import org.wecancodeit.pantryplus.user.UserRepository;
 
@@ -29,12 +28,6 @@ public class PantryControllerTest {
 	private Model model;
 
 	@Mock
-	private Category category;
-
-	@Mock
-	private Category anotherCategory;
-
-	@Mock
 	private CategoryRepository categoryRepo;
 
 	@Mock
@@ -42,6 +35,12 @@ public class PantryControllerTest {
 
 	@Mock
 	private UserRepository userRepo;
+
+	@Mock
+	private Category category;
+
+	@Mock
+	private Category anotherCategory;
 
 	@Mock
 	private Cart cart;

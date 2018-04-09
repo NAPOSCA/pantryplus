@@ -27,7 +27,7 @@ public class PantryController {
 	}
 
 	@RequestMapping("/user-form")
-	public String userFormProcessing(Model model) {
+	public String userFormProcessing(Model model) { // , int familySize, int schoolkidsCount, boolean infants) {
 		return "redirect:/shopping";
 	}
 
