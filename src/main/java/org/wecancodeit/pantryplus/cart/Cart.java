@@ -24,6 +24,10 @@ public class Cart {
 
 	@OneToMany(mappedBy = "cart")
 	Set<LineItem> lineItems;
+	
+	public User getUser() {
+		return user;
+	}
 
 	public Cart() {
 	}
