@@ -78,13 +78,9 @@ public class PantryControllerTest {
 		when(categoryRepo.findAll()).thenReturn(categories);
 		long cartId = 1L;
 		when(cartRepo.findOne(cartId)).thenReturn(cart);
-		// long userId = 1L;
-		// when(userRepo.findOne(userId)).thenReturn(user);
-
 		underTest.displayShopping(model, cartId);
-
 		verify(model).addAttribute("categories", categories);
 		verify(model).addAttribute("cart", cart);
-		// verify(model).addAttribute("user", user);
 	}
+	
 }
