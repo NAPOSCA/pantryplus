@@ -79,7 +79,8 @@ public class CartRestController {
 	CountedLineItem tellCartToIncreaseProductQuantityByOne(long cartId, long productId) {
 		Cart cart = retrieveCartBy(cartId);
 		if (cart.has(productId)) {
-			return cart.increaseProductByOne(productId);
+			CountedLineItem countedLineItem = cart.increaseProductByOne(productId);
+			return lineItemRepo.save(countedLineItem);
 		}
 		return tellLineItemRepoToSaveCountedLineItemBy(cartId, productId);
 	}
@@ -87,7 +88,8 @@ public class CartRestController {
 	CountedLineItem tellCartToDecreaseProductQuantityByOne(long cartId, long productId) {
 		Cart cart = retrieveCartBy(cartId);
 		if (cart.has(productId)) {
-			return cart.decreaseProductByOne(productId);
+			CountedLineItem countedLineItem = cart.decreaseProductByOne(productId);
+			return lineItemRepo.save(countedLineItem);
 		}
 		return null;
 	}
