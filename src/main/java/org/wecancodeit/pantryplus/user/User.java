@@ -1,10 +1,14 @@
 package org.wecancodeit.pantryplus.user;
 
 import java.time.ZonedDateTime;
+import java.util.Collection;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+import org.wecancodeit.pantryplus.cart.Cart;
 
 @Entity
 public class User {
@@ -12,17 +16,21 @@ public class User {
 	@Id
 	@GeneratedValue
 	private long id;
+
+	@OneToMany(mappedBy = "user")
+	private Collection<Cart> carts;
+
 	private int familySize;
 	private int schoolAgeChildren;
 	private boolean hasInfants;
 	private ZonedDateTime pickupDateTime;
-	private int zipCode;
+	private String zipCode;
 
 	@SuppressWarnings("unused")
 	private User() {
 	}
 
-	public User(int familySize, int schoolAgeChildren, boolean hasInfants, String pickupDateString, int zipCode) {
+	public User(int familySize, int schoolAgeChildren, boolean hasInfants, String pickupDateString, String zipCode) {
 		this.familySize = familySize;
 		this.schoolAgeChildren = schoolAgeChildren;
 		this.hasInfants = hasInfants;
@@ -32,6 +40,10 @@ public class User {
 
 	public long getId() {
 		return id;
+	}
+
+	public Collection<Cart> getCarts() {
+		return carts;
 	}
 
 	public boolean getHasInfants() {
@@ -79,7 +91,7 @@ public class User {
 		return schoolAgeChildren;
 	}
 
-	public int getZipCode() {
+	public String getZipCode() {
 		return zipCode;
 	}
 
