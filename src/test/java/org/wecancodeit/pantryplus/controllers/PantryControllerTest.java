@@ -61,7 +61,8 @@ public class PantryControllerTest {
 
 	@Test
 	public void shouldHaveDisplayShoppingReturnShopping() {
-		String templateName = underTest.displayShopping(model);
+		long cartId = 1L;
+		String templateName = underTest.displayShopping(model, cartId);
 		assertThat(templateName, is("shopping"));
 	}
 
@@ -77,13 +78,13 @@ public class PantryControllerTest {
 		when(categoryRepo.findAll()).thenReturn(categories);
 		long cartId = 1L;
 		when(cartRepo.findOne(cartId)).thenReturn(cart);
-		long userId = 1L;
-		when(userRepo.findOne(userId)).thenReturn(user);
+		// long userId = 1L;
+		// when(userRepo.findOne(userId)).thenReturn(user);
 
-		underTest.displayShopping(model);
+		underTest.displayShopping(model, cartId);
 
 		verify(model).addAttribute("categories", categories);
 		verify(model).addAttribute("cart", cart);
-		verify(model).addAttribute("user", user);
+		// verify(model).addAttribute("user", user);
 	}
 }
