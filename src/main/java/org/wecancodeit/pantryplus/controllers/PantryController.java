@@ -6,8 +6,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.wecancodeit.pantryplus.cart.Cart;
 import org.wecancodeit.pantryplus.cart.CartRepository;
 import org.wecancodeit.pantryplus.category.CategoryRepository;
+import org.wecancodeit.pantryplus.user.User;
 import org.wecancodeit.pantryplus.user.UserRepository;
 
 @Controller
@@ -28,9 +30,11 @@ public class PantryController {
 	}
 
 	@RequestMapping("/user-form")
-	public String userFormProcessing(Model model) { // , int familySize, int schoolkidsCount, boolean infants) {
-
-		return "redirect:/shopping?cartId=1";
+	public String userFormProcessing(Model model, int familySize, int schoolkidsCount, boolean infants, String pickUpDate, String zipCode) {
+		User user = userRepo.save(new User(familySize, schoolkidsCount, infants, pickUpDate, zipCode));
+		Cart cart = cartRepo.save(new Cart(user));
+		long cartId = cart.getId();
+		return "redirect:/shopping?cartId=" + cartId;
 	}
 
 	@RequestMapping("/shopping")

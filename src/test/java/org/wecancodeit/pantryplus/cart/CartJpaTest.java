@@ -57,7 +57,7 @@ public class CartJpaTest {
 
 	@Before
 	public void setUp() {
-		user = new User(3, 1, false, "2018-04-09", 43201);
+		user = new User(3, 1, false, "2018-04-09", "43201");
 		cart = new Cart(user);
 		anotherCart = new Cart(user);
 		product = new Product("grapefruit", null);

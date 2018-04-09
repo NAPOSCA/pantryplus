@@ -24,13 +24,13 @@ public class User {
 	private int schoolAgeChildren;
 	private boolean hasInfants;
 	private ZonedDateTime pickupDateTime;
-	private int zipCode;
+	private String zipCode;
 
 	@SuppressWarnings("unused")
 	private User() {
 	}
 
-	public User(int familySize, int schoolAgeChildren, boolean hasInfants, String pickupDateString, int zipCode) {
+	public User(int familySize, int schoolAgeChildren, boolean hasInfants, String pickupDateString, String zipCode) {
 		this.familySize = familySize;
 		this.schoolAgeChildren = schoolAgeChildren;
 		this.hasInfants = hasInfants;
@@ -91,7 +91,7 @@ public class User {
 		return schoolAgeChildren;
 	}
 
-	public int getZipCode() {
+	public String getZipCode() {
 		return zipCode;
 	}
 
