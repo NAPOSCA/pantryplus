@@ -34,6 +34,7 @@ public class CartRestController {
 	@RequestMapping(path = "/carts/{cartId}/items/{productId}", method = POST)
 	public LineItem receivePostOnCart(@PathVariable long cartId, @PathVariable long productId,
 			@RequestParam boolean dichotomous) {
+		cartId = 1L;
 		if (dichotomous) {
 			return tellLineItemRepoToSaveDichotomousLineItemBy(cartId, productId);
 		} else {
@@ -44,12 +45,14 @@ public class CartRestController {
 	@RequestMapping(path = "/carts/{cartId}/items/{productId}", method = PUT)
 	public void receivePutRequestOnProductInCart(@PathVariable long cartId, @PathVariable long productId,
 			@RequestParam int quantity) {
+		cartId = 1L;
 		tellCartToUpdateProductQuantity(cartId, productId, quantity);
 	}
 
 	@RequestMapping(path = "/carts/{cartId}/items/{productId}", method = PATCH)
 	public void receivePatchRequestOnProductInCart(@PathVariable long cartId, @PathVariable long productId,
 			@RequestParam boolean increase) {
+		cartId = 1L;
 		if (increase) {
 			tellCartToIncreaseProductQuantityByOne(cartId, productId);
 		} else {
@@ -59,16 +62,19 @@ public class CartRestController {
 
 	@RequestMapping(path = "/carts/{cartId}/items/{productId}", method = DELETE)
 	public void receiveDeleteRequestOnProductInCart(@PathVariable long cartId, @PathVariable long productId) {
+		cartId = 1L;
 		tellCartToRemoveItem(cartId, productId);
 	}
 
 	@RequestMapping(path = "/carts/{cartId}/items", method = DELETE)
 	public void receiveDeleteRequestOnProductsInCart(@PathVariable long cartId) {
+		cartId = 1L;
 		tellCartToRemoveAllItems(cartId);
 	}
 
 	@RequestMapping(path = "/carts/{cartId}", method = DELETE)
 	public void receiveDeleteRequestOnCart(@PathVariable long cartId) {
+		cartId = 1L;
 		cartRepo.delete(cartId);
 	}
 
