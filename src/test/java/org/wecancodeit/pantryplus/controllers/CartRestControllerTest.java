@@ -42,8 +42,8 @@ public class CartRestControllerTest {
 	public void setup() {
 		MockitoAnnotations.initMocks(this);
 		when(cartRepo.findOne(cartId)).thenReturn(cart);
-		when(cart.addOneProduct(productId)).thenReturn(countedLineItem);
-		when(cart.removeOneProduct(productId)).thenReturn(countedLineItem);
+		when(cart.increaseProductByOne(productId)).thenReturn(countedLineItem);
+		when(cart.decreaseProductByOne(productId)).thenReturn(countedLineItem);
 		when(cart.addItem(anotherProductId)).thenReturn(lineItem);
 		when(cart.addCountedItem(productId)).thenReturn(countedLineItem);
 	}
@@ -51,13 +51,13 @@ public class CartRestControllerTest {
 	@Test
 	public void shouldAddOneToQuantityInCountedLineItemInCart() {
 		controller.tellCartToIncreaseProductQuantityByOne(cartId, productId);
-		verify(cart).addOneProduct(productId);
+		verify(cart).increaseProductByOne(productId);
 	}
 
 	@Test
 	public void shouldRemoveOneOfQuantityInCountedLineItemInCart() {
 		controller.tellCartToDecreaseProductQuantityByOne(cartId, productId);
-		verify(cart).removeOneProduct(productId);
+		verify(cart).decreaseProductByOne(productId);
 	}
 
 	@Test
@@ -148,27 +148,27 @@ public class CartRestControllerTest {
 	@Test
 	public void shouldReceivePatchRequestOnProductInCartAndIncreaseQuantity() {
 		controller.receivePatchRequestOnProductInCart(cartId, productId, true);
-		verify(cart).addOneProduct(productId);
+		verify(cart).increaseProductByOne(productId);
 	}
 
 	@Test
 	public void shouldReceivePatchRequestOnProductInCartAndDecreaseQuantity() {
 		controller.receivePatchRequestOnProductInCart(cartId, productId, false);
-		verify(cart).removeOneProduct(productId);
+		verify(cart).decreaseProductByOne(productId);
 	}
 
 	@Test
 	public void shouldNotDecreaseQuantityWhileIncreasingQuantity() {
 		boolean increase = true;
 		controller.receivePatchRequestOnProductInCart(cartId, productId, increase);
-		verify(cart, never()).removeOneProduct(productId);
+		verify(cart, never()).decreaseProductByOne(productId);
 	}
 
 	@Test
 	public void shouldNotIncreaseQuantityWhileDecreasingQuantity() {
 		boolean increase = false;
 		controller.receivePatchRequestOnProductInCart(cartId, productId, increase);
-		verify(cart, never()).addOneProduct(productId);
+		verify(cart, never()).increaseProductByOne(productId);
 	}
 
 	@Test

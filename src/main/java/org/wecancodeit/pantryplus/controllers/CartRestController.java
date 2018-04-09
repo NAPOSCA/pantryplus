@@ -65,12 +65,12 @@ public class CartRestController {
 
 	CountedLineItem tellCartToIncreaseProductQuantityByOne(long cartId, long productId) {
 		Cart cart = retrieveCartBy(cartId);
-		return cart.addOneProduct(productId);
+		return cart.increaseProductByOne(productId);
 	}
 
 	CountedLineItem tellCartToDecreaseProductQuantityByOne(long cartId, long productId) {
 		Cart cart = retrieveCartBy(cartId);
-		return cart.removeOneProduct(productId);
+		return cart.decreaseProductByOne(productId);
 	}
 
 	Cart tellCartToRemoveItem(long cartId, long productId) {

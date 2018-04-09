@@ -38,21 +38,21 @@ public class CartJpaTest {
 
 	private Cart cart;
 	private Product product;
-	private Product product2;
+	private Product anotherProduct;
 	private LineItem lineItem;
-	private LineItem lineItem2;
-	private CountedLineItem countedLine;
-	private CountedLineItem countedLine2;
+	private LineItem anotherLineItem;
+	private CountedLineItem countedLineItem;
+	private CountedLineItem anotherCountedLineItem;
 
 	@Before
 	public void setUp() {
 		cart = new Cart();
 		product = new Product("grapefruit", null);
-		product2 = new Product("apple", null);
+		anotherProduct = new Product("apple", null);
 		lineItem = new LineItem(cart, product);
-		lineItem2 = new LineItem(cart, product2);
-		countedLine = new CountedLineItem(cart, product, 1);
-		countedLine2 = new CountedLineItem(cart, product2, 2);
+		anotherLineItem = new LineItem(cart, anotherProduct);
+		countedLineItem = new CountedLineItem(cart, product, 1);
+		anotherCountedLineItem = new CountedLineItem(cart, anotherProduct, 2);
 	}
 
 	@Test
@@ -81,35 +81,35 @@ public class CartJpaTest {
 	public void shouldSaveManyLineItemsToOneCart() {
 		cart = cartRepo.save(cart);
 		product = productRepo.save(product);
-		product2 = productRepo.save(product2);
+		anotherProduct = productRepo.save(anotherProduct);
 		lineItem = lineItemRepo.save(lineItem);
-		lineItem2 = lineItemRepo.save(lineItem2);
+		anotherLineItem = lineItemRepo.save(anotherLineItem);
 		long cartId = cart.getId();
 		entityManager.flush();
 		entityManager.clear();
 		cart = cartRepo.findOne(cartId);
-		assertThat(cart.getLineItems(), containsInAnyOrder(lineItem, lineItem2));
+		assertThat(cart.getLineItems(), containsInAnyOrder(lineItem, anotherLineItem));
 	}
 
 	@Test
 	public void shouldSaveLineItemsToSameCart() {
 		cart = cartRepo.save(cart);
 		product = productRepo.save(product);
-		product2 = productRepo.save(product2);
+		anotherProduct = productRepo.save(anotherProduct);
 		lineItem = lineItemRepo.save(lineItem);
-		lineItem2 = lineItemRepo.save(lineItem2);
+		anotherLineItem = lineItemRepo.save(anotherLineItem);
 		entityManager.flush();
 		entityManager.clear();
-		assertThat(lineItem.getCart(), is(lineItem2.getCart()));
+		assertThat(lineItem.getCart(), is(anotherLineItem.getCart()));
 	}
 
 	@Test
 	public void shouldCalculateSumOfAllLineItemQuantities() {
 		cart = cartRepo.save(cart);
 		product = productRepo.save(product);
-		product2 = productRepo.save(product2);
-		countedLine = lineItemRepo.save(countedLine);
-		countedLine2 = lineItemRepo.save(countedLine2);
+		anotherProduct = productRepo.save(anotherProduct);
+		countedLineItem = lineItemRepo.save(countedLineItem);
+		anotherCountedLineItem = lineItemRepo.save(anotherCountedLineItem);
 		long cartId = cart.getId();
 		entityManager.flush();
 		entityManager.clear();
@@ -137,12 +137,12 @@ public class CartJpaTest {
 		long cartId = cart.getId();
 		product = productRepo.save(product);
 		long productId = product.getId();
-		countedLine = lineItemRepo.save(countedLine);
+		countedLineItem = lineItemRepo.save(countedLineItem);
 		entityManager.flush();
 		entityManager.clear();
 		cart = cartRepo.findOne(cartId);
 		LineItem actual = cart.getLineItemByProductId(productId);
-		assertThat(actual, is(countedLine));
+		assertThat(actual, is(countedLineItem));
 	}
 	
 	@Test
@@ -151,8 +151,8 @@ public class CartJpaTest {
 		long cartId = cart.getId();
 		product = productRepo.save(product);
 		long productId = product.getId();
-		product2 = productRepo.save(product2);
-		lineItem2 = lineItemRepo.save(lineItem2);
+		anotherProduct = productRepo.save(anotherProduct);
+		anotherLineItem = lineItemRepo.save(anotherLineItem);
 		entityManager.flush();
 		entityManager.clear();
 		cart = cartRepo.findOne(cartId);
@@ -166,26 +166,41 @@ public class CartJpaTest {
 		long cartId = cart.getId();
 		product = productRepo.save(product);
 		long productId = product.getId();
-		countedLine = lineItemRepo.save(countedLine);
+		countedLineItem = lineItemRepo.save(countedLineItem);
 		entityManager.flush();
 		entityManager.clear();
 		cart = cartRepo.findOne(cartId);
 		int actual = cart.getLineItemQuantityByProductId(productId);
-		assertThat(actual, is(countedLine.getQuantity()));
+		assertThat(actual, is(countedLineItem.getQuantity()));
 	}
 	
 	@Test
 	public void shouldReturnLineItemQuantityByProductIdTwo() {
 		cart = cartRepo.save(cart);
 		long cartId = cart.getId();
-		product2 = productRepo.save(product2);
-		long productId = product2.getId();
-		countedLine2 = lineItemRepo.save(countedLine2);
+		anotherProduct = productRepo.save(anotherProduct);
+		long productId = anotherProduct.getId();
+		anotherCountedLineItem = lineItemRepo.save(anotherCountedLineItem);
 		entityManager.flush();
 		entityManager.clear();
 		cart = cartRepo.findOne(cartId);
 		int actual = cart.getLineItemQuantityByProductId(productId);
-		assertThat(actual, is(countedLine2.getQuantity()));
+		assertThat(actual, is(anotherCountedLineItem.getQuantity()));
+	}
+	
+	@Test
+	public void shouldIncreaseProductQuantityByOne() {
+		cart = cartRepo.save(cart);
+		long cartId = cart.getId();
+		product = productRepo.save(product);
+		long productId = product.getId();
+		countedLineItem = lineItemRepo.save(countedLineItem);
+		int check = countedLineItem.getQuantity();
+		entityManager.flush();
+		entityManager.clear();
+		cart = cartRepo.findOne(cartId);
+		int actual = cart.increaseProductByOne(productId).getQuantity();
+		assertThat(actual, is(check + 1));
 	}
 
 }

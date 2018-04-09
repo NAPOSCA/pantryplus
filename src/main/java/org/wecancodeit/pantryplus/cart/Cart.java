@@ -66,11 +66,13 @@ public class Cart {
 		return 1;
 	}
 
-	public CountedLineItem addOneProduct(long productId) {
-		return null;
+	public CountedLineItem increaseProductByOne(long productId) {
+		CountedLineItem countedLineItem = (CountedLineItem) getLineItemByProductId(productId);
+		countedLineItem.addQuantity(1);
+		return countedLineItem;
 	}
 
-	public CountedLineItem removeOneProduct(long productId) {
+	public CountedLineItem decreaseProductByOne(long productId) {
 		return null;
 	}
 
