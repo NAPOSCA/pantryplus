@@ -37,7 +37,9 @@ public class CartJpaTest {
 	private LineItemRepository lineItemRepo;
 
 	private Cart cart;
+	private long cartId;
 	private Product product;
+	private long productId;
 	private Product anotherProduct;
 	private LineItem lineItem;
 	private LineItem anotherLineItem;
@@ -53,12 +55,16 @@ public class CartJpaTest {
 		anotherLineItem = new LineItem(cart, anotherProduct);
 		countedLineItem = new CountedLineItem(cart, product, 1);
 		anotherCountedLineItem = new CountedLineItem(cart, anotherProduct, 2);
+		
+		cart = cartRepo.save(cart);
+		cartId = cart.getId();
+		product = productRepo.save(product);
+		productId = product.getId();
+		anotherProduct = productRepo.save(anotherProduct);
 	}
 
 	@Test
 	public void shouldSaveAndLoadCart() {
-		cart = cartRepo.save(cart);
-		long cartId = cart.getId();
 		entityManager.flush();
 		entityManager.clear();
 		cart = cartRepo.findOne(cartId);
@@ -67,8 +73,6 @@ public class CartJpaTest {
 
 	@Test
 	public void shouldSaveAndLoadLineItem() {
-		cart = cartRepo.save(cart);
-		product = productRepo.save(product);
 		lineItem = lineItemRepo.save(lineItem);
 		long lineItemId = lineItem.getId();
 		entityManager.flush();
@@ -79,9 +83,6 @@ public class CartJpaTest {
 
 	@Test
 	public void shouldSaveManyLineItemsToOneCart() {
-		cart = cartRepo.save(cart);
-		product = productRepo.save(product);
-		anotherProduct = productRepo.save(anotherProduct);
 		lineItem = lineItemRepo.save(lineItem);
 		anotherLineItem = lineItemRepo.save(anotherLineItem);
 		long cartId = cart.getId();
@@ -93,9 +94,6 @@ public class CartJpaTest {
 
 	@Test
 	public void shouldSaveLineItemsToSameCart() {
-		cart = cartRepo.save(cart);
-		product = productRepo.save(product);
-		anotherProduct = productRepo.save(anotherProduct);
 		lineItem = lineItemRepo.save(lineItem);
 		anotherLineItem = lineItemRepo.save(anotherLineItem);
 		entityManager.flush();
@@ -105,9 +103,6 @@ public class CartJpaTest {
 
 	@Test
 	public void shouldCalculateSumOfAllLineItemQuantities() {
-		cart = cartRepo.save(cart);
-		product = productRepo.save(product);
-		anotherProduct = productRepo.save(anotherProduct);
 		countedLineItem = lineItemRepo.save(countedLineItem);
 		anotherCountedLineItem = lineItemRepo.save(anotherCountedLineItem);
 		long cartId = cart.getId();
@@ -119,10 +114,6 @@ public class CartJpaTest {
 	
 	@Test
 	public void shouldGetLineItemByProductId() {
-		cart = cartRepo.save(cart);
-		long cartId = cart.getId();
-		product = productRepo.save(product);
-		long productId = product.getId();
 		lineItem = lineItemRepo.save(lineItem);
 		entityManager.flush();
 		entityManager.clear();
@@ -133,10 +124,6 @@ public class CartJpaTest {
 	
 	@Test
 	public void shouldGetCountedLineItemByProductId() {
-		cart = cartRepo.save(cart);
-		long cartId = cart.getId();
-		product = productRepo.save(product);
-		long productId = product.getId();
 		countedLineItem = lineItemRepo.save(countedLineItem);
 		entityManager.flush();
 		entityManager.clear();
@@ -147,11 +134,6 @@ public class CartJpaTest {
 	
 	@Test
 	public void shouldReturnNullIfLineItemWithProductIdIsNotFound() {
-		cart = cartRepo.save(cart);
-		long cartId = cart.getId();
-		product = productRepo.save(product);
-		long productId = product.getId();
-		anotherProduct = productRepo.save(anotherProduct);
 		anotherLineItem = lineItemRepo.save(anotherLineItem);
 		entityManager.flush();
 		entityManager.clear();
@@ -162,10 +144,6 @@ public class CartJpaTest {
 	
 	@Test
 	public void shouldReturnLineItemQuantityByProductIdOne() {
-		cart = cartRepo.save(cart);
-		long cartId = cart.getId();
-		product = productRepo.save(product);
-		long productId = product.getId();
 		countedLineItem = lineItemRepo.save(countedLineItem);
 		entityManager.flush();
 		entityManager.clear();
@@ -176,9 +154,6 @@ public class CartJpaTest {
 	
 	@Test
 	public void shouldReturnLineItemQuantityByProductIdTwo() {
-		cart = cartRepo.save(cart);
-		long cartId = cart.getId();
-		anotherProduct = productRepo.save(anotherProduct);
 		long productId = anotherProduct.getId();
 		anotherCountedLineItem = lineItemRepo.save(anotherCountedLineItem);
 		entityManager.flush();
@@ -190,10 +165,6 @@ public class CartJpaTest {
 	
 	@Test
 	public void shouldIncreaseProductQuantityByOne() {
-		cart = cartRepo.save(cart);
-		long cartId = cart.getId();
-		product = productRepo.save(product);
-		long productId = product.getId();
 		countedLineItem = lineItemRepo.save(countedLineItem);
 		int check = countedLineItem.getQuantity();
 		entityManager.flush();
@@ -205,10 +176,6 @@ public class CartJpaTest {
 	
 	@Test
 	public void shouldDecreaseProductQuantityByOne() {
-		cart = cartRepo.save(cart);
-		long cartId = cart.getId();
-		product = productRepo.save(product);
-		long productId = product.getId();
 		countedLineItem = lineItemRepo.save(countedLineItem);
 		int check = countedLineItem.getQuantity();
 		entityManager.flush();
@@ -220,10 +187,6 @@ public class CartJpaTest {
 	
 	@Test
 	public void shouldUpdateQuantityOfProduct() {
-		cart = cartRepo.save(cart);
-		long cartId = cart.getId();
-		product = productRepo.save(product);
-		long productId = product.getId();
 		countedLineItem = lineItemRepo.save(countedLineItem);
 		entityManager.flush();
 		entityManager.clear();
