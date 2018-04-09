@@ -80,12 +80,19 @@ public class CartRestController {
 
 	CountedLineItem tellCartToIncreaseProductQuantityByOne(long cartId, long productId) {
 		Cart cart = retrieveCartBy(cartId);
-		return cart.increaseProductByOne(productId);
+		if (cart.has(productId)) {
+			return cart.increaseProductByOne(productId);
+		} else {
+			return tellLineItemRepoToSaveCountedLineItemBy(cartId, productId);
+		}
 	}
 
 	CountedLineItem tellCartToDecreaseProductQuantityByOne(long cartId, long productId) {
 		Cart cart = retrieveCartBy(cartId);
-		return cart.decreaseProductByOne(productId);
+		if (cart.has(productId)) {
+			return cart.decreaseProductByOne(productId);
+		}
+		return null;
 	}
 
 	Cart tellCartToRemoveItem(long cartId, long productId) {
@@ -103,16 +110,25 @@ public class CartRestController {
 	}
 
 	CountedLineItem tellLineItemRepoToSaveCountedLineItemBy(long cartId, long productId) {
+		return tellLineItemRepoToSaveCountedLineItemBy(cartId, productId, 1);
+	}
+
+	private CountedLineItem tellLineItemRepoToSaveCountedLineItemBy(long cartId, long productId, int quantity) {
 		Cart cart = retrieveCartBy(cartId);
 		Product product = retrieveProductBy(productId);
-		CountedLineItem countedLineItem = new CountedLineItem(cart, product, 1);
+		CountedLineItem countedLineItem = new CountedLineItem(cart, product, quantity);
 		lineItemRepo.save(countedLineItem);
 		return countedLineItem;
+
 	}
 
 	private void tellCartToUpdateProductQuantity(long cartId, long productId, int quantity) {
 		Cart cart = retrieveCartBy(cartId);
-		cart.updateQuantityOfProduct(productId, quantity);
+		if (cart.has(productId)) {
+			cart.updateQuantityOfProduct(productId, quantity);
+		} else {
+			tellLineItemRepoToSaveCountedLineItemBy(cartId, productId, quantity);
+		}
 	}
 
 	private void tellCartToRemoveAllItems(long cartId) {

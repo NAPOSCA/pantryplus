@@ -92,4 +92,13 @@ public class Cart {
 		lineItems.removeIf((lineItem) -> {return true;});
 	}
 
+	public boolean has(long productId) {
+		for (LineItem lineItem : lineItems) {
+			if (lineItem.getProduct().getId() == productId) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 }
