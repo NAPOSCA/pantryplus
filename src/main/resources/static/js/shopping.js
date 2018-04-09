@@ -41,7 +41,7 @@ function addToCart(productId) {
 			updateCartNumber(response);
 		}
 	};
-	xhr.open("POST", `/cart/items?productId=${productId}&quantity=1`, true);
+	xhr.open("PATCH", `/carts/1/items/${productId}?increase=true`, true);
 	xhr.send();
 }
 
@@ -53,7 +53,7 @@ function removeFromCart(productId) {
 			updateCartNumber(response);
 		}
 	};
-	xhr.open("POST", `/cart/items?productId=${productId}&quantity=-1`, true);
+	xhr.open("PATCH", `/carts/1/items/${productId}?increase=false`, true);
 	xhr.send();
 }
 
