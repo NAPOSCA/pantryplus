@@ -5,10 +5,12 @@ import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import org.wecancodeit.pantryplus.lineitem.CountedLineItem;
 import org.wecancodeit.pantryplus.lineitem.LineItem;
+import org.wecancodeit.pantryplus.user.User;
 
 @Entity
 public class Cart {
@@ -17,10 +19,17 @@ public class Cart {
 	@GeneratedValue
 	private long id;
 
+	@ManyToOne
+	private User user;
+
 	@OneToMany(mappedBy = "cart")
 	Set<LineItem> lineItems;
 
 	public Cart() {
+	}
+
+	public Cart(User user) {
+		this.user = user;
 	}
 
 	public long getId() {
@@ -90,7 +99,9 @@ public class Cart {
 	}
 
 	public void removeAllItems() {
-		lineItems.removeIf((lineItem) -> {return true;});
+		lineItems.removeIf((lineItem) -> {
+			return true;
+		});
 	}
 
 	public boolean has(long productId) {
@@ -99,6 +110,28 @@ public class Cart {
 				return true;
 			}
 		}
+		return false;
+	}
+
+	@Override
+	public int hashCode() {
+		return ((Long) id).hashCode();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null) {
+			return false;
+		}
+
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+
+		if (id == ((Cart) obj).id) {
+			return true;
+		}
+
 		return false;
 	}
 
