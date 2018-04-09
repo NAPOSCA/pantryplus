@@ -19,7 +19,7 @@ import org.wecancodeit.pantryplus.lineitem.LineItem;
 public class CartRestControllerTest {
 
 	@InjectMocks
-	private CartRestController cartController;
+	private CartRestController controller;
 
 	@Mock
 	private CartRepository cartRepo;
@@ -54,125 +54,143 @@ public class CartRestControllerTest {
 
 	@Test
 	public void shouldAddOneToQuantityInCountedLineItemInCart() {
-		cartController.tellCartToIncreaseProductQuantityByOne(cartId, productId);
+		controller.tellCartToIncreaseProductQuantityByOne(cartId, productId);
 		verify(cart).addOneProduct(productId);
 	}
 
 	@Test
 	public void shouldRemoveOneOfQuantityInCountedLineItemInCart() {
-		cartController.tellCartToDecreaseProductQuantityByOne(cartId, productId);
+		controller.tellCartToDecreaseProductQuantityByOne(cartId, productId);
 		verify(cart).removeOneProduct(productId);
 	}
 
 	@Test
 	public void shouldReturnChangedLineItemWhenAdding() {
-		LineItem actual = cartController.tellCartToIncreaseProductQuantityByOne(cartId, productId);
+		LineItem actual = controller.tellCartToIncreaseProductQuantityByOne(cartId, productId);
 		assertThat(actual, is(countedLineItem));
 	}
 
 	@Test
 	public void shouldReturnChangedLineItemWhenRemoving() {
-		LineItem actual = cartController.tellCartToDecreaseProductQuantityByOne(cartId, productId);
+		LineItem actual = controller.tellCartToDecreaseProductQuantityByOne(cartId, productId);
 		assertThat(actual, is(countedLineItem));
 	}
 
 	@Test
 	public void shouldDeleteLineItemFromCart() {
-		cartController.tellCartToRemoveItem(cartId, countedLineItemId);
-		verify(cart).removeItem(countedLineItemId);
+		controller.tellCartToRemoveItem(cartId, productId);
+		verify(cart).removeItemByProductId(productId);
 	}
 
 	@Test
 	public void shouldReturnCartAfterTellingItToDeleteAItem() {
-		Cart actual = cartController.tellCartToRemoveItem(cartId, countedLineItemId);
+		Cart actual = controller.tellCartToRemoveItem(cartId, productId);
 		assertThat(actual, is(cart));
 	}
 
 	@Test
 	public void shouldAddProductToCart() {
-		cartController.tellCartToAddDichotomousProduct(cartId, productId);
+		controller.tellCartToAddDichotomousProduct(cartId, productId);
 		verify(cart).addItem(productId);
 	}
 
 	@Test
 	public void shouldAddCountedProductToCart() {
-		cartController.tellCartToAddCountedProduct(cartId, productId);
+		controller.tellCartToAddCountedProduct(cartId, productId);
 		verify(cart).addCountedItem(productId);
 	}
 
 	@Test
 	public void shouldReceivePostRequestOnCartAndTellCartToCreateDichotomousLineItem() {
 		boolean dichotomous = true;
-		cartController.receivePostOnCart(cartId, productId, dichotomous);
+		controller.receivePostOnCart(cartId, productId, dichotomous);
 		verify(cart).addItem(productId);
 	}
 
 	@Test
 	public void shouldReceivePostRequestOnCartAndTellCartToCreateCountedLineItem() {
 		boolean dichotomous = false;
-		cartController.receivePostOnCart(cartId, productId, dichotomous);
+		controller.receivePostOnCart(cartId, productId, dichotomous);
 		verify(cart).addCountedItem(productId);
 	}
 
 	@Test
 	public void shouldReceivePostRequestOnCartAndNotCreateCountedItemWhenCreatingDichotomous() {
 		boolean dichotomous = true;
-		cartController.receivePostOnCart(cartId, productId, dichotomous);
+		controller.receivePostOnCart(cartId, productId, dichotomous);
 		verify(cart, never()).addCountedItem(productId);
 	}
 
 	@Test
 	public void shouldReceivePostRequestOnCartAndNotCreateDichotomousItemWhenCreatingCounted() {
 		boolean dichotomous = false;
-		cartController.receivePostOnCart(cartId, productId, dichotomous);
+		controller.receivePostOnCart(cartId, productId, dichotomous);
 		verify(cart, never()).addItem(productId);
 	}
 
 	@Test
 	public void shouldReturnLineItemWhenReceivingAPostRequest() {
 		boolean dichotomous = true;
-		LineItem actual = cartController.receivePostOnCart(cartId, anotherProductId, dichotomous);
+		LineItem actual = controller.receivePostOnCart(cartId, anotherProductId, dichotomous);
 		assertThat(actual, is(lineItem));
 	}
 
 	@Test
 	public void shouldReturnCountedLineItemWhenReceivingAPostRequest() {
 		boolean dichotomous = false;
-		LineItem actual = cartController.receivePostOnCart(cartId, productId, dichotomous);
+		LineItem actual = controller.receivePostOnCart(cartId, productId, dichotomous);
 		assertThat(actual, is(countedLineItem));
 	}
 
 	@Test
 	public void shouldReceivePutRequestOnProductInCartAndSetQuantity() {
 		int quantity = 5;
-		cartController.receivePutRequestOnProductInCart(cartId, productId, quantity);
+		controller.receivePutRequestOnProductInCart(cartId, productId, quantity);
 		verify(cart).updateQuantityOfProduct(productId, quantity);
 	}
 	
 	@Test
 	public void shouldReceivePatchRequestOnProductInCartAndIncreaseQuantity() {
-		cartController.receivePatchRequestOnProductInCart(cartId, productId, true);
+		controller.receivePatchRequestOnProductInCart(cartId, productId, true);
 		verify(cart).addOneProduct(productId);
 	}
 	
 	@Test
 	public void shouldReceivePatchRequestOnProductInCartAndDecreaseQuantity() {
-		cartController.receivePatchRequestOnProductInCart(cartId, productId, false);
+		controller.receivePatchRequestOnProductInCart(cartId, productId, false);
 		verify(cart).removeOneProduct(productId);
 	}
 	
 	@Test
 	public void shouldNotDecreaseQuantityWhileIncreasingQuantity() {
 		boolean increase = true;
-		cartController.receivePatchRequestOnProductInCart(cartId, productId, increase);
+		controller.receivePatchRequestOnProductInCart(cartId, productId, increase);
 		verify(cart, never()).removeOneProduct(productId);
 	}
 	
 	@Test
 	public void shouldNotIncreaseQuantityWhileDecreasingQuantity() {
 		boolean increase = false;
-		cartController.receivePatchRequestOnProductInCart(cartId, productId, increase);
+		controller.receivePatchRequestOnProductInCart(cartId, productId, increase);
 		verify(cart, never()).addOneProduct(productId);
+	}
+	
+	@Test
+	public void shouldRemoveItemWhenReceivingDeleteRequestOnProductInCart() {
+		controller.receiveDeleteRequestOnProductInCart(cartId, productId);
+		verify(cart).removeItemByProductId(productId);
+	}
+	
+	@Test
+	public void shouldRemoveAllItemsWhenReceivingDeleteRequestOnProductCollectionInCart() {
+		controller.receiveDeleteRequestOnProductsInCart(cartId);
+		verify(cart).removeAllItems();
+	}
+	
+	@Test
+	public void shouldRemoveCartWhenReceivingDeleteRequestOnCart() {
+		controller.receiveDeleteRequestOnCart(cartId);
+		verify(cartRepo).delete(cartId);
 	}
 
 }

@@ -74,9 +74,6 @@ public class Cart {
 		return null;
 	}
 
-	public void removeItem(long lineItemId) {
-	}
-
 	public LineItem addItem(long productId) {
 		return null;
 	}
@@ -87,6 +84,12 @@ public class Cart {
 
 	public void updateQuantityOfProduct(long productId, int quantity) {
 		
+	}
+
+	public void removeItemByProductId(long productId) {
+	}
+
+	public void removeAllItems() {
 	}
 
 }

@@ -28,9 +28,9 @@ public class CartRestController {
 		return cart.removeOneProduct(productId);
 	}
 
-	protected Cart tellCartToRemoveItem(long cartId, long lineItemId) {
+	protected Cart tellCartToRemoveItem(long cartId, long productId) {
 		Cart cart = retrieveCartBy(cartId);
-		cart.removeItem(lineItemId);
+		cart.removeItemByProductId(productId);
 		return cart;
 	}
 
@@ -67,6 +67,23 @@ public class CartRestController {
 		} else {
 			tellCartToDecreaseProductQuantityByOne(cartId, productId);
 		}
+	}
+
+	public void receiveDeleteRequestOnProductInCart(long cartId, long productId) {
+		tellCartToRemoveItem(cartId, productId);
+	}
+
+	public void receiveDeleteRequestOnProductsInCart(long cartId) {
+		tellCartToRemoveAllItems(cartId);
+	}
+
+	private void tellCartToRemoveAllItems(long cartId) {
+		Cart cart = retrieveCartBy(cartId);
+		cart.removeAllItems();
+	}
+
+	public void receiveDeleteRequestOnCart(long cartId) {
+		cartRepo.delete(cartId);
 	}
 
 }
