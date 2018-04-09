@@ -196,5 +196,16 @@ public class CartJpaTest {
 		int actual = cart.getLineItemQuantityByProductId(productId);
 		assertThat(actual, is(check));
 	}
+	
+	@Test
+	public void shouldNotFindLineItemIfRemoved() {
+		lineItem = lineItemRepo.save(lineItem);
+		entityManager.flush();
+		entityManager.clear();
+		cart = cartRepo.findOne(cartId);
+		cart.removeItemByProductId(productId);
+		LineItem actual = cart.getLineItemByProductId(productId);
+		assertThat(actual, is(nullValue()));
+	}
 
 }

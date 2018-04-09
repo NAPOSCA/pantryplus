@@ -102,7 +102,7 @@ public class CartRestControllerTest {
 	@Ignore
 	@Test
 	public void shouldAddProductToCart() {
-		LineItem actual = controller.tellLineItemRepoToSaveDichotomousLineItemBy(cartId, productId);
+		controller.tellLineItemRepoToSaveDichotomousLineItemBy(cartId, productId);
 	}
 
 	@Ignore
