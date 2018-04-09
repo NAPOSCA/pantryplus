@@ -43,20 +43,20 @@ public class CartRestController {
 	}
 
 	@RequestMapping(path = "/carts/{cartId}/items/{productId}", method = PUT)
-	public void receivePutRequestOnProductInCart(@PathVariable long cartId, @PathVariable long productId,
+	public CountedLineItem receivePutRequestOnProductInCart(@PathVariable long cartId, @PathVariable long productId,
 			@RequestParam int quantity) {
 		cartId = 1L;
-		tellCartToUpdateProductQuantity(cartId, productId, quantity);
+		return tellCartToUpdateProductQuantity(cartId, productId, quantity);
 	}
 
 	@RequestMapping(path = "/carts/{cartId}/items/{productId}", method = PATCH)
-	public void receivePatchRequestOnProductInCart(@PathVariable long cartId, @PathVariable long productId,
+	public CountedLineItem receivePatchRequestOnProductInCart(@PathVariable long cartId, @PathVariable long productId,
 			@RequestParam boolean increase) {
 		cartId = 1L;
 		if (increase) {
-			tellCartToIncreaseProductQuantityByOne(cartId, productId);
+			return tellCartToIncreaseProductQuantityByOne(cartId, productId);
 		} else {
-			tellCartToDecreaseProductQuantityByOne(cartId, productId);
+			return tellCartToDecreaseProductQuantityByOne(cartId, productId);
 		}
 	}
 
@@ -122,12 +122,12 @@ public class CartRestController {
 
 	}
 
-	private void tellCartToUpdateProductQuantity(long cartId, long productId, int quantity) {
+	private CountedLineItem tellCartToUpdateProductQuantity(long cartId, long productId, int quantity) {
 		Cart cart = retrieveCartBy(cartId);
 		if (cart.has(productId)) {
-			cart.updateQuantityOfProduct(productId, quantity);
+			return cart.updateQuantityOfProduct(productId, quantity);
 		} else {
-			tellLineItemRepoToSaveCountedLineItemBy(cartId, productId, quantity);
+			return tellLineItemRepoToSaveCountedLineItemBy(cartId, productId, quantity);
 		}
 	}
 

@@ -134,23 +134,27 @@ public class CartRestControllerTest {
 	@Test
 	public void shouldReceivePutRequestOnProductInCartAndSetQuantity() {
 		int quantity = 5;
+		when(cart.updateQuantityOfProduct(productId, quantity)).thenReturn(countedLineItem);
 		when(cart.has(productId)).thenReturn(true);
-		controller.receivePutRequestOnProductInCart(cartId, productId, quantity);
+		CountedLineItem actual = controller.receivePutRequestOnProductInCart(cartId, productId, quantity);
 		verify(cart).updateQuantityOfProduct(productId, quantity);
+		assertThat(actual, is(countedLineItem));
 	}
 
 	@Test
 	public void shouldReceivePatchRequestOnProductInCartAndIncreaseQuantity() {
 		when(cart.has(productId)).thenReturn(true);
-		controller.receivePatchRequestOnProductInCart(cartId, productId, true);
+		CountedLineItem actual = controller.receivePatchRequestOnProductInCart(cartId, productId, true);
 		verify(cart).increaseProductByOne(productId);
+		assertThat(actual, is(countedLineItem));
 	}
 
 	@Test
 	public void shouldReceivePatchRequestOnProductInCartAndDecreaseQuantity() {
 		when(cart.has(productId)).thenReturn(true);
-		controller.receivePatchRequestOnProductInCart(cartId, productId, false);
+		CountedLineItem actual = controller.receivePatchRequestOnProductInCart(cartId, productId, false);
 		verify(cart).decreaseProductByOne(productId);
+		assertThat(actual, is(countedLineItem));
 	}
 
 	@Test

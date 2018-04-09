@@ -78,9 +78,10 @@ public class Cart {
 		return countedLineItem;
 	}
 
-	public void updateQuantityOfProduct(long productId, int quantity) {
+	public CountedLineItem updateQuantityOfProduct(long productId, int quantity) {
 		CountedLineItem countedLineItem = (CountedLineItem) getLineItemByProductId(productId);
 		countedLineItem.setQuantity(quantity);
+		return countedLineItem;
 	}
 
 	public void removeItemByProductId(long productId) {
