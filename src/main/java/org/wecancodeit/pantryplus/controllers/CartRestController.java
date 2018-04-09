@@ -12,37 +12,7 @@ import org.wecancodeit.pantryplus.lineitem.LineItem;
 public class CartRestController {
 
 	@Resource
-	CartRepository cartRepo;
-
-	public CountedLineItem tellCartToIncreaseProductQuantityByOne(long cartId, long productId) {
-		Cart cart = retrieveCartBy(cartId);
-		return cart.addOneProduct(productId);
-	}
-
-	private Cart retrieveCartBy(long cartId) {
-		return cartRepo.findOne(cartId);
-	}
-
-	protected CountedLineItem tellCartToDecreaseProductQuantityByOne(long cartId, long productId) {
-		Cart cart = retrieveCartBy(cartId);
-		return cart.removeOneProduct(productId);
-	}
-
-	protected Cart tellCartToRemoveItem(long cartId, long productId) {
-		Cart cart = retrieveCartBy(cartId);
-		cart.removeItemByProductId(productId);
-		return cart;
-	}
-
-	public LineItem tellCartToAddDichotomousProduct(long cartId, long productId) {
-		Cart cart = retrieveCartBy(cartId);
-		return cart.addItem(productId);
-	}
-
-	public LineItem tellCartToAddCountedProduct(long cartId, long productId) {
-		Cart cart = retrieveCartBy(cartId);
-		return cart.addCountedItem(productId);
-	}
+	private CartRepository cartRepo;
 
 	public LineItem receivePostOnCart(long cartId, long productId, boolean dichotomous) {
 		if (dichotomous) {
@@ -54,11 +24,6 @@ public class CartRestController {
 
 	public void receivePutRequestOnProductInCart(long cartId, long productId, int quantity) {
 		tellCartToUpdateProductQuantity(cartId, productId, quantity);
-	}
-
-	private void tellCartToUpdateProductQuantity(long cartId, long productId, int quantity) {
-		Cart cart = retrieveCartBy(cartId);
-		cart.updateQuantityOfProduct(productId, quantity);
 	}
 
 	public void receivePatchRequestOnProductInCart(long cartId, long productId, boolean increase) {
@@ -77,13 +42,48 @@ public class CartRestController {
 		tellCartToRemoveAllItems(cartId);
 	}
 
+	public void receiveDeleteRequestOnCart(long cartId) {
+		cartRepo.delete(cartId);
+	}
+
+	CountedLineItem tellCartToIncreaseProductQuantityByOne(long cartId, long productId) {
+		Cart cart = retrieveCartBy(cartId);
+		return cart.addOneProduct(productId);
+	}
+
+	CountedLineItem tellCartToDecreaseProductQuantityByOne(long cartId, long productId) {
+		Cart cart = retrieveCartBy(cartId);
+		return cart.removeOneProduct(productId);
+	}
+
+	Cart tellCartToRemoveItem(long cartId, long productId) {
+		Cart cart = retrieveCartBy(cartId);
+		cart.removeItemByProductId(productId);
+		return cart;
+	}
+
+	LineItem tellCartToAddDichotomousProduct(long cartId, long productId) {
+		Cart cart = retrieveCartBy(cartId);
+		return cart.addItem(productId);
+	}
+
+	LineItem tellCartToAddCountedProduct(long cartId, long productId) {
+		Cart cart = retrieveCartBy(cartId);
+		return cart.addCountedItem(productId);
+	}
+
+	private void tellCartToUpdateProductQuantity(long cartId, long productId, int quantity) {
+		Cart cart = retrieveCartBy(cartId);
+		cart.updateQuantityOfProduct(productId, quantity);
+	}
+
 	private void tellCartToRemoveAllItems(long cartId) {
 		Cart cart = retrieveCartBy(cartId);
 		cart.removeAllItems();
 	}
 
-	public void receiveDeleteRequestOnCart(long cartId) {
-		cartRepo.delete(cartId);
+	private Cart retrieveCartBy(long cartId) {
+		return cartRepo.findOne(cartId);
 	}
 
 }
