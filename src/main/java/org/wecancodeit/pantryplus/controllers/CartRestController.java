@@ -37,9 +37,8 @@ public class CartRestController {
 		cartId = 1L;
 		if (dichotomous) {
 			return tellLineItemRepoToSaveDichotomousLineItemBy(cartId, productId);
-		} else {
-			return tellLineItemRepoToSaveCountedLineItemBy(cartId, productId);
 		}
+		return tellLineItemRepoToSaveCountedLineItemBy(cartId, productId);
 	}
 
 	@RequestMapping(path = "/carts/{cartId}/items/{productId}", method = PUT)
@@ -55,9 +54,8 @@ public class CartRestController {
 		cartId = 1L;
 		if (increase) {
 			return tellCartToIncreaseProductQuantityByOne(cartId, productId);
-		} else {
-			return tellCartToDecreaseProductQuantityByOne(cartId, productId);
 		}
+		return tellCartToDecreaseProductQuantityByOne(cartId, productId);
 	}
 
 	@RequestMapping(path = "/carts/{cartId}/items/{productId}", method = DELETE)
@@ -82,9 +80,8 @@ public class CartRestController {
 		Cart cart = retrieveCartBy(cartId);
 		if (cart.has(productId)) {
 			return cart.increaseProductByOne(productId);
-		} else {
-			return tellLineItemRepoToSaveCountedLineItemBy(cartId, productId);
 		}
+		return tellLineItemRepoToSaveCountedLineItemBy(cartId, productId);
 	}
 
 	CountedLineItem tellCartToDecreaseProductQuantityByOne(long cartId, long productId) {
@@ -126,9 +123,8 @@ public class CartRestController {
 		Cart cart = retrieveCartBy(cartId);
 		if (cart.has(productId)) {
 			return cart.updateQuantityOfProduct(productId, quantity);
-		} else {
-			return tellLineItemRepoToSaveCountedLineItemBy(cartId, productId, quantity);
 		}
+		return tellLineItemRepoToSaveCountedLineItemBy(cartId, productId, quantity);
 	}
 
 	private void tellCartToRemoveAllItems(long cartId) {
