@@ -54,25 +54,25 @@ public class CartRestControllerTest {
 
 	@Test
 	public void shouldAddOneToQuantityInCountedLineItemInCart() {
-		cartController.tellCartToAddOneProduct(cartId, productId);
+		cartController.tellCartToIncreaseProductQuantityByOne(cartId, productId);
 		verify(cart).addOneProduct(productId);
 	}
 
 	@Test
 	public void shouldRemoveOneOfQuantityInCountedLineItemInCart() {
-		cartController.tellCartToRemoveOneProduct(cartId, productId);
+		cartController.tellCartToDecreaseProductQuantityByOne(cartId, productId);
 		verify(cart).removeOneProduct(productId);
 	}
 
 	@Test
 	public void shouldReturnChangedLineItemWhenAdding() {
-		LineItem actual = cartController.tellCartToAddOneProduct(cartId, productId);
+		LineItem actual = cartController.tellCartToIncreaseProductQuantityByOne(cartId, productId);
 		assertThat(actual, is(countedLineItem));
 	}
 
 	@Test
 	public void shouldReturnChangedLineItemWhenRemoving() {
-		LineItem actual = cartController.tellCartToRemoveOneProduct(cartId, productId);
+		LineItem actual = cartController.tellCartToDecreaseProductQuantityByOne(cartId, productId);
 		assertThat(actual, is(countedLineItem));
 	}
 
@@ -147,6 +147,32 @@ public class CartRestControllerTest {
 		int quantity = 5;
 		cartController.receivePutRequestOnProductInCart(cartId, productId, quantity);
 		verify(cart).updateQuantityOfProduct(productId, quantity);
+	}
+	
+	@Test
+	public void shouldReceivePatchRequestOnProductInCartAndIncreaseQuantity() {
+		cartController.receivePatchRequestOnProductInCart(cartId, productId, true);
+		verify(cart).addOneProduct(productId);
+	}
+	
+	@Test
+	public void shouldReceivePatchRequestOnProductInCartAndDecreaseQuantity() {
+		cartController.receivePatchRequestOnProductInCart(cartId, productId, false);
+		verify(cart).removeOneProduct(productId);
+	}
+	
+	@Test
+	public void shouldNotDecreaseQuantityWhileIncreasingQuantity() {
+		boolean increase = true;
+		cartController.receivePatchRequestOnProductInCart(cartId, productId, increase);
+		verify(cart, never()).removeOneProduct(productId);
+	}
+	
+	@Test
+	public void shouldNotIncreaseQuantityWhileDecreasingQuantity() {
+		boolean increase = false;
+		cartController.receivePatchRequestOnProductInCart(cartId, productId, increase);
+		verify(cart, never()).addOneProduct(productId);
 	}
 
 }

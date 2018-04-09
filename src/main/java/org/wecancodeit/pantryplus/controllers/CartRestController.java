@@ -14,29 +14,33 @@ public class CartRestController {
 	@Resource
 	CartRepository cartRepo;
 
-	public CountedLineItem tellCartToAddOneProduct(long cartId, long productId) {
-		Cart cart = cartRepo.findOne(cartId);
+	public CountedLineItem tellCartToIncreaseProductQuantityByOne(long cartId, long productId) {
+		Cart cart = retrieveCartBy(cartId);
 		return cart.addOneProduct(productId);
 	}
 
-	protected CountedLineItem tellCartToRemoveOneProduct(long cartId, long productId) {
-		Cart cart = cartRepo.findOne(cartId);
+	private Cart retrieveCartBy(long cartId) {
+		return cartRepo.findOne(cartId);
+	}
+
+	protected CountedLineItem tellCartToDecreaseProductQuantityByOne(long cartId, long productId) {
+		Cart cart = retrieveCartBy(cartId);
 		return cart.removeOneProduct(productId);
 	}
 
 	protected Cart tellCartToRemoveItem(long cartId, long lineItemId) {
-		Cart cart = cartRepo.findOne(cartId);
+		Cart cart = retrieveCartBy(cartId);
 		cart.removeItem(lineItemId);
 		return cart;
 	}
 
 	public LineItem tellCartToAddDichotomousProduct(long cartId, long productId) {
-		Cart cart = cartRepo.findOne(cartId);
+		Cart cart = retrieveCartBy(cartId);
 		return cart.addItem(productId);
 	}
 
 	public LineItem tellCartToAddCountedProduct(long cartId, long productId) {
-		Cart cart = cartRepo.findOne(cartId);
+		Cart cart = retrieveCartBy(cartId);
 		return cart.addCountedItem(productId);
 	}
 
@@ -53,8 +57,16 @@ public class CartRestController {
 	}
 
 	private void tellCartToUpdateProductQuantity(long cartId, long productId, int quantity) {
-		Cart cart = cartRepo.findOne(cartId);
+		Cart cart = retrieveCartBy(cartId);
 		cart.updateQuantityOfProduct(productId, quantity);
+	}
+
+	public void receivePatchRequestOnProductInCart(long cartId, long productId, boolean increase) {
+		if (increase) {
+			tellCartToIncreaseProductQuantityByOne(cartId, productId);
+		} else {
+			tellCartToDecreaseProductQuantityByOne(cartId, productId);
+		}
 	}
 
 }
