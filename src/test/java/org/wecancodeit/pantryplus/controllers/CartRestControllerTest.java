@@ -38,10 +38,6 @@ public class CartRestControllerTest {
 
 	private long anotherProductId = 2L;
 
-	private long countedLineItemId = 1L;
-
-	private long lineItemId = 2L;
-
 	@Before
 	public void setup() {
 		MockitoAnnotations.initMocks(this);
@@ -148,45 +144,45 @@ public class CartRestControllerTest {
 		controller.receivePutRequestOnProductInCart(cartId, productId, quantity);
 		verify(cart).updateQuantityOfProduct(productId, quantity);
 	}
-	
+
 	@Test
 	public void shouldReceivePatchRequestOnProductInCartAndIncreaseQuantity() {
 		controller.receivePatchRequestOnProductInCart(cartId, productId, true);
 		verify(cart).addOneProduct(productId);
 	}
-	
+
 	@Test
 	public void shouldReceivePatchRequestOnProductInCartAndDecreaseQuantity() {
 		controller.receivePatchRequestOnProductInCart(cartId, productId, false);
 		verify(cart).removeOneProduct(productId);
 	}
-	
+
 	@Test
 	public void shouldNotDecreaseQuantityWhileIncreasingQuantity() {
 		boolean increase = true;
 		controller.receivePatchRequestOnProductInCart(cartId, productId, increase);
 		verify(cart, never()).removeOneProduct(productId);
 	}
-	
+
 	@Test
 	public void shouldNotIncreaseQuantityWhileDecreasingQuantity() {
 		boolean increase = false;
 		controller.receivePatchRequestOnProductInCart(cartId, productId, increase);
 		verify(cart, never()).addOneProduct(productId);
 	}
-	
+
 	@Test
 	public void shouldRemoveItemWhenReceivingDeleteRequestOnProductInCart() {
 		controller.receiveDeleteRequestOnProductInCart(cartId, productId);
 		verify(cart).removeItemByProductId(productId);
 	}
-	
+
 	@Test
 	public void shouldRemoveAllItemsWhenReceivingDeleteRequestOnProductCollectionInCart() {
 		controller.receiveDeleteRequestOnProductsInCart(cartId);
 		verify(cart).removeAllItems();
 	}
-	
+
 	@Test
 	public void shouldRemoveCartWhenReceivingDeleteRequestOnCart() {
 		controller.receiveDeleteRequestOnCart(cartId);
