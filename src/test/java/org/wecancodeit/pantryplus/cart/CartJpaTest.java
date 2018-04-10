@@ -336,8 +336,8 @@ public class CartJpaTest {
 		entityManager.flush();
 		entityManager.clear();
 		cart = cartRepo.findOne(cartId);
-		CountedLineItem orphan = cart.decreaseProductByOne(anotherProductId);
-		lineItemRepo.save(orphan);
+		CountedLineItem child = cart.decreaseProductByOne(anotherProductId);
+		lineItemRepo.save(child);
 		entityManager.flush();
 		entityManager.clear();
 		cart = cartRepo.findOne(cartId);
