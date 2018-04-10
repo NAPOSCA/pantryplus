@@ -4,11 +4,9 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
-import org.wecancodeit.pantryplus.product.CouponProduct;
-import org.wecancodeit.pantryplus.product.Product;
 
 public class CouponProductTest {
-	
+
 	@Test
 	public void shouldHaveCouponCostOne() {
 		int cost = 1;
@@ -16,7 +14,7 @@ public class CouponProductTest {
 		int actual = ((CouponProduct) underTest).getCost();
 		assertThat(actual, is(cost));
 	}
-	
+
 	@Test
 	public void shouldHaveCouponCostTwo() {
 		int cost = 2;
@@ -24,4 +22,14 @@ public class CouponProductTest {
 		int actual = underTest.getCost();
 		assertThat(actual, is(cost));
 	}
+
+	@Test
+	public void shouldHaveALimit() {
+		int cost = 2;
+		int limit = 3;
+		CouponProduct underTest = new CouponProduct("name", null, cost, limit);
+		int actual = underTest.getCouponLimit();
+		assertThat(actual, is(limit));
+	}
+
 }

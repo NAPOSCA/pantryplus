@@ -8,8 +8,8 @@ import org.wecancodeit.pantryplus.category.Category;
 public class CouponProduct extends Product {
 
 	private int cost;
-	
-	
+	private int couponlimit;
+
 	protected CouponProduct() {
 		super();
 	}
@@ -18,9 +18,19 @@ public class CouponProduct extends Product {
 		super(name, category);
 		this.cost = cost;
 	}
-	
+
+	public CouponProduct(String name, Category category, int cost, int couponlimit) {
+		super(name, category);
+		this.cost = cost;
+		this.couponlimit = couponlimit;
+	}
+
 	public int getCost() {
 		return cost;
+	}
+
+	public int getCouponLimit() {
+		return couponlimit;
 	}
 
 }
