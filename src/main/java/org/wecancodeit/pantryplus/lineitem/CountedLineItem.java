@@ -19,7 +19,7 @@ public class CountedLineItem extends LineItem {
 		this.cart = cart;
 		this.product = product;
 		this.quantity = quantity;
-		if(quantity < 0) {
+		if (quantity < 0) {
 			this.quantity = 0;
 		}
 	}
@@ -34,6 +34,9 @@ public class CountedLineItem extends LineItem {
 
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
+		if (this.quantity < 0) {
+			this.quantity = 0;
+		}
 	}
 
 	public int totalCouponCost() {
@@ -66,8 +69,10 @@ public class CountedLineItem extends LineItem {
 	}
 
 	public void reduceQuantity(int quantityToReduceBy) {
-		quantity -= quantityToReduceBy;
-		if(quantity < 0) {
+		if (quantityToReduceBy > 0) {
+			quantity -= quantityToReduceBy;
+		}
+		if (quantity < 0) {
 			quantity = 0;
 		}
 	}

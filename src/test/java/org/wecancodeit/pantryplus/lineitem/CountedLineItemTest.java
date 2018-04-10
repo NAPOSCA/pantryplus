@@ -99,4 +99,21 @@ public class CountedLineItemTest {
 		int actual = underTest.getQuantity();
 		assertThat(actual, is(0));
 	}
+
+	@Test
+	public void shouldNotSetQuantityToNegativeNumber() {
+		CountedLineItem underTest = new CountedLineItem(null, null, 1);
+		underTest.setQuantity(-5);
+		int actual = underTest.getQuantity();
+		assertThat(actual, is(0));
+	}
+	
+	@Test
+	public void shouldNotPassNegativeNumberToReduceQuantity() {
+		CountedLineItem underTest = new CountedLineItem(null, null, 5);
+		int check = underTest.getQuantity();
+		underTest.reduceQuantity(-1);
+		int actual = underTest.getQuantity();
+		assertThat(actual, is(check));
+	}
 }
