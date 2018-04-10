@@ -22,7 +22,7 @@ public class UserTest {
 		User user = new User(3, 0, false, date, "00000");
 		int couponTotal = user.calculateCouponTotal();
 
-		assertThat(couponTotal, is(15));
+		assertThat(couponTotal, is(20));
 	}
 
 	@Test

@@ -57,8 +57,15 @@ public class User {
 	public int calculateCouponTotal() {
 		if (familySize <= 2) {
 			return 10;
+		} else if (familySize <= 4) {
+			return 20;
+		} else if (familySize <= 6) {
+			return 25;
+		} else if (familySize <= 8) {
+			return 30;
+		} else {
+			return 35;
 		}
-		return 15;
 	}
 
 	public int calculateMeatTotal() {
