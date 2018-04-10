@@ -22,4 +22,7 @@
 		<span class="value" th:text="${cart.getLineItemQuantityByProductId(product.id)}"/>
 	</p>
 	<button class="add" th:value="${product.id}">+</button>
+	<p>Limit:
+		<span th:text="${product.couponLimit}"></span>
+	</p>
 </div>
