@@ -244,5 +244,12 @@ public class CartJpaTest {
 		assertThat(lineItem, is(nullValue()));
 		assertThat(anotherLineItem, is(nullValue()));
 	}
+	
+	@Test
+	public void shouldHaveCartRemoveCountedLineItemsWhenTheirQuantityIsZero() {
+		countedLineItem = lineItemRepo.save(countedLineItem);
+		entityManager.flush();
+		entityManager.clear();
+	}
 
 }
