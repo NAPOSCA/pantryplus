@@ -25,7 +25,7 @@ public class Cart {
 	private User user;
 
 	@OneToMany(mappedBy = "cart")
-	Set<LineItem> lineItems;
+	private Set<LineItem> lineItems;
 
 	public User getUser() {
 		return user;
@@ -86,12 +86,15 @@ public class Cart {
 		CountedLineItem countedLineItem = (CountedLineItem) getLineItemByProductId(productId);
 		Product product = countedLineItem.getProduct();
 		if (product instanceof CouponProduct) {
-			int couponLimit = ((CouponProduct) product).getCouponLimit();
-			if (couponLimit == countedLineItem.getQuantity()) {
-				return null;
+			CouponProduct couponProduct = (CouponProduct) product;
+			int couponLimit = couponProduct.getCouponLimit();
+			int quantity = countedLineItem.getQuantity();
+			if (couponLimit > quantity) {
+				countedLineItem.increaseQuantity(1);
 			}
+		} else {
+			countedLineItem.increaseQuantity(1);
 		}
-		countedLineItem.increaseQuantity(1);
 		return countedLineItem;
 	}
 
