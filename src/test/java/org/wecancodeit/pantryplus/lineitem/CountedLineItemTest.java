@@ -91,4 +91,12 @@ public class CountedLineItemTest {
 		int sum = underTest.totalCouponCost();
 		assertThat(sum, is(12));
 	}
+
+	@Test
+	public void shouldNotBeReducedToNegativeNumber() {
+		CountedLineItem underTest = new CountedLineItem(null, null, 1);
+		underTest.reduceQuantity(5);
+		int actual = underTest.getQuantity();
+		assertThat(actual, is(0));
+	}
 }
