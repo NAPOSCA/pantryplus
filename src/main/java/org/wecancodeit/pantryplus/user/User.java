@@ -46,6 +46,10 @@ public class User {
 		return carts;
 	}
 
+	public int getSchoolAgeChildren() {
+		return schoolAgeChildren;
+	}
+
 	public boolean getHasInfants() {
 		return hasInfants;
 	}
