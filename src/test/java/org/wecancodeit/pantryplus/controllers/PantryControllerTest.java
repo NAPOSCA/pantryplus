@@ -68,7 +68,7 @@ public class PantryControllerTest {
 
 	@Test
 	public void shouldHaveDisplayCartReturnCart() {
-		String templateName = underTest.displayCart(model);
+		String templateName = underTest.displayCart(model, 0);
 		assertThat(templateName, is("cart"));
 	}
 
