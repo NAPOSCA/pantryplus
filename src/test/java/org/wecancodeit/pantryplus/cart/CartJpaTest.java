@@ -250,6 +250,13 @@ public class CartJpaTest {
 		countedLineItem = lineItemRepo.save(countedLineItem);
 		entityManager.flush();
 		entityManager.clear();
+		cart = cartRepo.findOne(cartId);
+		CountedLineItem countedLineItem = cart.decreaseProductByOne(productId);
+		cart = cartRepo.save(cart);
+		lineItemRepo.save(countedLineItem);
+		lineItemRepo.delete(countedLineItem);
+		cart = cartRepo.findOne(cartId);
+		assertThat(cart.has(productId), is(false));
 	}
 
 }
