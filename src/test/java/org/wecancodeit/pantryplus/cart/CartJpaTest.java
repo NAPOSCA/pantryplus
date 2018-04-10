@@ -226,7 +226,11 @@ public class CartJpaTest {
 		entityManager.flush();
 		entityManager.clear();
 		cart = cartRepo.findOne(cartId);
-		cart.removeItemByProductId(productId);
+		LineItem orphan = cart.removeItemByProductId(productId);
+		lineItemRepo.save(orphan);
+		entityManager.flush();
+		entityManager.clear();
+		cart = cartRepo.findOne(cartId);
 		LineItem actual = cart.getLineItemByProductId(productId);
 		assertThat(actual, is(nullValue()));
 	}
@@ -246,17 +250,55 @@ public class CartJpaTest {
 	}
 	
 	@Test
-	public void shouldHaveCartRemoveCountedLineItemsWhenTheirQuantityIsZero() {
-		countedLineItem = lineItemRepo.save(countedLineItem);
+	public void shouldNotHaveLineItem() {
 		entityManager.flush();
 		entityManager.clear();
 		cart = cartRepo.findOne(cartId);
-		CountedLineItem countedLineItem = cart.decreaseProductByOne(productId);
-		cart = cartRepo.save(cart);
+		boolean has = cart.has(productId);
+		assertThat(has, is(false));
+	}
+	
+	@Test
+	public void shouldNotHaveLineItemWhenItsDeletedFromLineItemRepo() {
 		lineItemRepo.save(countedLineItem);
 		lineItemRepo.delete(countedLineItem);
+		entityManager.flush();
+		entityManager.clear();
 		cart = cartRepo.findOne(cartId);
-		assertThat(cart.has(productId), is(false));
+		boolean has = cart.has(productId);
+		assertThat(has, is(false));
 	}
+	
+	@Test
+	public void shouldNotHaveLineItemWhenItDetachesItself() {
+		lineItemRepo.save(countedLineItem);
+		long countedLineItemId = countedLineItem.getId();
+		entityManager.flush();
+		entityManager.clear();
+		countedLineItem = (CountedLineItem) lineItemRepo.findOne(countedLineItemId);
+		countedLineItem.detachFromCart();
+		lineItemRepo.save(countedLineItem);
+		entityManager.flush();
+		entityManager.clear();
+		cart = cartRepo.findOne(cartId);
+		boolean has = cart.has(productId);
+		assertThat(has, is(false));
+	}
+	
+	@Test
+	public void shouldDetachLineItemFromCart() {
+		lineItemRepo.save(countedLineItem);
+		entityManager.flush();
+		entityManager.clear();
+		cart = cartRepo.findOne(cartId);
+		CountedLineItem orphan = (CountedLineItem) cart.removeItemByProductId(productId);
+		lineItemRepo.save(orphan);
+		entityManager.flush();
+		entityManager.clear();
+		cart = cartRepo.findOne(cartId);
+		boolean has = cart.has(productId);
+		assertThat(has, is(false));
+	}
+	
 
 }
