@@ -81,7 +81,7 @@ public class Cart {
 
 	public CountedLineItem increaseProductByOne(long productId) {
 		CountedLineItem countedLineItem = (CountedLineItem) getLineItemByProductId(productId);
-		countedLineItem.addQuantity(1);
+		countedLineItem.increaseQuantity(1);
 		return countedLineItem;
 	}
 

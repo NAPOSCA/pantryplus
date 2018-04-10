@@ -116,4 +116,13 @@ public class CountedLineItemTest {
 		int actual = underTest.getQuantity();
 		assertThat(actual, is(check));
 	}
+	
+	@Test
+	public void shouldNotPassNegativeNumberToIncreaseQuantity() {
+		CountedLineItem underTest = new CountedLineItem(null, null, 5);
+		int check = underTest.getQuantity();
+		underTest.increaseQuantity(-1);
+		int actual = underTest.getQuantity();
+		assertThat(actual, is(check));
+	}
 }

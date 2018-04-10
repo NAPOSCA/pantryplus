@@ -28,8 +28,10 @@ public class CountedLineItem extends LineItem {
 		return quantity;
 	}
 
-	public void addQuantity(int quantityToAdd) {
-		quantity += quantityToAdd;
+	public void increaseQuantity(int quantityToIncreaseBy) {
+		if (quantityToIncreaseBy > 0) {
+			quantity += quantityToIncreaseBy;
+		}
 	}
 
 	public void setQuantity(int quantity) {
