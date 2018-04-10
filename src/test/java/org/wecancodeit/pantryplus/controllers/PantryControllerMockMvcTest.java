@@ -62,9 +62,8 @@ public class PantryControllerMockMvcTest {
 		mvc.perform(get("/user-form?familySize=1&schoolkidsCount=1&infants=false&pickUpDate=2018-04-08&zipCode=00000")).andExpect(status().is3xxRedirection());
 	}
 
-	@Ignore
 	@Test
 	public void shouldLoadCartOk() throws Exception {
-		mvc.perform(get("/cart")).andExpect(status().isOk());
+		mvc.perform(get("/carts/1")).andExpect(status().isOk());
 	}
 }
