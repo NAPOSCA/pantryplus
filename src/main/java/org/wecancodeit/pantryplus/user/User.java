@@ -63,9 +63,8 @@ public class User {
 			return 25;
 		} else if (familySize <= 8) {
 			return 30;
-		} else {
-			return 35;
 		}
+		return 35;
 	}
 
 	public int calculateMeatTotal() {
