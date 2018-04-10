@@ -4,6 +4,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.wecancodeit.pantryplus.cart.Cart;
@@ -46,8 +47,9 @@ public class PantryController {
 		return "shopping";
 	}
 
-	@RequestMapping("/cart")
-	public String displayCart(Model model) {
+	@RequestMapping("/carts/{cartId}")
+	public String displayCart(Model model, @PathVariable long cartId) {
+		model.addAttribute("cart", cartRepo.findOne(cartId));
 		return "cart";
 	}
 
