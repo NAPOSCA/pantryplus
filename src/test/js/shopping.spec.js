@@ -82,3 +82,45 @@ describe("shopping.js", () => {
 		});
 	});
 });
+
+describe("shopping.js", () => {
+	let container, addToCartSpy, removeFromCartSpy, toggleSwitchSpy;
+	beforeEach(() => {
+		//declare Spies
+		toggleSwitchSpy = spyOn(window, "toggleSwitch").and.callThrough();
+		addToCartSpy = spyOn(window, "addToCart").and.callThrough();
+		removeFromCartSpy = spyOn(window, "removeFromCart").and.callThrough();
+		//create fake container
+		container = document.createElement("div");
+		container.classList.add("container");
+		container.innerHTML = `
+		<div class="category-items">
+			<section class="category">
+				<h2>Personal Hygiene</h2>
+			</section>
+			<ul class="items hidden">
+				<li class="item">
+					<div class="interface">
+					<label class="switch switch_type1" role="switch">
+					<input type="checkbox" class="switch__toggle"/>
+					<span class="switch__label"></span>
+				</label>
+					</div>
+				</li>
+				<li class="item">
+					<button class="add" value="2"></button>
+				</li>
+				<li class="item">
+					<button class="add" value="3"></button>
+				</li>
+			</ul>
+		</div>`;
+		document.body.append(container);
+
+		initialize();
+	});
+	afterEach(() => {
+		container.remove();
+	});
+
+});
