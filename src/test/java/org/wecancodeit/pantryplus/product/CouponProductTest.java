@@ -31,4 +31,5 @@ public class CouponProductTest {
 		int actual = underTest.getCouponLimit();
 		assertThat(actual, is(limit));
 	}
+
 }

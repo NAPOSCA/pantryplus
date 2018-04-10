@@ -10,6 +10,8 @@ import javax.persistence.OneToMany;
 
 import org.wecancodeit.pantryplus.lineitem.CountedLineItem;
 import org.wecancodeit.pantryplus.lineitem.LineItem;
+import org.wecancodeit.pantryplus.product.CouponProduct;
+import org.wecancodeit.pantryplus.product.Product;
 import org.wecancodeit.pantryplus.user.User;
 
 @Entity
@@ -24,7 +26,7 @@ public class Cart {
 
 	@OneToMany(mappedBy = "cart")
 	Set<LineItem> lineItems;
-	
+
 	public User getUser() {
 		return user;
 	}
@@ -81,6 +83,13 @@ public class Cart {
 
 	public CountedLineItem increaseProductByOne(long productId) {
 		CountedLineItem countedLineItem = (CountedLineItem) getLineItemByProductId(productId);
+		Product product = countedLineItem.getProduct();
+		if (product instanceof CouponProduct) {
+			int couponLimit = ((CouponProduct) product).getCouponLimit();
+			if (couponLimit == countedLineItem.getQuantity()) {
+				return null;
+			}
+		}
 		countedLineItem.addQuantity(1);
 		return countedLineItem;
 	}
