@@ -248,7 +248,7 @@ public class CartJpaTest {
 		assertThat(lineItem, is(nullValue()));
 		assertThat(anotherLineItem, is(nullValue()));
 	}
-	
+
 	@Test
 	public void shouldNotHaveLineItem() {
 		entityManager.flush();
@@ -257,7 +257,7 @@ public class CartJpaTest {
 		boolean has = cart.has(productId);
 		assertThat(has, is(false));
 	}
-	
+
 	@Test
 	public void shouldNotHaveLineItemWhenItsDeletedFromLineItemRepo() {
 		lineItemRepo.save(countedLineItem);
@@ -268,7 +268,7 @@ public class CartJpaTest {
 		boolean has = cart.has(productId);
 		assertThat(has, is(false));
 	}
-	
+
 	@Test
 	public void shouldNotHaveLineItemWhenItDetachesItself() {
 		lineItemRepo.save(countedLineItem);
@@ -284,7 +284,7 @@ public class CartJpaTest {
 		boolean has = cart.has(productId);
 		assertThat(has, is(false));
 	}
-	
+
 	@Test
 	public void shouldDetachLineItemFromCart() {
 		lineItemRepo.save(countedLineItem);
@@ -299,20 +299,50 @@ public class CartJpaTest {
 		boolean has = cart.has(productId);
 		assertThat(has, is(false));
 	}
-	
+
 	@Test
 	public void shouldRemoveLineItemIfQuantityIsSetToZero() {
 		lineItemRepo.save(countedLineItem);
 		entityManager.flush();
 		entityManager.clear();
 		cart = cartRepo.findOne(cartId);
-		CountedLineItem orphan = (CountedLineItem) cart.updateQuantityOfProduct(productId, 0);
+		CountedLineItem orphan = cart.updateQuantityOfProduct(productId, 0);
 		lineItemRepo.save(orphan);
 		entityManager.flush();
 		entityManager.clear();
 		cart = cartRepo.findOne(cartId);
 		boolean has = cart.has(productId);
 		assertThat(has, is(false));
+	}
+
+	@Test
+	public void shouldRemoveLineItemIfQuantityIsReducedToZero() {
+		lineItemRepo.save(countedLineItem);
+		entityManager.flush();
+		entityManager.clear();
+		cart = cartRepo.findOne(cartId);
+		CountedLineItem orphan = cart.decreaseProductByOne(productId);
+		lineItemRepo.save(orphan);
+		entityManager.flush();
+		entityManager.clear();
+		cart = cartRepo.findOne(cartId);
+		boolean has = cart.has(productId);
+		assertThat(has, is(false));
+	}
+	
+	@Test
+	public void shouldNotRemoveLineItemIfQuantityIsReducedToOne() {
+		lineItemRepo.save(anotherCountedLineItem);
+		entityManager.flush();
+		entityManager.clear();
+		cart = cartRepo.findOne(cartId);
+		CountedLineItem orphan = cart.decreaseProductByOne(anotherProductId);
+		lineItemRepo.save(orphan);
+		entityManager.flush();
+		entityManager.clear();
+		cart = cartRepo.findOne(cartId);
+		boolean has = cart.has(anotherProductId);
+		assertThat(has, is(true));
 	}
 
 }

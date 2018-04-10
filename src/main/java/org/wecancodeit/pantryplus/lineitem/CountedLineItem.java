@@ -36,7 +36,7 @@ public class CountedLineItem extends LineItem {
 
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
-		if(quantity < 1) {
+		if (quantity < 1) {
 			this.quantity = 0;
 			detachFromCart();
 		}
@@ -75,8 +75,9 @@ public class CountedLineItem extends LineItem {
 		if (quantityToReduceBy > 0) {
 			quantity -= quantityToReduceBy;
 		}
-		if (quantity < 0) {
+		if (quantity < 1) {
 			quantity = 0;
+			detachFromCart();
 		}
 	}
 
