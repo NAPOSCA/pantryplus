@@ -14,7 +14,7 @@
 			</h1>
 			<nav>
 				<ul>
-					<a href="/">Shopping</a>
+					<a th:href="'/shopping?cartId='+${cart.getId()}">Shopping</a>
 				</ul>
 			</nav>
 		</header>
@@ -30,7 +30,7 @@
 				</tr>
 			</table>
 		</main>
-		<footer th:replace="index :: footer"/>
+		<footer th:replace="shopping :: footer"/>
 	</div>
 </body>
 </html>
