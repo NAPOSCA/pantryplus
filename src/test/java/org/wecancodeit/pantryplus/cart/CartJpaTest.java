@@ -300,5 +300,19 @@ public class CartJpaTest {
 		assertThat(has, is(false));
 	}
 	
+	@Test
+	public void shouldRemoveLineItemIfQuantityIsSetToZero() {
+		lineItemRepo.save(countedLineItem);
+		entityManager.flush();
+		entityManager.clear();
+		cart = cartRepo.findOne(cartId);
+		CountedLineItem orphan = (CountedLineItem) cart.updateQuantityOfProduct(productId, 0);
+		lineItemRepo.save(orphan);
+		entityManager.flush();
+		entityManager.clear();
+		cart = cartRepo.findOne(cartId);
+		boolean has = cart.has(productId);
+		assertThat(has, is(false));
+	}
 
 }
