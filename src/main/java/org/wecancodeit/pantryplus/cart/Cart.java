@@ -75,6 +75,12 @@ public class Cart {
 		return totalQuantity;
 	}
 
+	public int getCouponsUsed() {
+		Stream<LineItem> lineItemStream = getLineItems().stream().filter(item -> isCountedLineItem(item));
+		Stream<CountedLineItem> countedLineItemStream = lineItemStream.map(item -> (CountedLineItem) item);
+		return countedLineItemStream.mapToInt(item -> item.getCouponsUsed()).sum();
+	}
+
 	@SuppressWarnings("unused")
 	private Cart() {
 	}
@@ -131,12 +137,6 @@ public class Cart {
 			}
 		}
 		return false;
-	}
-
-	public int getCouponsUsed() {
-		Stream<LineItem> lineItemStream = getLineItems().stream().filter(item -> isCountedLineItem(item));
-		Stream<CountedLineItem> countedLineItemStream = lineItemStream.map(item -> (CountedLineItem) item);
-		return countedLineItemStream.mapToInt(item -> item.getCouponsUsed()).sum();
 	}
 
 	@Override
