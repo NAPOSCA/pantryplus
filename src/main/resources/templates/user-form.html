@@ -10,18 +10,19 @@
 		<form action="/user-form">
 
 			<p>What is your zip code?</p>
-			<select name="zipCode">
-				<option selected="true" disabled="true" hidden="true">Select...</option>
+			<select name="zipCode" required="true">
+				<option selected="true" disabled="true" hidden="true" value="">Select...</option>
 				<option value="43203">43203</option>
 				<option value="43205">43205</option>
 				<option value="43209">43209</option>
 				<option value="43213">43213</option>
 				<option value="43215">43215</option>
+				<option value="other">Other</option>
 			</select>
 
 			<p>Please select your total family size:</p>
-			<select name="familySize">
-				<option selected="true" disabled="true" hidden="true">Select...</option>
+			<select name="familySize" required="true">
+				<option selected="true" disabled="true" hidden="true" value="">Select...</option>
 				<option value="1">1</option>
 				<option value="2">2</option>
 				<option value="3">3</option>
@@ -35,8 +36,8 @@
 
 			<p>Please select how many children between the ages of 4 and 17 you have:</p>
 			<select name="schoolkidsCount">
-				<option selected="true" disabled="true" hidden="true">Select...</option>
-				<option value="0">0</option>
+				<!-- <option selected="true" disabled="true" hidden="true">Select...</option> -->
+				<option selected="true" value="0">0</option>
 				<option value="1">1</option>
 				<option value="2">2</option>
 				<option value="3">3</option>
@@ -53,8 +54,8 @@
 			<input type="checkbox" name="infants" value="true"/>
 
 			<p>Please choose a pick up date:</p>
-			<select name="pickUpDate">
-				<option selected="true" disabled="true" hidden="true">Select...</option>
+			<select name="pickUpDate" required="true">
+				<option selected="true" disabled="true" hidden="true" value="">Select...</option>
 				<option value="2018-04-17">04/17/2018</option>
 			</select>	
 				
