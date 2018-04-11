@@ -23,8 +23,8 @@
 			</nav>
 		</header>
 		<main>
-			<div th:each="category : ${categories}" class="category-items">
-				<section class="category" th:unless="${category.name == 'After School Snacks' and cart.user.schoolAgeChildren == 0}">
+			<div th:each="category : ${categories}" class="category-items" th:unless="${category.name == 'After School Snacks' and cart.user.schoolAgeChildren == 0}">
+				<section class="category">
 					<h2 th:text="${category.name}"/>
 					<p th:if="${category.name == 'Meat'}">
 						<span>Available lbs of Meat: </span>
