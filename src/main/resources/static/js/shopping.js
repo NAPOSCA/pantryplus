@@ -3,9 +3,13 @@ function initialize() {
 	for (let i = 0; i < manyCategoryItemsDivs.length; i++) {
 		const categoryDiv = manyCategoryItemsDivs[i];
 		const categorySection = categoryDiv.querySelector(".category");
+		const indicators = categorySection.querySelectorAll(".indicator");
 		const items = categoryDiv.querySelector(".items");
 		categorySection.addEventListener("click", () => {
 			toggleVisibility(items);
+			indicators.forEach(indicator => {
+				toggleVisibility(indicator);
+			});
 		});
 	}
 
