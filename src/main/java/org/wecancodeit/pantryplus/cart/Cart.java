@@ -107,7 +107,7 @@ public class Cart {
 		return countedLineItem;
 	}
 
-	public LineItem removeItemByProductId(long productId) {
+	public LineItem popItemByProductId(long productId) {
 		LineItem lineItem = getLineItemByProductId(productId);
 		lineItem.detachFromCart();
 		return lineItem;

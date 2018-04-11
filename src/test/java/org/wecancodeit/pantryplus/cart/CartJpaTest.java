@@ -226,7 +226,7 @@ public class CartJpaTest {
 		entityManager.flush();
 		entityManager.clear();
 		cart = cartRepo.findOne(cartId);
-		LineItem orphan = cart.removeItemByProductId(productId);
+		LineItem orphan = cart.popItemByProductId(productId);
 		lineItemRepo.save(orphan);
 		entityManager.flush();
 		entityManager.clear();
@@ -291,7 +291,7 @@ public class CartJpaTest {
 		entityManager.flush();
 		entityManager.clear();
 		cart = cartRepo.findOne(cartId);
-		CountedLineItem orphan = (CountedLineItem) cart.removeItemByProductId(productId);
+		CountedLineItem orphan = (CountedLineItem) cart.popItemByProductId(productId);
 		lineItemRepo.save(orphan);
 		entityManager.flush();
 		entityManager.clear();

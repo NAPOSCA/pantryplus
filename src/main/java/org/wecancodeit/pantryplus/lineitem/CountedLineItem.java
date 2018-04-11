@@ -11,6 +11,10 @@ public class CountedLineItem extends LineItem {
 
 	protected int quantity;
 
+	public int getQuantity() {
+		return quantity;
+	}
+
 	public CountedLineItem() {
 
 	}
@@ -24,13 +28,26 @@ public class CountedLineItem extends LineItem {
 		}
 	}
 
-	public int getQuantity() {
-		return quantity;
+	public int totalCouponsUsed() {
+		if (hasCouponProduct()) {
+			return quantity * ((CouponProduct) product).getCost();
+		}
+		return 0;
 	}
 
 	public void increaseQuantity(int quantityToIncreaseBy) {
 		if (quantityToIncreaseBy > 0) {
 			quantity += quantityToIncreaseBy;
+		}
+	}
+
+	public void reduceQuantity(int quantityToReduceBy) {
+		if (quantityToReduceBy > 0) {
+			quantity -= quantityToReduceBy;
+		}
+		if (quantity < 1) {
+			quantity = 0;
+			detachFromCart();
 		}
 	}
 
@@ -40,13 +57,6 @@ public class CountedLineItem extends LineItem {
 			this.quantity = 0;
 			detachFromCart();
 		}
-	}
-
-	public int totalCouponCost() {
-		if (hasCouponProduct()) {
-			return quantity * ((CouponProduct) product).getCost();
-		}
-		return 0;
 	}
 
 	@Override
@@ -69,16 +79,6 @@ public class CountedLineItem extends LineItem {
 		if (quantity != other.quantity)
 			return false;
 		return true;
-	}
-
-	public void reduceQuantity(int quantityToReduceBy) {
-		if (quantityToReduceBy > 0) {
-			quantity -= quantityToReduceBy;
-		}
-		if (quantity < 1) {
-			quantity = 0;
-			detachFromCart();
-		}
 	}
 
 }

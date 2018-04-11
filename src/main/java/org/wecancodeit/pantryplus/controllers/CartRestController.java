@@ -95,7 +95,7 @@ public class CartRestController {
 
 	Cart tellCartToRemoveItem(long cartId, long productId) {
 		Cart cart = retrieveCartBy(cartId);
-		LineItem orphan = cart.removeItemByProductId(productId);
+		LineItem orphan = cart.popItemByProductId(productId);
 		lineItemRepo.save(orphan);
 		return cart;
 	}

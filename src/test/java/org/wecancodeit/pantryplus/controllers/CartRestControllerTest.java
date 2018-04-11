@@ -92,7 +92,7 @@ public class CartRestControllerTest {
 	@Test
 	public void shouldDeleteLineItemFromCart() {
 		controller.tellCartToRemoveItem(cartId, productId);
-		verify(cart).removeItemByProductId(productId);
+		verify(cart).popItemByProductId(productId);
 	}
 
 	@Test
@@ -175,7 +175,7 @@ public class CartRestControllerTest {
 	@Test
 	public void shouldRemoveItemWhenReceivingDeleteRequestOnProductInCart() {
 		controller.receiveDeleteRequestOnProductInCart(cartId, productId);
-		verify(cart).removeItemByProductId(productId);
+		verify(cart).popItemByProductId(productId);
 	}
 
 	@Test
