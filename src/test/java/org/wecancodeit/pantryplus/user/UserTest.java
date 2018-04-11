@@ -50,6 +50,54 @@ public class UserTest {
 	}
 
 	@Test
+	public void shouldCalculateCannedFoodTotalForFamilyWithOneOrTwoSchoolAgeKids() {
+		User user = new User(6, 1, false, date, "00000");
+		int cannedFoodTotal = user.calculateCannedFoodTotalForKids();
+
+		assertThat(cannedFoodTotal, is(2));
+	}
+
+	@Test
+	public void shouldCalculateCannedFoodTotalForFamilyWithThreeOrFourSchoolAgeKids() {
+		User user = new User(6, 3, false, date, "00000");
+		int cannedFoodTotal = user.calculateCannedFoodTotalForKids();
+
+		assertThat(cannedFoodTotal, is(4));
+	}
+
+	@Test
+	public void shouldCalculateCannedFoodTotalForFamilyWithFiveOrMoreSchoolAgeKids() {
+		User user = new User(6, 5, false, date, "00000");
+		int cannedFoodTotal = user.calculateCannedFoodTotalForKids();
+
+		assertThat(cannedFoodTotal, is(6));
+	}
+
+	@Test
+	public void shouldCalculateSnackTotalForFamilyWithSchoolAgeKids() {
+		User user = new User(6, 3, false, date, "00000");
+		int snackTotal = user.calculateSnackTotalForKids();
+
+		assertThat(snackTotal, is(15));
+	}
+
+	@Test
+	public void shouldCalculateFruitTotalForFamilyWithSchoolAgeKids() {
+		User user = new User(6, 3, false, date, "00000");
+		int snackTotal = user.calculateFruitTotalForKids();
+
+		assertThat(snackTotal, is(9));
+	}
+
+	@Test
+	public void shouldCalculateDairyProductTotalForFamilyWithSchoolAgeKids() {
+		User user = new User(6, 3, false, date, "00000");
+		int snackTotal = user.calculateDairyProductTotalForKids();
+
+		assertThat(snackTotal, is(3));
+	}
+
+	@Test
 	public void shouldTakeZipCode12345() {
 		String zip = "12345";
 		User underTest = new User(1, 1, true, date, zip);
