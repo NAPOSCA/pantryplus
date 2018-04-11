@@ -32,7 +32,12 @@ function initialize() {
 			const button = switchButtons[i];
 			const productId = parseInt(button.value);
 			button.addEventListener("change", () => {
-				addToCart(productId);
+				if(button.checked == true){
+					addToCart(productId);
+				} else{
+
+					removeFromCart(productId);
+				}
 			});
 		}
 }
