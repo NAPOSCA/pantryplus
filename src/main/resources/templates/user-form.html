@@ -23,7 +23,7 @@
 			</select>
 
 			<p>Please select your total family size:</p>
-			<select name="familySize" required="true">
+			<select class="familySizeMenu" name="familySize" required="true">
 				<option selected="true" disabled="true" hidden="true" value="">Select...</option>
 				<option value="1">1</option>
 				<option value="2">2</option>
@@ -37,19 +37,18 @@
 			</select>
 
 			<p>Please select how many children between the ages of 4 and 17 you have:</p>
-			<select name="schoolkidsCount" required="true">
-        <option selected="true" disabled="true" hidden="true" value="">Select...</option>
+			<select class="schoolKidsMenu" name="schoolkidsCount" required="true">
+        		<option selected="true" disabled="true" hidden="true" value="">Select...</option>
 				<option value="0">0</option>
-				<option value="1">1</option>
-				<option value="2">2</option>
-				<option value="3">3</option>
-				<option value="4">4</option>
-				<option value="5">5</option>
-				<option value="6">6</option>
-				<option value="7">7</option>
-				<option value="8">8</option>
-				<option value="9">9</option>
-				<option value="10">10+</option>
+				<option value="1" class="hidden">1</option>
+				<option value="2" class="hidden">2</option>
+				<option value="3" class="hidden">3</option>
+				<option value="4" class="hidden">4</option>
+				<option value="5" class="hidden">5</option>
+				<option value="6" class="hidden">6</option>
+				<option value="7" class="hidden">7</option>
+				<option value="8" class="hidden">8</option>
+				<option value="9" class="hidden">9+</option>
 			</select>
 
 			<p>Do you have any children below the age of 4?</p>
