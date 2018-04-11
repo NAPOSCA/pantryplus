@@ -31,14 +31,6 @@ public class Cart {
 		return user;
 	}
 
-	@SuppressWarnings("unused")
-	private Cart() {
-	}
-
-	public Cart(User user) {
-		this.user = user;
-	}
-
 	public long getId() {
 		return id;
 	}
@@ -56,20 +48,6 @@ public class Cart {
 		return null;
 	}
 
-	public int getCartQuantity() {
-		int totalQuantity = 0;
-		for (LineItem item : lineItems) {
-			if (isCountedLineItem(item)) {
-				totalQuantity += ((CountedLineItem) item).getQuantity();
-			}
-		}
-		return totalQuantity;
-	}
-
-	private boolean isCountedLineItem(LineItem item) {
-		return item instanceof CountedLineItem;
-	}
-
 	public int getLineItemQuantityByProductId(long productId) {
 		LineItem lineItem = getLineItemByProductId(productId);
 		if (lineItem == null) {
@@ -80,6 +58,28 @@ public class Cart {
 			return countedLineItem.getQuantity();
 		}
 		return 1;
+	}
+
+	public int getCartQuantity() {
+		int totalQuantity = 0;
+		for (LineItem item : lineItems) {
+			if (isCountedLineItem(item)) {
+				totalQuantity += ((CountedLineItem) item).getQuantity();
+			}
+		}
+		return totalQuantity;
+	}
+
+	@SuppressWarnings("unused")
+	private Cart() {
+	}
+
+	public Cart(User user) {
+		this.user = user;
+	}
+
+	private boolean isCountedLineItem(LineItem item) {
+		return item instanceof CountedLineItem;
 	}
 
 	public CountedLineItem increaseProductByOne(long productId) {
