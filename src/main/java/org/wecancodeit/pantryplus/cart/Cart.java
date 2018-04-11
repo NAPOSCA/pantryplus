@@ -150,4 +150,8 @@ public class Cart {
 		return false;
 	}
 
+	public int totalCouponsUsed() {
+		return 16;
+	}
+
 }

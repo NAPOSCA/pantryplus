@@ -17,6 +17,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.wecancodeit.pantryplus.lineitem.CountedLineItem;
 import org.wecancodeit.pantryplus.lineitem.LineItem;
 import org.wecancodeit.pantryplus.lineitem.LineItemRepository;
+import org.wecancodeit.pantryplus.product.CouponProduct;
 import org.wecancodeit.pantryplus.product.Product;
 import org.wecancodeit.pantryplus.product.ProductRepository;
 import org.wecancodeit.pantryplus.user.User;
@@ -329,7 +330,7 @@ public class CartJpaTest {
 		boolean has = cart.has(productId);
 		assertThat(has, is(false));
 	}
-	
+
 	@Test
 	public void shouldNotRemoveLineItemIfQuantityIsReducedToOne() {
 		lineItemRepo.save(anotherCountedLineItem);
@@ -343,6 +344,23 @@ public class CartJpaTest {
 		cart = cartRepo.findOne(cartId);
 		boolean has = cart.has(anotherProductId);
 		assertThat(has, is(true));
+	}
+
+	@Test
+	public void shouldReturnTotalCouponsUsedInTheCartAs16() {
+		CouponProduct couponProduct = new CouponProduct("", null, 8);
+		couponProduct = productRepo.save(couponProduct);
+		CouponProduct anotherCouponProduct = new CouponProduct("", null, 1);
+		anotherCouponProduct = productRepo.save(couponProduct);
+		CountedLineItem countedLineItem = new CountedLineItem(cart, couponProduct, 4);
+		lineItemRepo.save(countedLineItem);
+		CountedLineItem anotherCountedLineItem = new CountedLineItem(cart, anotherCouponProduct, 2);
+		lineItemRepo.save(anotherCountedLineItem);
+		entityManager.flush();
+		entityManager.clear();
+		cart = cartRepo.findOne(cartId);
+		int actual = cart.totalCouponsUsed();
+		assertThat(actual, is(16));
 	}
 
 }
