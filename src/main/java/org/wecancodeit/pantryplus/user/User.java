@@ -46,6 +46,10 @@ public class User {
 		return carts;
 	}
 
+	public int getSchoolAgeChildren() {
+		return schoolAgeChildren;
+	}
+
 	public boolean getHasInfants() {
 		return hasInfants;
 	}
@@ -74,27 +78,6 @@ public class User {
 			return 6;
 		}
 		return 8;
-	}
-
-	public int calculateCannedFoodTotalForKids() {
-		if (schoolAgeChildren <= 2) {
-			return 2;
-		} else if (schoolAgeChildren <= 4) {
-			return 4;
-		}
-		return 6;
-	}
-
-	public int calculateSnackTotalForKids() {
-		return schoolAgeChildren * 5;
-	}
-
-	public int calculateFruitTotalForKids() {
-		return schoolAgeChildren * 3;
-	}
-
-	public int calculateDairyProductTotalForKids() {
-		return schoolAgeChildren;
 	}
 
 	public String getZipCode() {

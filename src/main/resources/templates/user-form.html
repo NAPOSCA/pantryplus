@@ -8,20 +8,23 @@
 <body>
 	<div class="container">
 		<form action="/user-form">
+			<h1>Welcome to Broad Street Food Pantry</h1>
 
-			<p>What is your zip code?</p>
-			<select name="zipCode">
-				<option selected="true" disabled="true" hidden="true">Select...</option>
+			<p>Please select your zip code:</p>
+			<select name="zipCode" required="true">
+				<option selected="true" disabled="true" hidden="true" value="">Select...</option>
 				<option value="43203">43203</option>
 				<option value="43205">43205</option>
 				<option value="43209">43209</option>
 				<option value="43213">43213</option>
 				<option value="43215">43215</option>
+				<option value="Partnership">I am a partner</option>
+				<option value="Other">Other</option>
 			</select>
 
 			<p>Please select your total family size:</p>
-			<select name="familySize">
-				<option selected="true" disabled="true" hidden="true">Select...</option>
+			<select name="familySize" required="true">
+				<option selected="true" disabled="true" hidden="true" value="">Select...</option>
 				<option value="1">1</option>
 				<option value="2">2</option>
 				<option value="3">3</option>
@@ -34,8 +37,8 @@
 			</select>
 
 			<p>Please select how many children between the ages of 4 and 17 you have:</p>
-			<select name="schoolkidsCount">
-				<option selected="true" disabled="true" hidden="true">Select...</option>
+			<select name="schoolkidsCount" required="true">
+        <option selected="true" disabled="true" hidden="true" value="">Select...</option>
 				<option value="0">0</option>
 				<option value="1">1</option>
 				<option value="2">2</option>
@@ -52,13 +55,13 @@
 			<p>Do you have any children below the age of 4?</p>
 			<input type="checkbox" name="infants" value="true"/>
 
-			<p>Please choose a pick up date:</p>
-			<select name="pickUpDate">
-				<option selected="true" disabled="true" hidden="true">Select...</option>
+			<p>Please select a pick up date:</p>
+			<select name="pickUpDate" required="true">
+				<option selected="true" disabled="true" hidden="true" value="">Select...</option>
 				<option value="2018-04-17">04/17/2018</option>
 			</select>	
 				
-			<p><input type="submit"/></p>
+			<p><input type="submit" value="Start Shopping"/></p>
 		</form> 
 	</div>
 </body>
