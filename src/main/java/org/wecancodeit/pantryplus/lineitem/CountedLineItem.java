@@ -30,7 +30,8 @@ public class CountedLineItem extends LineItem {
 
 	public int totalCouponsUsed() {
 		if (hasCouponProduct()) {
-			return quantity * ((CouponProduct) product).getCost();
+			CouponProduct couponProduct = (CouponProduct) product;
+			return quantity * couponProduct.getCost();
 		}
 		return 0;
 	}

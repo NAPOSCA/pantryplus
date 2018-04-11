@@ -1,6 +1,7 @@
 package org.wecancodeit.pantryplus.cart;
 
 import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -151,7 +152,9 @@ public class Cart {
 	}
 
 	public int totalCouponsUsed() {
-		return 16;
+		Stream<LineItem> lineItemStream = getLineItems().stream().filter(item -> isCountedLineItem(item));
+		Stream<CountedLineItem> countedLineItemStream = lineItemStream.map(item -> (CountedLineItem) item);
+		return countedLineItemStream.mapToInt(item -> item.totalCouponsUsed()).sum();
 	}
 
 }
