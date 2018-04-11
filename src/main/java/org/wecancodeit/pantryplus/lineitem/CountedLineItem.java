@@ -10,9 +10,14 @@ import org.wecancodeit.pantryplus.product.Product;
 public class CountedLineItem extends LineItem {
 
 	protected int quantity;
+	int couponsUsed;
 
 	public int getQuantity() {
 		return quantity;
+	}
+
+	public int getCouponsUsed() {
+		return couponsUsed;
 	}
 
 	public CountedLineItem() {
@@ -26,20 +31,22 @@ public class CountedLineItem extends LineItem {
 		if (quantity < 0) {
 			this.quantity = 0;
 		}
+		couponsUsed = 0;
+		updateCouponsUsed();
 	}
 
-	public int totalCouponsUsed() {
-		if (hasCouponProduct()) {
-			CouponProduct couponProduct = (CouponProduct) product;
-			return quantity * couponProduct.getCost();
+	private void updateCouponsUsed() {
+		if(hasCouponProduct()) {
+			int cost = ((CouponProduct) this.product).getCost();
+			couponsUsed = cost * this.quantity;
 		}
-		return 0;
 	}
 
 	public void increaseQuantity(int quantityToIncreaseBy) {
 		if (quantityToIncreaseBy > 0) {
 			quantity += quantityToIncreaseBy;
 		}
+		updateCouponsUsed();
 	}
 
 	public void reduceQuantity(int quantityToReduceBy) {
@@ -50,6 +57,7 @@ public class CountedLineItem extends LineItem {
 			quantity = 0;
 			detachFromCart();
 		}
+		updateCouponsUsed();
 	}
 
 	public void setQuantity(int quantity) {
@@ -58,6 +66,7 @@ public class CountedLineItem extends LineItem {
 			this.quantity = 0;
 			detachFromCart();
 		}
+		updateCouponsUsed();
 	}
 
 	@Override

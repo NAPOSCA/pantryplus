@@ -359,7 +359,7 @@ public class CartJpaTest {
 		entityManager.flush();
 		entityManager.clear();
 		cart = cartRepo.findOne(cartId);
-		int actual = cart.totalCouponsUsed();
+		int actual = cart.getCouponsUsed();
 		assertThat(actual, is(16));
 	}
 	
@@ -376,7 +376,7 @@ public class CartJpaTest {
 		entityManager.flush();
 		entityManager.clear();
 		cart = cartRepo.findOne(cartId);
-		int actual = cart.totalCouponsUsed();
+		int actual = cart.getCouponsUsed();
 		assertThat(actual, is(24));
 	}
 	
@@ -394,7 +394,7 @@ public class CartJpaTest {
 		entityManager.flush();
 		entityManager.clear();
 		cart = cartRepo.findOne(cartId);
-		int actual = cart.totalCouponsUsed();
+		int actual = cart.getCouponsUsed();
 		assertThat(actual, is(24));
 	}
 	

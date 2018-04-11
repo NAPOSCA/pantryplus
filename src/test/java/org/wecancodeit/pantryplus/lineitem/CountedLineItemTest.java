@@ -70,7 +70,7 @@ public class CountedLineItemTest {
 	public void shouldReturnZeroIfNotCouponProduct() {
 		Product product = new Product("product", null);
 		CountedLineItem underTest = new CountedLineItem(null, product, 0);
-		int sum = underTest.totalCouponsUsed();
+		int sum = underTest.getCouponsUsed();
 		assertThat(sum, is(0));
 	}
 
@@ -79,7 +79,7 @@ public class CountedLineItemTest {
 		Product couponProduct = new CouponProduct("product", null, 3);
 		CountedLineItem underTest = new CountedLineItem(null, couponProduct, 0);
 		underTest.setQuantity(2);
-		int sum = underTest.totalCouponsUsed();
+		int sum = underTest.getCouponsUsed();
 		assertThat(sum, is(6));
 	}
 
@@ -88,7 +88,7 @@ public class CountedLineItemTest {
 		Product product = new CouponProduct("product", null, 4);
 		CountedLineItem underTest = new CountedLineItem(null, product, 0);
 		underTest.setQuantity(3);
-		int sum = underTest.totalCouponsUsed();
+		int sum = underTest.getCouponsUsed();
 		assertThat(sum, is(12));
 	}
 

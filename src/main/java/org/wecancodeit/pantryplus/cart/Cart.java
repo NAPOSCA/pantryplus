@@ -15,6 +15,8 @@ import org.wecancodeit.pantryplus.product.CouponProduct;
 import org.wecancodeit.pantryplus.product.Product;
 import org.wecancodeit.pantryplus.user.User;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Cart {
 
@@ -22,9 +24,11 @@ public class Cart {
 	@GeneratedValue
 	private long id;
 
+	@JsonIgnore
 	@ManyToOne
 	private User user;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "cart", orphanRemoval = true)
 	Set<LineItem> lineItems;
 
@@ -129,10 +133,10 @@ public class Cart {
 		return false;
 	}
 
-	public int totalCouponsUsed() {
+	public int getCouponsUsed() {
 		Stream<LineItem> lineItemStream = getLineItems().stream().filter(item -> isCountedLineItem(item));
 		Stream<CountedLineItem> countedLineItemStream = lineItemStream.map(item -> (CountedLineItem) item);
-		return countedLineItemStream.mapToInt(item -> item.totalCouponsUsed()).sum();
+		return countedLineItemStream.mapToInt(item -> item.getCouponsUsed()).sum();
 	}
 
 	@Override
