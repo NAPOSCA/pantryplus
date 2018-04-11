@@ -95,7 +95,8 @@ public class CartRestController {
 
 	Cart tellCartToRemoveItem(long cartId, long productId) {
 		Cart cart = retrieveCartBy(cartId);
-		cart.removeItemByProductId(productId);
+		LineItem orphan = cart.removeItemByProductId(productId);
+		lineItemRepo.save(orphan);
 		return cart;
 	}
 
@@ -123,7 +124,8 @@ public class CartRestController {
 	private CountedLineItem tellCartToUpdateProductQuantity(long cartId, long productId, int quantity) {
 		Cart cart = retrieveCartBy(cartId);
 		if (cart.has(productId)) {
-			return cart.updateQuantityOfProduct(productId, quantity);
+			CountedLineItem countedLineItem = cart.updateQuantityOfProduct(productId, quantity);
+			return lineItemRepo.save(countedLineItem);
 		}
 		return tellLineItemRepoToSaveCountedLineItemBy(cartId, productId, quantity);
 	}
