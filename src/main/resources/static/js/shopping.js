@@ -17,7 +17,7 @@ function initialize() {
 			addToCart(productId);
 		});
 	}
-
+	
 	const removeButtons = document.querySelectorAll("button.remove");
 	for(let i = 0; i < removeButtons.length; i++) {
 		const button = removeButtons[i];
@@ -26,6 +26,20 @@ function initialize() {
 			removeFromCart(productId);
 		});
 	}
+
+	const switchButtons = document.querySelectorAll(".switch__toggle");
+		for(let i = 0; i < switchButtons.length; i++) {
+			const button = switchButtons[i];
+			const productId = parseInt(button.value);
+			button.addEventListener("change", () => {
+				if(button.checked == true){
+					addToCart(productId);
+				} else{
+
+					removeFromCart(productId);
+				}
+			});
+		}
 }
 
 function toggleVisibility(items) {
@@ -41,7 +55,7 @@ function addToCart(productId) {
 			updateCartNumber(response);
 		}
 	};
-	xhr.open("PATCH", `/carts/1/items/${productId}?increase=true`, true);
+	xhr.open("PATCH", `/carts/${cartId}/items/${productId}?increase=true`, true);
 	xhr.send();
 }
 
@@ -53,7 +67,7 @@ function removeFromCart(productId) {
 			updateCartNumber(response);
 		}
 	};
-	xhr.open("PATCH", `/carts/1/items/${productId}?increase=false`, true);
+	xhr.open("PATCH", `/carts/${cartId}/items/${productId}?increase=false`, true);
 	xhr.send();
 }
 
@@ -62,3 +76,10 @@ function updateCartNumber(response) {
 	const value = interface.querySelector("span.value");
 	value.innerText = response.quantity;
 }
+
+
+
+
+
+
+
