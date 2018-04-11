@@ -18,7 +18,6 @@ public class LineItem {
 	@GeneratedValue
 	private long id;
 
-	@JsonIgnore
 	@ManyToOne
 	protected Cart cart;
 
