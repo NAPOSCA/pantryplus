@@ -17,6 +17,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.wecancodeit.pantryplus.lineitem.CountedLineItem;
 import org.wecancodeit.pantryplus.lineitem.LineItem;
 import org.wecancodeit.pantryplus.lineitem.LineItemRepository;
+import org.wecancodeit.pantryplus.product.CouponProduct;
 import org.wecancodeit.pantryplus.product.Product;
 import org.wecancodeit.pantryplus.product.ProductRepository;
 import org.wecancodeit.pantryplus.user.User;
@@ -249,6 +250,7 @@ public class CartJpaTest {
 		assertThat(anotherLineItem, is(nullValue()));
 	}
 
+
 	@Test
 	public void shouldNotHaveLineItem() {
 		entityManager.flush();
@@ -343,6 +345,22 @@ public class CartJpaTest {
 		cart = cartRepo.findOne(cartId);
 		boolean has = cart.has(anotherProductId);
 		assertThat(has, is(true));
+	}
+
+	@Test
+	public void shouldNotIncreaseProductIfQuantityIsAtLimit() {
+		int quantity = 2;
+		CouponProduct couponProduct = new CouponProduct("", null, 0, quantity);
+		couponProduct = productRepo.save(couponProduct);
+		long couponProductId = couponProduct.getId();
+		CountedLineItem countedLineItem = new CountedLineItem(cart, couponProduct, quantity);
+		lineItemRepo.save(countedLineItem);
+		entityManager.flush();
+		entityManager.clear();
+		cart = cartRepo.findOne(cartId);
+		countedLineItem = cart.increaseProductByOne(couponProductId);
+		int actual = countedLineItem.getQuantity();
+		assertThat(actual, is(quantity));
 	}
 
 }

@@ -19,10 +19,10 @@ public class CouponProduct extends Product {
 		this.cost = cost;
 	}
 
-	public CouponProduct(String name, Category category, int cost, int couponlimit) {
+	public CouponProduct(String name, Category category, int cost, int couponLimit) {
 		super(name, category);
 		this.cost = cost;
-		this.couponlimit = couponlimit;
+		this.couponlimit = couponLimit;
 	}
 
 	public int getCost() {
