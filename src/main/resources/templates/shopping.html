@@ -9,6 +9,11 @@
 	<link rel="shortcut icon" href="images\favicon.ico" type="image/x-icon"/>
 	<link rel="icon" href="images\favicon.ico" type="image/x-icon"/>
 	<script type="text/javascript" src="/js/shopping.js"></script>
+	<script th:inline="javascript">
+		/*<![CDATA[*/
+		const cartId = /*[[${cart.id}]]*/;
+		/*]]>*/
+	</script>
 </head>
 <body onload="initialize()">
 	<div class="container">

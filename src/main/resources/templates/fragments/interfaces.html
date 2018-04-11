@@ -1,9 +1,10 @@
 <div class="dichotomous interface">
 	<label class="switch switch_type1" role="switch">
-		<input type="checkbox" class="switch__toggle"/>
+		<input th:value="${product.id}"  type="checkbox" class="value switch__toggle"/>
 		<span class="switch__label"></span>
 	</label>
 </div>
+
 <div class="meat interface">
 	<button class="remove" th:value="${product.id}">-</button>
 	<p>
