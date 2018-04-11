@@ -94,6 +94,7 @@ public class Cart {
 			}
 		} else {
 			countedLineItem.increaseQuantity(1);
+
 		}
 		return countedLineItem;
 	}
