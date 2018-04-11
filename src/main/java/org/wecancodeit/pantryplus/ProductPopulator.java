@@ -25,6 +25,7 @@ public class ProductPopulator implements CommandLineRunner {
 
 		Category personalHygiene = categoryRepo.save(new Category("Personal Hygiene"));
 		Product bathroomTissue = productRepo.save(new Product("Bathroom Tissue", personalHygiene, "/images/bathroom-tissue.png"));
+		Product diapers = productRepo.save(new Product("Diapers", personalHygiene, "/images/diaper.png"));
 
 		Category mealStarter = categoryRepo.save(new Category("Meal Starter"));
 		Product recipeOfTheDay = productRepo.save(new Product("Recipe of the Month", mealStarter, "/images/recipe.png"));

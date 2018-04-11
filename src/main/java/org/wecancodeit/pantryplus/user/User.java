@@ -50,7 +50,7 @@ public class User {
 		return schoolAgeChildren;
 	}
 
-	public boolean getHasInfants() {
+	public boolean hasInfants() {
 		return hasInfants;
 	}
 
