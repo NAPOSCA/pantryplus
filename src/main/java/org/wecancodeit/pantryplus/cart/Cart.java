@@ -10,6 +10,8 @@ import javax.persistence.OneToMany;
 
 import org.wecancodeit.pantryplus.lineitem.CountedLineItem;
 import org.wecancodeit.pantryplus.lineitem.LineItem;
+import org.wecancodeit.pantryplus.product.CouponProduct;
+import org.wecancodeit.pantryplus.product.Product;
 import org.wecancodeit.pantryplus.user.User;
 
 @Entity
@@ -22,7 +24,7 @@ public class Cart {
 	@ManyToOne
 	private User user;
 
-	@OneToMany(mappedBy = "cart")
+	@OneToMany(mappedBy = "cart", orphanRemoval = true)
 	Set<LineItem> lineItems;
 
 	public User getUser() {
@@ -82,7 +84,17 @@ public class Cart {
 
 	public CountedLineItem increaseProductByOne(long productId) {
 		CountedLineItem countedLineItem = (CountedLineItem) getLineItemByProductId(productId);
-		countedLineItem.increaseQuantity(1);
+		Product product = countedLineItem.getProduct();
+		if (product instanceof CouponProduct) {
+			CouponProduct couponProduct = (CouponProduct) product;
+			int couponLimit = couponProduct.getCouponLimit();
+			int quantity = countedLineItem.getQuantity();
+			if (couponLimit > quantity) {
+				countedLineItem.increaseQuantity(1);
+			}
+		} else {
+			countedLineItem.increaseQuantity(1);
+		}
 		return countedLineItem;
 	}
 
@@ -98,9 +110,10 @@ public class Cart {
 		return countedLineItem;
 	}
 
-	public void removeItemByProductId(long productId) {
+	public LineItem removeItemByProductId(long productId) {
 		LineItem lineItem = getLineItemByProductId(productId);
-		lineItems.remove(lineItem);
+		lineItem.detachFromCart();
+		return lineItem;
 	}
 
 	public void removeAllItems() {

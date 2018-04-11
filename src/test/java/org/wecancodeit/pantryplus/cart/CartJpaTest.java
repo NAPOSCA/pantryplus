@@ -17,6 +17,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.wecancodeit.pantryplus.lineitem.CountedLineItem;
 import org.wecancodeit.pantryplus.lineitem.LineItem;
 import org.wecancodeit.pantryplus.lineitem.LineItemRepository;
+import org.wecancodeit.pantryplus.product.CouponProduct;
 import org.wecancodeit.pantryplus.product.Product;
 import org.wecancodeit.pantryplus.product.ProductRepository;
 import org.wecancodeit.pantryplus.user.User;
@@ -226,7 +227,11 @@ public class CartJpaTest {
 		entityManager.flush();
 		entityManager.clear();
 		cart = cartRepo.findOne(cartId);
-		cart.removeItemByProductId(productId);
+		LineItem orphan = cart.removeItemByProductId(productId);
+		lineItemRepo.save(orphan);
+		entityManager.flush();
+		entityManager.clear();
+		cart = cartRepo.findOne(cartId);
 		LineItem actual = cart.getLineItemByProductId(productId);
 		assertThat(actual, is(nullValue()));
 	}
@@ -244,12 +249,118 @@ public class CartJpaTest {
 		assertThat(lineItem, is(nullValue()));
 		assertThat(anotherLineItem, is(nullValue()));
 	}
-	
+
+
 	@Test
-	public void shouldHaveCartRemoveCountedLineItemsWhenTheirQuantityIsZero() {
-		countedLineItem = lineItemRepo.save(countedLineItem);
+	public void shouldNotHaveLineItem() {
 		entityManager.flush();
 		entityManager.clear();
+		cart = cartRepo.findOne(cartId);
+		boolean has = cart.has(productId);
+		assertThat(has, is(false));
+	}
+
+	@Test
+	public void shouldNotHaveLineItemWhenItsDeletedFromLineItemRepo() {
+		lineItemRepo.save(countedLineItem);
+		lineItemRepo.delete(countedLineItem);
+		entityManager.flush();
+		entityManager.clear();
+		cart = cartRepo.findOne(cartId);
+		boolean has = cart.has(productId);
+		assertThat(has, is(false));
+	}
+
+	@Test
+	public void shouldNotHaveLineItemWhenItDetachesItself() {
+		lineItemRepo.save(countedLineItem);
+		long countedLineItemId = countedLineItem.getId();
+		entityManager.flush();
+		entityManager.clear();
+		countedLineItem = (CountedLineItem) lineItemRepo.findOne(countedLineItemId);
+		countedLineItem.detachFromCart();
+		lineItemRepo.save(countedLineItem);
+		entityManager.flush();
+		entityManager.clear();
+		cart = cartRepo.findOne(cartId);
+		boolean has = cart.has(productId);
+		assertThat(has, is(false));
+	}
+
+	@Test
+	public void shouldDetachLineItemFromCart() {
+		lineItemRepo.save(countedLineItem);
+		entityManager.flush();
+		entityManager.clear();
+		cart = cartRepo.findOne(cartId);
+		CountedLineItem orphan = (CountedLineItem) cart.removeItemByProductId(productId);
+		lineItemRepo.save(orphan);
+		entityManager.flush();
+		entityManager.clear();
+		cart = cartRepo.findOne(cartId);
+		boolean has = cart.has(productId);
+		assertThat(has, is(false));
+	}
+
+	@Test
+	public void shouldRemoveLineItemIfQuantityIsSetToZero() {
+		lineItemRepo.save(countedLineItem);
+		entityManager.flush();
+		entityManager.clear();
+		cart = cartRepo.findOne(cartId);
+		CountedLineItem orphan = cart.updateQuantityOfProduct(productId, 0);
+		lineItemRepo.save(orphan);
+		entityManager.flush();
+		entityManager.clear();
+		cart = cartRepo.findOne(cartId);
+		boolean has = cart.has(productId);
+		assertThat(has, is(false));
+	}
+
+	@Test
+	public void shouldRemoveLineItemIfQuantityIsReducedToZero() {
+		lineItemRepo.save(countedLineItem);
+		entityManager.flush();
+		entityManager.clear();
+		cart = cartRepo.findOne(cartId);
+		CountedLineItem orphan = cart.decreaseProductByOne(productId);
+		lineItemRepo.save(orphan);
+		entityManager.flush();
+		entityManager.clear();
+		cart = cartRepo.findOne(cartId);
+		boolean has = cart.has(productId);
+		assertThat(has, is(false));
+	}
+	
+	@Test
+	public void shouldNotRemoveLineItemIfQuantityIsReducedToOne() {
+		lineItemRepo.save(anotherCountedLineItem);
+		entityManager.flush();
+		entityManager.clear();
+		cart = cartRepo.findOne(cartId);
+		CountedLineItem child = cart.decreaseProductByOne(anotherProductId);
+		lineItemRepo.save(child);
+		entityManager.flush();
+		entityManager.clear();
+		cart = cartRepo.findOne(cartId);
+		boolean has = cart.has(anotherProductId);
+		assertThat(has, is(true));
+	}
+
+	@Test
+	public void shouldNotIncreaseProductIfQuantityIsAtLimit() {
+		int quantity = 2;
+		CouponProduct couponProduct = new CouponProduct("", null, 0, quantity);
+		couponProduct = productRepo.save(couponProduct);
+		long couponProductId = couponProduct.getId();
+		CountedLineItem countedLineItem = new CountedLineItem(cart, couponProduct, quantity);
+		lineItemRepo.save(countedLineItem);
+		entityManager.flush();
+		entityManager.clear();
+		cart = cartRepo.findOne(cartId);
+		countedLineItem = cart.increaseProductByOne(couponProductId);
+		int actual = countedLineItem.getQuantity();
+		assertThat(actual, is(quantity));
 	}
 
 }
