@@ -80,27 +80,6 @@ public class User {
 		return 8;
 	}
 
-	public int calculateCannedFoodTotalForKids() {
-		if (schoolAgeChildren <= 2) {
-			return 2;
-		} else if (schoolAgeChildren <= 4) {
-			return 4;
-		}
-		return 6;
-	}
-
-	public int calculateSnackTotalForKids() {
-		return schoolAgeChildren * 5;
-	}
-
-	public int calculateFruitTotalForKids() {
-		return schoolAgeChildren * 3;
-	}
-
-	public int calculateDairyProductTotalForKids() {
-		return schoolAgeChildren;
-	}
-
 	public String getZipCode() {
 		return zipCode;
 	}
