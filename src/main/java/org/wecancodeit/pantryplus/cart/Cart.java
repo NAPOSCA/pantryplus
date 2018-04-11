@@ -24,7 +24,7 @@ public class Cart {
 	@ManyToOne
 	private User user;
 
-	@OneToMany(mappedBy = "cart")
+	@OneToMany(mappedBy = "cart", orphanRemoval = true)
 	Set<LineItem> lineItems;
 
 	public User getUser() {
@@ -107,9 +107,10 @@ public class Cart {
 		return countedLineItem;
 	}
 
-	public void removeItemByProductId(long productId) {
+	public LineItem removeItemByProductId(long productId) {
 		LineItem lineItem = getLineItemByProductId(productId);
-		lineItems.remove(lineItem);
+		lineItem.detachFromCart();
+		return lineItem;
 	}
 
 	public void removeAllItems() {
