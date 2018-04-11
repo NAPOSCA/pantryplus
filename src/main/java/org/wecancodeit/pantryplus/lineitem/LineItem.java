@@ -71,4 +71,8 @@ public class LineItem {
 		return false;
 	}
 
+	public void detachFromCart() {
+		cart = null;
+	}
+
 }
