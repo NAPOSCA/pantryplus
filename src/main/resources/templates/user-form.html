@@ -9,11 +9,20 @@
 	<script type="text/javascript" src="/js/user-form.js"></script>
 </head>
 <body onload="initializeUserForm()">
-	<div class="container">
-		<form action="/user-form">
+	<div class="container user-form">
+			<header>
 			<h1>Welcome to Broad Street Food Pantry</h1>
+			<h3>Please enter your information</h3>
+			</header>
+			<main>		
+		<form action="/user-form">
+			<p>First name:</p>
+			<input type="text" name="firstName" maxlength="20"></input>
+			
+			<p>Last name:</p>
+			<input type="text" name="lastName" maxlength="20"></input>
 
-			<p>Please select your zip code:</p>
+			<p>Zip code:</p>
 			<select name="zipCode" required="true">
 				<option selected="true" disabled="true" hidden="true" value="">Select...</option>
 				<option value="43203">43203</option>
@@ -25,7 +34,7 @@
 				<option value="Other">Other</option>
 			</select>
 
-			<p>Please select your total family size:</p>
+			<p>Total family size:</p>
 			<select class="familySizeMenu" name="familySize" required="true">
 				<option selected="true" disabled="true" hidden="true" value="">Select...</option>
 				<option value="1">1</option>
@@ -39,7 +48,7 @@
 				<option value="9">9+</option>
 			</select>
 
-			<p>Please select how many children between the ages of 4 and 17 you have:</p>
+			<p>Children between the ages of 4 and 17:</p>
 			<select class="schoolKidsMenu" name="schoolkidsCount" required="true">
 				<option selected="true" disabled="true" hidden="true" value="">Select...</option>
 				<option value="0">0</option>
@@ -54,13 +63,13 @@
 				<option value="9" class="hidden">9+</option>
 			</select>
 
-			<p>Do you have any children age 3 or younger?</p>
+			<p>Children age 3 or younger:</p>
 			<input id="Yes" type="radio" name="infants" value="true"/>
 			<label for="Yes">Yes</label>
 			<input id="No" type="radio" name="infants" value=""/>
 			<label for="No">No</label>
 
-			<p>Please select a pick up date:</p>
+			<p>Pick up date:</p>
 			<select name="pickUpDate" required="true">
 				<option selected="true" disabled="true" hidden="true" value="">Select...</option>
 				<option value="2018-04-17">04/17/2018</option>
@@ -68,6 +77,7 @@
 
 			<p><input type="submit" value="Start Shopping"/></p>
 		</form> 
+		</main>
 	</div>
 </body>
 </html>
