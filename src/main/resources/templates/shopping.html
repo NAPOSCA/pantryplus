@@ -34,8 +34,12 @@
 					<p class="indicator visible">+</p>
 					<p class="indicator hidden">-</p>
 					<p th:if="${category.name == 'Meat'}">
-						<span>Available lbs of Meat: </span>
+						<span>Available lbs. of Meat: </span>
 						<span th:text="${cart.getUser().calculateMeatTotal()}"/>
+					</p>
+					<p th:if="${category.name == 'Meat'}">
+						<span>Total lbs. of Meat used: </span>
+						<span th:text="${cart.getMeatPoundsUsed()}"/>
 					</p>
 					<p th:if="${category.name == 'Coupon'}">
 						<span>Available points of Coupons: </span>
