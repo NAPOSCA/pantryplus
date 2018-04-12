@@ -20,6 +20,8 @@ public class User {
 	@OneToMany(mappedBy = "user")
 	private Collection<Cart> carts;
 
+	private String firstName;
+	private String lastName;
 	private int familySize;
 	private int schoolAgeChildren;
 	private boolean hasInfants;
@@ -30,7 +32,10 @@ public class User {
 	private User() {
 	}
 
-	public User(int familySize, int schoolAgeChildren, boolean hasInfants, String pickupDateString, String zipCode) {
+	public User(String firstName, String lastName, int familySize, int schoolAgeChildren, boolean hasInfants,
+			String pickupDateString, String zipCode) {
+		this.firstName = firstName;
+		this.lastName = lastName;
 		this.familySize = familySize;
 		this.schoolAgeChildren = schoolAgeChildren;
 		this.hasInfants = hasInfants;
@@ -40,6 +45,14 @@ public class User {
 
 	public long getId() {
 		return id;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
 	}
 
 	public Collection<Cart> getCarts() {
