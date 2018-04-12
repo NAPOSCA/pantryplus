@@ -7,13 +7,10 @@ function initialize() {
 		const currentFamilySize = familySizeMenu.value;
 		for (let i = 1; i < schoolKidsOptions.length; i++) {
 			const currentOption = schoolKidsOptions[i];
-			if (currentOption.value > currentFamilySize) {
-				toggleVisibility(currentOption);
+			currentOption.classList.remove("hidden");
+			if (currentOption.value > currentFamilySize)  {
+				currentOption.classList.add("hidden");				
 			}
 		}
 	})
-}
-
-function toggleVisibility(items) {
-	items.classList.toggle("hidden");
 }
