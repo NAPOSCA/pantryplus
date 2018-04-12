@@ -32,6 +32,8 @@ public class Cart {
 	@OneToMany(mappedBy = "cart", orphanRemoval = true)
 	Set<LineItem> lineItems;
 
+	private int couponsUsed;
+
 	public User getUser() {
 		return user;
 	}
@@ -76,9 +78,7 @@ public class Cart {
 	}
 
 	public int getCouponsUsed() {
-		Stream<LineItem> lineItemStream = getLineItems().stream().filter(item -> isCountedLineItem(item));
-		Stream<CountedLineItem> countedLineItemStream = lineItemStream.map(item -> (CountedLineItem) item);
-		return countedLineItemStream.mapToInt(item -> item.getCouponsUsed()).sum();
+		return couponsUsed;
 	}
 
 	@SuppressWarnings("unused")
@@ -87,6 +87,12 @@ public class Cart {
 
 	public Cart(User user) {
 		this.user = user;
+	}
+	
+	public void updateCouponsUsed() {
+		Stream<LineItem> lineItemStream = getLineItems().stream().filter(item -> isCountedLineItem(item));
+		Stream<CountedLineItem> countedLineItemStream = lineItemStream.map(item -> (CountedLineItem) item);
+		couponsUsed = countedLineItemStream.mapToInt(item -> item.getCouponsUsed()).sum();
 	}
 
 	private boolean isCountedLineItem(LineItem item) {
@@ -103,18 +109,21 @@ public class Cart {
 			}
 		}
 		countedLineItem.increaseQuantity(1);
+		updateCouponsUsed();
 		return countedLineItem;
 	}
 
 	public CountedLineItem decreaseProductByOne(long productId) {
 		CountedLineItem countedLineItem = (CountedLineItem) getLineItemByProductId(productId);
 		countedLineItem.reduceQuantity(1);
+		updateCouponsUsed();
 		return countedLineItem;
 	}
 
 	public CountedLineItem updateQuantityOfProduct(long productId, int quantity) {
 		CountedLineItem countedLineItem = (CountedLineItem) getLineItemByProductId(productId);
 		countedLineItem.setQuantity(quantity);
+		updateCouponsUsed();
 		return countedLineItem;
 	}
 
