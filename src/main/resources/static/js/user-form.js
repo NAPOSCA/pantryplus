@@ -1,4 +1,4 @@
-function initialize() {
+function initializeUserForm() {
 	const familySizeMenu = document.querySelector(".familySizeMenu");
 	const schoolKidsMenu = document.querySelector(".schoolKidsMenu");
 	const schoolKidsOptions = document.querySelectorAll(".schoolKidsMenu option")
