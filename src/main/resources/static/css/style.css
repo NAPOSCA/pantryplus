@@ -1,5 +1,9 @@
 :root {
-	--rounding-padding: 0.3rem;
+	--rounding-padding: 0.4rem;
+}
+
+* {
+	font-family: sans-serif;
 }
 
 section.category {
@@ -7,11 +11,12 @@ section.category {
 	padding: var(--rounding-padding);
 	margin: var(--rounding-padding);
 	border-radius: var(--rounding-padding);
-	border: 1px solid black;
+	border: 2px solid black;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	
+	-ms-user-select: none;
+   	user-select: none;
 }
 
 main {
@@ -23,11 +28,13 @@ li.item {
 	margin: 0.4rem 1.2rem;
 	border-radius: var(--rounding-padding);
 	padding: var(--rounding-padding);
-	border: 1px solid black;
+	border: 2px solid black;
+	-ms-user-select: none;
+   	user-select: none;
 }
 
 button {
-	padding: 0 0.8rem;
+	padding: 0 2rem;
 }
 
 li.item h3 {
@@ -47,9 +54,25 @@ div.interface p {
 header nav {
 	display: flex;
 	align-items: center;
+	-ms-user-select: none;
+   	user-select: none;
 }
 
-.indicator{
+header {
+	-ms-user-select: none;
+   	user-select: none;
+}
+
+.indicator {
 	font-size: 2rem;
 	order: 1;
+}
+
+footer {
+	-ms-user-select: none;
+   	user-select: none;
+}
+
+img {
+	height: 45px;
 }
