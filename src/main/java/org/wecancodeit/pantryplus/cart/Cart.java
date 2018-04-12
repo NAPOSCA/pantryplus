@@ -111,6 +111,7 @@ public class Cart {
 			}
 		} else {
 			countedLineItem.increaseQuantity(1);
+
 		}
 		updateCouponsUsed();
 		return countedLineItem;
