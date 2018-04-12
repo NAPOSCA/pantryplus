@@ -6,6 +6,8 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 
 import javax.annotation.Resource;
+import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
 
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +23,9 @@ import org.wecancodeit.pantryplus.product.ProductRepository;
 
 @RestController
 public class CartRestController {
+
+	@Resource
+	private EntityManager entityManager;
 
 	@Resource
 	private CartRepository cartRepo;
@@ -48,6 +53,7 @@ public class CartRestController {
 		return tellCartToUpdateProductQuantity(cartId, productId, quantity);
 	}
 
+	@Transactional
 	@RequestMapping(path = "/carts/{cartId}/items/{productId}", method = PATCH)
 	public CountedLineItem receivePatchRequestOnProductInCart(@PathVariable long cartId, @PathVariable long productId,
 			@RequestParam boolean increase) {
@@ -95,7 +101,7 @@ public class CartRestController {
 
 	Cart tellCartToRemoveItem(long cartId, long productId) {
 		Cart cart = retrieveCartBy(cartId);
-		LineItem orphan = cart.removeItemByProductId(productId);
+		LineItem orphan = cart.popItemByProductId(productId);
 		lineItemRepo.save(orphan);
 		return cart;
 	}
@@ -112,13 +118,21 @@ public class CartRestController {
 		return tellLineItemRepoToSaveCountedLineItemBy(cartId, productId, 1);
 	}
 
-	private CountedLineItem tellLineItemRepoToSaveCountedLineItemBy(long cartId, long productId, int quantity) {
+	public CountedLineItem tellLineItemRepoToSaveCountedLineItemBy(long cartId, long productId, int quantity) {
 		Cart cart = retrieveCartBy(cartId);
 		Product product = retrieveProductBy(productId);
 		CountedLineItem countedLineItem = new CountedLineItem(cart, product, quantity);
-		lineItemRepo.save(countedLineItem);
+		countedLineItem = lineItemRepo.save(countedLineItem);
+		long id = countedLineItem.getId();
+		entityManager.flush();
+		entityManager.clear();
+		cart = retrieveCartBy(cartId);
+		cart.updateCouponsUsed();
+		cartRepo.save(cart);
+		entityManager.flush();
+		entityManager.clear();
+		countedLineItem = (CountedLineItem) lineItemRepo.findOne(id);
 		return countedLineItem;
-
 	}
 
 	private CountedLineItem tellCartToUpdateProductQuantity(long cartId, long productId, int quantity) {

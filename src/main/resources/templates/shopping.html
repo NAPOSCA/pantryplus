@@ -39,7 +39,11 @@
 					</p>
 					<p th:if="${category.name == 'Coupon'}">
 						<span>Available points of Coupons: </span>
-						<span th:text="${cart.getUser().calculateCouponTotal()}" th:if="${category.name == 'Coupon'}"/>
+						<span class="coupon-total" th:text="${cart.getUser().calculateCouponTotal()}"/>
+					</p>
+					<p th:if="${category.name == 'Coupon'}">
+						<span>Total coupons used: </span>
+						<span class="coupon-used" th:text="${cart.getCouponsUsed()}"/>
 					</p>
 				</section>
 				<ul class="items hidden">

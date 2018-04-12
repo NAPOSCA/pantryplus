@@ -41,3 +41,7 @@ div.interface {
 	display: flex;
 	margin-right: 4rem;
 }
+
+.hidden {
+	display: none;
+}

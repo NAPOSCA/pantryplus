@@ -10,6 +10,15 @@ import org.wecancodeit.pantryplus.product.Product;
 public class CountedLineItem extends LineItem {
 
 	protected int quantity;
+	int couponsUsed;
+
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public int getCouponsUsed() {
+		return couponsUsed;
+	}
 
 	public CountedLineItem() {
 
@@ -22,16 +31,33 @@ public class CountedLineItem extends LineItem {
 		if (quantity < 0) {
 			this.quantity = 0;
 		}
+		couponsUsed = 0;
+		updateCouponsUsed();
 	}
 
-	public int getQuantity() {
-		return quantity;
+	private void updateCouponsUsed() {
+		if(hasCouponProduct()) {
+			int cost = ((CouponProduct) this.product).getCost();
+			couponsUsed = cost * this.quantity;
+		}
 	}
 
 	public void increaseQuantity(int quantityToIncreaseBy) {
 		if (quantityToIncreaseBy > 0) {
 			quantity += quantityToIncreaseBy;
 		}
+		updateCouponsUsed();
+	}
+
+	public void reduceQuantity(int quantityToReduceBy) {
+		if (quantityToReduceBy > 0) {
+			quantity -= quantityToReduceBy;
+		}
+		if (quantity < 1) {
+			quantity = 0;
+			detachFromCart();
+		}
+		updateCouponsUsed();
 	}
 
 	public void setQuantity(int quantity) {
@@ -40,13 +66,7 @@ public class CountedLineItem extends LineItem {
 			this.quantity = 0;
 			detachFromCart();
 		}
-	}
-
-	public int totalCouponCost() {
-		if (hasCouponProduct()) {
-			return quantity * ((CouponProduct) product).getCost();
-		}
-		return 0;
+		updateCouponsUsed();
 	}
 
 	@Override
@@ -69,16 +89,6 @@ public class CountedLineItem extends LineItem {
 		if (quantity != other.quantity)
 			return false;
 		return true;
-	}
-
-	public void reduceQuantity(int quantityToReduceBy) {
-		if (quantityToReduceBy > 0) {
-			quantity -= quantityToReduceBy;
-		}
-		if (quantity < 1) {
-			quantity = 0;
-			detachFromCart();
-		}
 	}
 
 }
