@@ -49,7 +49,7 @@
 				<ul class="items hidden">
 					<li class="item" th:each="product : ${category.products}" th:unless="${product.name == 'Diapers' and cart.user.hasInfants() == false}">
 						<h3 th:text="${product.name}"/>
-						<img class="product-image" th:src="${product.image}"/>
+						<img class="product-image" th:src="${product.image}" draggable="false"/>
 						<div th:id="'product-'+${product.id}" th:switch="true" class="switch">
 							<div th:case="${category.name == 'Coupon'}" class="case">
 								<div th:replace="fragments/interfaces :: .coupon"/>
