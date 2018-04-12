@@ -10,73 +10,73 @@
 </head>
 <body onload="initializeUserForm()">
 	<div class="container user-form">
-			<header>
+		<header>
 			<h1>Welcome to Broad Street Food Pantry</h1>
 			<h3>Please enter your information</h3>
-			</header>
-			<main>		
-		<form action="/user-form">
-			<p>First name:</p>
-			<input type="text" name="firstName" maxlength="20"></input>
-			
-			<p>Last name:</p>
-			<input type="text" name="lastName" maxlength="20"></input>
+		</header>
+		<main>		
+			<form action="/user-form">
+				<p>First name:</p>
+				<input type="text" name="firstName" maxlength="20"></input>
+				
+				<p>Last name:</p>
+				<input type="text" name="lastName" maxlength="20"></input>
 
-			<p>Zip code:</p>
-			<select name="zipCode" required="true">
-				<option selected="true" disabled="true" hidden="true" value="">Select...</option>
-				<option value="43203">43203</option>
-				<option value="43205">43205</option>
-				<option value="43209">43209</option>
-				<option value="43213">43213</option>
-				<option value="43215">43215</option>
-				<option value="Partnership">I am a partner</option>
-				<option value="Other">Other</option>
-			</select>
+				<p>Zip code:</p>
+				<select name="zipCode" required="true">
+					<option selected="true" disabled="true" hidden="true" value="">Select...</option>
+					<option value="43203">43203</option>
+					<option value="43205">43205</option>
+					<option value="43209">43209</option>
+					<option value="43213">43213</option>
+					<option value="43215">43215</option>
+					<option value="Partnership">I am a partner</option>
+					<option value="Other">Other</option>
+				</select>
 
-			<p>Total family size:</p>
-			<select class="familySizeMenu" name="familySize" required="true">
-				<option selected="true" disabled="true" hidden="true" value="">Select...</option>
-				<option value="1">1</option>
-				<option value="2">2</option>
-				<option value="3">3</option>
-				<option value="4">4</option>
-				<option value="5">5</option>
-				<option value="6">6</option>
-				<option value="7">7</option>
-				<option value="8">8</option>
-				<option value="9">9+</option>
-			</select>
+				<p>Total family size:</p>
+				<select class="familySizeMenu" name="familySize" required="true">
+					<option selected="true" disabled="true" hidden="true" value="">Select...</option>
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+					<option value="6">6</option>
+					<option value="7">7</option>
+					<option value="8">8</option>
+					<option value="9">9+</option>
+				</select>
 
-			<p>Children between the ages of 4 and 17:</p>
-			<select class="schoolKidsMenu" name="schoolkidsCount" required="true">
-				<option selected="true" disabled="true" hidden="true" value="">Select...</option>
-				<option value="0">0</option>
-				<option value="1" class="hidden">1</option>
-				<option value="2" class="hidden">2</option>
-				<option value="3" class="hidden">3</option>
-				<option value="4" class="hidden">4</option>
-				<option value="5" class="hidden">5</option>
-				<option value="6" class="hidden">6</option>
-				<option value="7" class="hidden">7</option>
-				<option value="8" class="hidden">8</option>
-				<option value="9" class="hidden">9+</option>
-			</select>
+				<p>Children between the ages of 4 and 17:</p>
+				<select class="schoolKidsMenu" name="schoolkidsCount" required="true">
+					<option selected="true" disabled="true" hidden="true" value="">Select...</option>
+					<option value="0">0</option>
+					<option value="1" class="hidden">1</option>
+					<option value="2" class="hidden">2</option>
+					<option value="3" class="hidden">3</option>
+					<option value="4" class="hidden">4</option>
+					<option value="5" class="hidden">5</option>
+					<option value="6" class="hidden">6</option>
+					<option value="7" class="hidden">7</option>
+					<option value="8" class="hidden">8</option>
+					<option value="9" class="hidden">9+</option>
+				</select>
 
-			<p>Children age 3 or younger:</p>
-			<input id="Yes" type="radio" name="infants" value="true"/>
-			<label for="Yes">Yes</label>
-			<input id="No" type="radio" name="infants" value=""/>
-			<label for="No">No</label>
+				<p>Children age 3 or younger:</p>
+				<input id="Yes" type="radio" name="infants" value="true"/>
+				<label for="Yes">Yes</label>
+				<input id="No" type="radio" name="infants" value=""/>
+				<label for="No">No</label>
 
-			<p>Pick up date:</p>
-			<select name="pickUpDate" required="true">
-				<option selected="true" disabled="true" hidden="true" value="">Select...</option>
-				<option value="2018-04-17">04/17/2018</option>
-			</select>	
+				<p>Pick up date:</p>
+				<select name="pickUpDate" required="true">
+					<option selected="true" disabled="true" hidden="true" value="">Select...</option>
+					<option value="2018-04-17">04/17/2018</option>
+				</select>	
 
-			<p><input type="submit" value="Start Shopping"/></p>
-		</form> 
+				<p><input type="submit" value="Start Shopping"/></p>
+			</form> 
 		</main>
 	</div>
 </body>

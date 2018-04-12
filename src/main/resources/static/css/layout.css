@@ -22,10 +22,6 @@ div.container {
 	overflow-y: overlay;
 }
 
-.user-form.container form {
-	text-align: center;
-}
-
 header {
 	grid-column: 2;
 	display: flex;
@@ -41,6 +37,14 @@ main {
 	grid-column: 2;
 	display: flex;
 	flex-direction: column;
+}
+
+.user-form.container form {
+	text-align: center;
+}
+
+.user-form.container form * {
+	margin-bottom: 0.75rem;
 }
 
 footer {
