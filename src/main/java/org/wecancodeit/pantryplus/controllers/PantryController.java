@@ -58,8 +58,9 @@ public class PantryController {
 
 	@RequestMapping("/carts/{cartId}")
 	public String displayCart(Model model, @PathVariable long cartId) {
-		model.addAttribute("cart", cartRepo.findOne(cartId));
-		Iterable<LineItem> lineItems = lineItemRepo.findAll();
+		Cart cart = cartRepo.findOne(cartId);
+		model.addAttribute("cart", cart);
+		Iterable<LineItem> lineItems = cart.getLineItems();
 		Set<LineItem> superLineItems = new HashSet<>();
 		Set<CountedLineItem> countedLineItems = new HashSet<>();
 		for(LineItem item : lineItems) {
