@@ -100,3 +100,7 @@ function getTotalCouponsUsedFromPage() {
 	const couponsUsedSpan = document.querySelector("span.coupon-used");
 	return couponsUsedSpan.innerText;
 }
+
+function createLineItem(productId) {}
+
+function removeItemFromCart(productId) {}
