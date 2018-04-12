@@ -32,18 +32,17 @@ function initialize() {
 	}
 
 	const switchButtons = document.querySelectorAll(".switch__toggle");
-		for(let i = 0; i < switchButtons.length; i++) {
-			const button = switchButtons[i];
-			const productId = parseInt(button.value);
-			button.addEventListener("change", () => {
-				if(button.checked === true){
-					addToCart(productId);
-				} else{
-
-					removeFromCart(productId);
-				}
-			});
-		}
+	for(let i = 0; i < switchButtons.length; i++) {
+		const button = switchButtons[i];
+		const productId = parseInt(button.value);
+		button.addEventListener("change", () => {
+			if(button.checked === true){
+				createLineItem(productId);
+			} else{
+				removeItemFromCart(productId);
+			}
+		});
+	}
 }
 
 function toggleVisibility(items) {
