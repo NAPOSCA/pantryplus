@@ -227,7 +227,7 @@ public class CartJpaTest {
 		entityManager.flush();
 		entityManager.clear();
 		cart = cartRepo.findOne(cartId);
-		LineItem orphan = cart.removeItemByProductId(productId);
+		LineItem orphan = cart.popItemByProductId(productId);
 		lineItemRepo.save(orphan);
 		entityManager.flush();
 		entityManager.clear();
@@ -292,7 +292,7 @@ public class CartJpaTest {
 		entityManager.flush();
 		entityManager.clear();
 		cart = cartRepo.findOne(cartId);
-		CountedLineItem orphan = (CountedLineItem) cart.removeItemByProductId(productId);
+		CountedLineItem orphan = (CountedLineItem) cart.popItemByProductId(productId);
 		lineItemRepo.save(orphan);
 		entityManager.flush();
 		entityManager.clear();
@@ -347,6 +347,71 @@ public class CartJpaTest {
 	}
 
 	@Test
+	public void shouldReturnTotalCouponsUsedInTheCartAs16() {
+		CouponProduct couponProduct = new CouponProduct("", null, 8);
+		couponProduct = productRepo.save(couponProduct);
+		CouponProduct anotherCouponProduct = new CouponProduct("", null, 4);
+		anotherCouponProduct = productRepo.save(anotherCouponProduct);
+		CountedLineItem countedLineItem = new CountedLineItem(cart, couponProduct, 1);
+		lineItemRepo.save(countedLineItem);
+		CountedLineItem anotherCountedLineItem = new CountedLineItem(cart, anotherCouponProduct, 2);
+		lineItemRepo.save(anotherCountedLineItem);
+		entityManager.flush();
+		entityManager.clear();
+		cart = cartRepo.findOne(cartId);
+		cart.updateCouponsUsed();
+		cartRepo.save(cart);
+		entityManager.flush();
+		entityManager.clear();
+		cart = cartRepo.findOne(cartId);
+		int actual = cart.getCouponsUsed();
+		assertThat(actual, is(16));
+	}
+
+	@Test
+	public void shouldReturnTotalCouponsUsedInTheCartAs24() {
+		CouponProduct couponProduct = new CouponProduct("", null, 6);
+		couponProduct = productRepo.save(couponProduct);
+		CouponProduct anotherCouponProduct = new CouponProduct("", null, 3);
+		anotherCouponProduct = productRepo.save(anotherCouponProduct);
+		CountedLineItem countedLineItem = new CountedLineItem(cart, couponProduct, 2);
+		lineItemRepo.save(countedLineItem);
+		CountedLineItem anotherCountedLineItem = new CountedLineItem(cart, anotherCouponProduct, 4);
+		lineItemRepo.save(anotherCountedLineItem);
+		entityManager.flush();
+		entityManager.clear();
+		cart = cartRepo.findOne(cartId);
+		cart.updateCouponsUsed();
+		cartRepo.save(cart);
+		cart = cartRepo.findOne(cartId);
+		int actual = cart.getCouponsUsed();
+		assertThat(actual, is(24));
+	}
+
+	@Test
+	public void shouldReturnTotalCouponsUsedEvenWhenNotACountedLineItem() {
+		lineItemRepo.save(lineItem);
+		CouponProduct couponProduct = new CouponProduct("", null, 6);
+		couponProduct = productRepo.save(couponProduct);
+		CouponProduct anotherCouponProduct = new CouponProduct("", null, 3);
+		anotherCouponProduct = productRepo.save(anotherCouponProduct);
+		CountedLineItem countedLineItem = new CountedLineItem(cart, couponProduct, 2);
+		lineItemRepo.save(countedLineItem);
+		CountedLineItem anotherCountedLineItem = new CountedLineItem(cart, anotherCouponProduct, 4);
+		lineItemRepo.save(anotherCountedLineItem);
+		entityManager.flush();
+		entityManager.clear();
+		cart = cartRepo.findOne(cartId);
+		cart.updateCouponsUsed();
+		cartRepo.save(cart);
+		entityManager.flush();
+		entityManager.clear();
+		cart = cartRepo.findOne(cartId);
+		int actual = cart.getCouponsUsed();
+		assertThat(actual, is(24));
+	}
+
+	@Test
 	public void shouldNotIncreaseProductIfQuantityIsAtLimit() {
 		int quantity = 2;
 		CouponProduct couponProduct = new CouponProduct("", null, 0, quantity);
@@ -361,5 +426,4 @@ public class CartJpaTest {
 		int actual = countedLineItem.getQuantity();
 		assertThat(actual, is(quantity));
 	}
-
 }

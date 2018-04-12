@@ -36,7 +36,7 @@ function initialize() {
 			const button = switchButtons[i];
 			const productId = parseInt(button.value);
 			button.addEventListener("change", () => {
-				if(button.checked == true){
+				if(button.checked === true){
 					addToCart(productId);
 				} else{
 
@@ -79,11 +79,25 @@ function updateCartNumber(response) {
 	const interface = document.querySelector(`div#product-${response.product.id}`);
 	const value = interface.querySelector("span.value");
 	value.innerText = response.quantity;
+	if(response.cart) {
+		const couponsUsed = parseInt(response.cart.couponsUsed);
+		setTotalCouponsUsed(couponsUsed);
+	} else {
+		if(response.product.cost) {
+			const cost = response.product.cost;
+			const pageCouponsUsed = getTotalCouponsUsedFromPage();
+			const serverCouponsUsed = pageCouponsUsed - cost;
+			setTotalCouponsUsed(serverCouponsUsed);
+		}
+	}
 }
 
+function setTotalCouponsUsed(couponsUsed) {
+	const couponsUsedSpan = document.querySelector("span.coupon-used");
+	couponsUsedSpan.innerText = couponsUsed;
+}
 
-
-
-
-
-
+function getTotalCouponsUsedFromPage() {
+	const couponsUsedSpan = document.querySelector("span.coupon-used");
+	return couponsUsedSpan.innerText;
+}

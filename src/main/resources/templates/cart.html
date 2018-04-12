@@ -29,6 +29,10 @@
 					<td th:text="${lineItem.quantity}"/>
 				</tr>
 			</table>
+			<p>
+				<span>Total coupons used: </span>
+				<span th:text="${cart.getCouponsUsed()}"/>
+			</p>
 		</main>
 		<footer th:replace="shopping :: footer"/>
 	</div>

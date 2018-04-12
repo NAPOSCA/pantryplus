@@ -1,6 +1,7 @@
 package org.wecancodeit.pantryplus.cart;
 
 import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,6 +15,8 @@ import org.wecancodeit.pantryplus.product.CouponProduct;
 import org.wecancodeit.pantryplus.product.Product;
 import org.wecancodeit.pantryplus.user.User;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Cart {
 
@@ -21,22 +24,18 @@ public class Cart {
 	@GeneratedValue
 	private long id;
 
+	@JsonIgnore
 	@ManyToOne
 	private User user;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "cart", orphanRemoval = true)
 	Set<LineItem> lineItems;
 
+	private int couponsUsed;
+
 	public User getUser() {
 		return user;
-	}
-
-	@SuppressWarnings("unused")
-	private Cart() {
-	}
-
-	public Cart(User user) {
-		this.user = user;
 	}
 
 	public long getId() {
@@ -56,20 +55,6 @@ public class Cart {
 		return null;
 	}
 
-	public int getCartQuantity() {
-		int totalQuantity = 0;
-		for (LineItem item : lineItems) {
-			if (isCountedLineItem(item)) {
-				totalQuantity += ((CountedLineItem) item).getQuantity();
-			}
-		}
-		return totalQuantity;
-	}
-
-	private boolean isCountedLineItem(LineItem item) {
-		return item instanceof CountedLineItem;
-	}
-
 	public int getLineItemQuantityByProductId(long productId) {
 		LineItem lineItem = getLineItemByProductId(productId);
 		if (lineItem == null) {
@@ -80,6 +65,38 @@ public class Cart {
 			return countedLineItem.getQuantity();
 		}
 		return 1;
+	}
+
+	public int getCartQuantity() {
+		int totalQuantity = 0;
+		for (LineItem item : lineItems) {
+			if (isCountedLineItem(item)) {
+				totalQuantity += ((CountedLineItem) item).getQuantity();
+			}
+		}
+		return totalQuantity;
+	}
+
+	public int getCouponsUsed() {
+		return couponsUsed;
+	}
+
+	@SuppressWarnings("unused")
+	private Cart() {
+	}
+
+	public Cart(User user) {
+		this.user = user;
+	}
+	
+	public void updateCouponsUsed() {
+		Stream<LineItem> lineItemStream = getLineItems().stream().filter(item -> isCountedLineItem(item));
+		Stream<CountedLineItem> countedLineItemStream = lineItemStream.map(item -> (CountedLineItem) item);
+		couponsUsed = countedLineItemStream.mapToInt(item -> item.getCouponsUsed()).sum();
+	}
+
+	private boolean isCountedLineItem(LineItem item) {
+		return item instanceof CountedLineItem;
 	}
 
 	public CountedLineItem increaseProductByOne(long productId) {
@@ -96,22 +113,25 @@ public class Cart {
 			countedLineItem.increaseQuantity(1);
 
 		}
+		updateCouponsUsed();
 		return countedLineItem;
 	}
 
 	public CountedLineItem decreaseProductByOne(long productId) {
 		CountedLineItem countedLineItem = (CountedLineItem) getLineItemByProductId(productId);
 		countedLineItem.reduceQuantity(1);
+		updateCouponsUsed();
 		return countedLineItem;
 	}
 
 	public CountedLineItem updateQuantityOfProduct(long productId, int quantity) {
 		CountedLineItem countedLineItem = (CountedLineItem) getLineItemByProductId(productId);
 		countedLineItem.setQuantity(quantity);
+		updateCouponsUsed();
 		return countedLineItem;
 	}
 
-	public LineItem removeItemByProductId(long productId) {
+	public LineItem popItemByProductId(long productId) {
 		LineItem lineItem = getLineItemByProductId(productId);
 		lineItem.detachFromCart();
 		return lineItem;
