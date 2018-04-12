@@ -1,5 +1,8 @@
 package org.wecancodeit.pantryplus.controllers;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
@@ -10,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.wecancodeit.pantryplus.cart.Cart;
 import org.wecancodeit.pantryplus.cart.CartRepository;
 import org.wecancodeit.pantryplus.category.CategoryRepository;
+import org.wecancodeit.pantryplus.lineitem.CountedLineItem;
+import org.wecancodeit.pantryplus.lineitem.LineItem;
+import org.wecancodeit.pantryplus.lineitem.LineItemRepository;
 import org.wecancodeit.pantryplus.user.User;
 import org.wecancodeit.pantryplus.user.UserRepository;
 
@@ -24,6 +30,9 @@ public class PantryController {
 
 	@Resource
 	private UserRepository userRepo;
+	
+	@Resource
+	private LineItemRepository lineItemRepo;
 
 	@RequestMapping("/")
 	public String displayUserForm(Model model) {
@@ -50,6 +59,18 @@ public class PantryController {
 	@RequestMapping("/carts/{cartId}")
 	public String displayCart(Model model, @PathVariable long cartId) {
 		model.addAttribute("cart", cartRepo.findOne(cartId));
+		Iterable<LineItem> lineItems = lineItemRepo.findAll();
+		Set<LineItem> superLineItems = new HashSet<>();
+		Set<CountedLineItem> countedLineItems = new HashSet<>();
+		for(LineItem item : lineItems) {
+			if(item instanceof CountedLineItem) {
+				countedLineItems.add((CountedLineItem) item);
+			} else {
+				superLineItems.add(item);
+			}
+		}
+		model.addAttribute("lineItems", superLineItems);
+		model.addAttribute("countedLineItems", countedLineItems);
 		return "cart";
 	}
 
