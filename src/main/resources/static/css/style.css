@@ -8,6 +8,10 @@ section.category {
 	margin: var(--rounding-padding);
 	border-radius: var(--rounding-padding);
 	border: 1px solid black;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	
 }
 
 main {
@@ -43,4 +47,9 @@ div.interface p {
 header nav {
 	display: flex;
 	align-items: center;
+}
+
+.indicator{
+	font-size: 2rem;
+	order: 1;
 }

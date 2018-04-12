@@ -53,9 +53,11 @@
 				<option value="9" class="hidden">9+</option>
 			</select>
 
-			<p>Do you have any children below the age of 4?</p>
-			<input type="checkbox" name="infants" value="true"/>
-
+			<p>Do you have any children age 3 or younger?</p>
+			<input id="Yes" type="radio" name="infants" value="true"/>
+			<label for="Yes">Yes</label>
+			<input id="No" type="radio" name="infants" value=""/>
+			<label for="No">No</label>
 			<p>Please select a pick up date:</p>
 			<select name="pickUpDate" required="true">
 				<option selected="true" disabled="true" hidden="true" value="">Select...</option>

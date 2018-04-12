@@ -17,3 +17,7 @@
 .visible .item {
 	height: 1.5rem;
 }
+
+.hidden.indicator {
+	display: none;
+}

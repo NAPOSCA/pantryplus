@@ -1,3 +1,4 @@
+var cartId;
 describe("shopping.js", () => {
 	let container, toggleVisibilitySpy, addToCartSpy, removeFromCartSpy;
 	beforeEach(() => {
