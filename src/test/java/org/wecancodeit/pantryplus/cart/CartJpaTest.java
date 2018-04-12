@@ -367,7 +367,7 @@ public class CartJpaTest {
 		int actual = cart.getCouponsUsed();
 		assertThat(actual, is(16));
 	}
-	
+
 	@Test
 	public void shouldReturnTotalCouponsUsedInTheCartAs24() {
 		CouponProduct couponProduct = new CouponProduct("", null, 6);
@@ -387,7 +387,7 @@ public class CartJpaTest {
 		int actual = cart.getCouponsUsed();
 		assertThat(actual, is(24));
 	}
-	
+
 	@Test
 	public void shouldReturnTotalCouponsUsedEvenWhenNotACountedLineItem() {
 		lineItemRepo.save(lineItem);
@@ -410,5 +410,20 @@ public class CartJpaTest {
 		int actual = cart.getCouponsUsed();
 		assertThat(actual, is(24));
 	}
-	
+
+	@Test
+	public void shouldNotIncreaseProductIfQuantityIsAtLimit() {
+		int quantity = 2;
+		CouponProduct couponProduct = new CouponProduct("", null, 0, quantity);
+		couponProduct = productRepo.save(couponProduct);
+		long couponProductId = couponProduct.getId();
+		CountedLineItem countedLineItem = new CountedLineItem(cart, couponProduct, quantity);
+		lineItemRepo.save(countedLineItem);
+		entityManager.flush();
+		entityManager.clear();
+		cart = cartRepo.findOne(cartId);
+		countedLineItem = cart.increaseProductByOne(couponProductId);
+		int actual = countedLineItem.getQuantity();
+		assertThat(actual, is(quantity));
+	}
 }
