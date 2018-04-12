@@ -122,7 +122,8 @@ public class CartRestController {
 		Cart cart = retrieveCartBy(cartId);
 		Product product = retrieveProductBy(productId);
 		CountedLineItem countedLineItem = new CountedLineItem(cart, product, quantity);
-		long id = lineItemRepo.save(countedLineItem).getId();
+		countedLineItem = lineItemRepo.save(countedLineItem);
+		long id = countedLineItem.getId();
 		entityManager.flush();
 		entityManager.clear();
 		cart = retrieveCartBy(cartId);
