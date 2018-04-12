@@ -33,7 +33,7 @@ public class PantryController {
 	@RequestMapping("/user-form")
 	public String userFormProcessing(@RequestParam int familySize, @RequestParam int schoolkidsCount, @RequestParam(defaultValue = "false") boolean infants,
 			@RequestParam String pickUpDate, @RequestParam String zipCode) {
-		User user = new User(familySize, schoolkidsCount, infants, pickUpDate, zipCode);
+		User user = new User(firstName, lastName, familySize, schoolkidsCount, infants, pickUpDate, zipCode);
 		user = userRepo.save(user);
 		Cart cart = cartRepo.save(new Cart(user));
 		long cartId = cart.getId();
