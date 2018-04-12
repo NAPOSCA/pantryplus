@@ -61,4 +61,9 @@ function updateCartNumber(response) {
 	const interface = document.querySelector(`div#product-${response.product.id}`);
 	const value = interface.querySelector("span.value");
 	value.innerText = response.quantity;
+	if(response.cart) {
+		const couponsUsed = parseInt(response.cart.couponsUsed);
+		const couponsUsedSpan = document.querySelector("span.coupon-used");
+		couponsUsedSpan.innerText = couponsUsed;
+	}
 }
