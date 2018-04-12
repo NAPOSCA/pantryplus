@@ -18,6 +18,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.wecancodeit.pantryplus.cart.Cart;
 import org.wecancodeit.pantryplus.cart.CartRepository;
 import org.wecancodeit.pantryplus.category.CategoryRepository;
+import org.wecancodeit.pantryplus.lineitem.LineItemRepository;
 import org.wecancodeit.pantryplus.user.User;
 import org.wecancodeit.pantryplus.user.UserRepository;
 
@@ -36,6 +37,9 @@ public class PantryControllerMockMvcTest {
 
 	@MockBean
 	private CategoryRepository categoryRepo;
+	
+	@MockBean
+	private LineItemRepository lineItemRepo;
 
 	@Mock
 	Cart cart;
