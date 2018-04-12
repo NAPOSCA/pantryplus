@@ -63,7 +63,23 @@ function updateCartNumber(response) {
 	value.innerText = response.quantity;
 	if(response.cart) {
 		const couponsUsed = parseInt(response.cart.couponsUsed);
-		const couponsUsedSpan = document.querySelector("span.coupon-used");
-		couponsUsedSpan.innerText = couponsUsed;
+		setTotalCouponsUsed(couponsUsed);
+	} else {
+		if(response.product.cost) {
+			const cost = response.product.cost;
+			const pageCouponsUsed = getTotalCouponsUsedFromPage();
+			const serverCouponsUsed = pageCouponsUsed - cost;
+			setTotalCouponsUsed(serverCouponsUsed);
+		}
 	}
+}
+
+function setTotalCouponsUsed(couponsUsed) {
+	const couponsUsedSpan = document.querySelector("span.coupon-used");
+	couponsUsedSpan.innerText = couponsUsed;
+}
+
+function getTotalCouponsUsedFromPage() {
+	const couponsUsedSpan = document.querySelector("span.coupon-used");
+	return couponsUsedSpan.innerText;
 }
