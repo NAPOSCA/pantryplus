@@ -359,6 +359,11 @@ public class CartJpaTest {
 		entityManager.flush();
 		entityManager.clear();
 		cart = cartRepo.findOne(cartId);
+		cart.updateCouponsUsed();
+		cartRepo.save(cart);
+		entityManager.flush();
+		entityManager.clear();
+		cart = cartRepo.findOne(cartId);
 		int actual = cart.getCouponsUsed();
 		assertThat(actual, is(16));
 	}
@@ -376,6 +381,9 @@ public class CartJpaTest {
 		entityManager.flush();
 		entityManager.clear();
 		cart = cartRepo.findOne(cartId);
+		cart.updateCouponsUsed();
+		cartRepo.save(cart);
+		cart = cartRepo.findOne(cartId);
 		int actual = cart.getCouponsUsed();
 		assertThat(actual, is(24));
 	}
@@ -391,6 +399,11 @@ public class CartJpaTest {
 		lineItemRepo.save(countedLineItem);
 		CountedLineItem anotherCountedLineItem = new CountedLineItem(cart, anotherCouponProduct, 4);
 		lineItemRepo.save(anotherCountedLineItem);
+		entityManager.flush();
+		entityManager.clear();
+		cart = cartRepo.findOne(cartId);
+		cart.updateCouponsUsed();
+		cartRepo.save(cart);
 		entityManager.flush();
 		entityManager.clear();
 		cart = cartRepo.findOne(cartId);
