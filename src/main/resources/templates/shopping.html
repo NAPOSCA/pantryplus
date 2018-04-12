@@ -39,7 +39,7 @@
 					</p>
 					<p th:if="${category.name == 'Meat'}">
 						<span>Total lbs. of Meat used: </span>
-						<span th:text="${cart.getMeatPoundsUsed()}"/>
+						<span class="meat-used" th:text="${cart.getMeatPoundsUsed()}"/>
 					</p>
 					<p th:if="${category.name == 'Coupon'}">
 						<span>Available points of Coupons: </span>
