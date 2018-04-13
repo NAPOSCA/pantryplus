@@ -1,5 +1,6 @@
 package org.wecancodeit.pantryplus.cart;
 
+import static java.lang.Integer.MAX_VALUE;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.is;
@@ -463,6 +464,94 @@ public class CartJpaTest {
 		cart.refreshMeatPoundsUsed();
 		int meatPoundsUsed = cart.getMeatPoundsUsed();
 		assertThat(meatPoundsUsed, is(3));
+	}
+
+	@Test
+	public void shouldHaveTheProductQuantityIncrease() {
+		CouponProduct couponProduct = new CouponProduct("", null, 1);
+		couponProduct = productRepo.save(couponProduct);
+		long couponProductId = couponProduct.getId();
+		int quantity = 1;
+		countedLineItem = new CountedLineItem(cart, couponProduct, quantity);
+		countedLineItem = lineItemRepo.save(countedLineItem);
+		entityManager.flush();
+		entityManager.clear();
+		cart = cartRepo.findOne(cartId);
+		cart.increaseProductByOne(couponProductId);
+		int actual = cart.getLineItemQuantityByProductId(couponProductId);
+		assertThat(actual, is(quantity + 1));
+	}
+
+	@Test
+	public void shouldHaveCartNotAddAnyMoreCouponsIfAlreadyBeyondLimit() {
+		CouponProduct couponProduct = new CouponProduct("", null, 100);
+		couponProduct = productRepo.save(couponProduct);
+		long couponProductId = couponProduct.getId();
+		int quantity = 1;
+		countedLineItem = new CountedLineItem(cart, couponProduct, quantity);
+		countedLineItem = lineItemRepo.save(countedLineItem);
+		entityManager.flush();
+		entityManager.clear();
+		cart = cartRepo.findOne(cartId);
+		cart.increaseProductByOne(couponProductId);
+		int actual = cart.getLineItemQuantityByProductId(couponProductId);
+		assertThat(actual, is(quantity));
+	}
+
+	@Test
+	public void shouldHaveCartNotAddAnyMoreCouponsIfWouldPutCouponsJustPastLimit() {
+		int cost = 3;
+		CouponProduct couponProduct = new CouponProduct("", null, cost, MAX_VALUE);
+		couponProduct = productRepo.save(couponProduct);
+		long couponProductId = couponProduct.getId();
+		int quantity = user.calculateCouponTotal() / cost;
+		System.out.println(quantity);
+		countedLineItem = new CountedLineItem(cart, couponProduct, quantity);
+		countedLineItem = lineItemRepo.save(countedLineItem);
+		entityManager.flush();
+		entityManager.clear();
+		System.out.println();
+		cart = cartRepo.findOne(cartId);
+		cart.increaseProductByOne(couponProductId);
+		int actual = cart.getLineItemQuantityByProductId(couponProductId);
+		assertThat(actual, is(quantity));
+	}
+
+	@Test
+	public void shouldHaveCartAddOneMoreCouponIfThatWouldPutCouponsJustAtLimit() {
+		int cost = 2;
+		CouponProduct couponProduct = new CouponProduct("", null, cost, MAX_VALUE);
+		couponProduct = productRepo.save(couponProduct);
+		long couponProductId = couponProduct.getId();
+		int quantity = user.calculateCouponTotal() / cost - 1;
+		System.out.println(quantity);
+		countedLineItem = new CountedLineItem(cart, couponProduct, quantity);
+		countedLineItem = lineItemRepo.save(countedLineItem);
+		entityManager.flush();
+		entityManager.clear();
+		System.out.println();
+		cart = cartRepo.findOne(cartId);
+		cart.increaseProductByOne(couponProductId);
+		int actual = cart.getLineItemQuantityByProductId(couponProductId);
+		assertThat(actual, is(quantity + 1));
+	}
+
+	@Test
+	public void shouldHaveLineItemWithCouponProductNotAttachToCartIfCartIsAtCouponLimit() {
+		CouponProduct couponProduct = new CouponProduct("", null, 20, MAX_VALUE);
+		couponProduct = productRepo.save(couponProduct);
+		CouponProduct anotherCouponProduct = new CouponProduct("", null, 1, MAX_VALUE);
+		anotherCouponProduct = productRepo.save(anotherCouponProduct);
+		long anotherCouponProductId = anotherCouponProduct.getId();
+		CountedLineItem countedLineItem = new CountedLineItem(cart, couponProduct, 1);
+		countedLineItem = lineItemRepo.save(countedLineItem);
+		CountedLineItem anotherCountedLineItem = new CountedLineItem(cart, anotherCouponProduct, 1);
+		anotherCountedLineItem = lineItemRepo.save(anotherCountedLineItem);
+		entityManager.flush();
+		entityManager.clear();
+		cart = cartRepo.findOne(cartId);
+		boolean actual = cart.has(anotherCouponProductId);
+		assertThat(actual, is(false));
 	}
 
 }

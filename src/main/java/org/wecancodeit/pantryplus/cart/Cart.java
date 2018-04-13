@@ -94,7 +94,7 @@ public class Cart {
 	public Cart(User user) {
 		this.user = user;
 	}
-	
+
 	public void refreshStats() {
 		refreshCouponsUsed();
 		refreshMeatPoundsUsed();
@@ -127,10 +127,14 @@ public class Cart {
 		Product product = countedLineItem.getProduct();
 		if (product instanceof CouponProduct) {
 			CouponProduct couponProduct = (CouponProduct) product;
-			int couponLimit = couponProduct.getCouponLimit();
-			int quantity = countedLineItem.getQuantity();
-			if (couponLimit > quantity) {
-				countedLineItem.increaseQuantity(1);
+			refreshCouponsUsed();
+			int quantityBeingAdded = 1;
+			if (willAddingQuantityBeWithinCouponLimit(couponProduct, quantityBeingAdded)) {
+				if (this.couponsUsed < this.user.calculateCouponTotal()) {
+					if (isCouponProductWithinQuantityLimit(countedLineItem, couponProduct)) {
+						countedLineItem.increaseQuantity(1);
+					}
+				}
 			}
 		} else {
 			countedLineItem.increaseQuantity(1);
@@ -138,6 +142,14 @@ public class Cart {
 		}
 		refreshStats();
 		return countedLineItem;
+	}
+
+	public boolean willAddingQuantityBeWithinCouponLimit(CouponProduct couponProduct, int quantityBeingAdded) {
+		return (couponProduct.getCost() * quantityBeingAdded + couponsUsed) <= user.calculateCouponTotal();
+	}
+
+	private boolean isCouponProductWithinQuantityLimit(CountedLineItem countedLineItem, CouponProduct couponProduct) {
+		return couponProduct.getCouponLimit() > countedLineItem.getQuantity();
 	}
 
 	public CountedLineItem decreaseProductByOne(long productId) {

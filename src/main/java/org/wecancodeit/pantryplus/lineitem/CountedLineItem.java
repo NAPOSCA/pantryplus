@@ -33,10 +33,16 @@ public class CountedLineItem extends LineItem {
 		}
 		couponsUsed = 0;
 		updateCouponsUsed();
+		if (product instanceof CouponProduct) {
+			CouponProduct couponProduct = (CouponProduct) product;
+			if (!cart.willAddingQuantityBeWithinCouponLimit(couponProduct, quantity)) {
+				detachFromCart();
+			}
+		}
 	}
 
 	private void updateCouponsUsed() {
-		if(hasCouponProduct()) {
+		if (hasCouponProduct()) {
 			int cost = ((CouponProduct) this.product).getCost();
 			couponsUsed = cost * this.quantity;
 		}
