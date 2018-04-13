@@ -1,6 +1,7 @@
 <div class="dichotomous interface">
 	<label class="switch switch_type1" role="switch">
-		<input th:value="${product.id}"  type="checkbox" class="value switch__toggle"/>
+		<input th:if="!${cart.has(product.id)}" th:value="${product.id}"  type="checkbox" class="value switch__toggle"/>
+		<input th:if="${cart.has(product.id)}" th:value="${product.id}"  type="checkbox" class="value switch__toggle" checked="true"/>
 		<span class="switch__label"></span>
 	</label>
 </div>
