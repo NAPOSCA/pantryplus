@@ -1,9 +1,16 @@
 :root {
-	--rounding-padding: 0.4rem;
+	--rounding-padding: 0.6rem;
+	--border-radius: 2rem;
 }
 
 * {
 	font-family: sans-serif;
+}
+
+div.container {
+	background-color: hsla(193, 55%, 90%, 1);
+	min-height: calc(100vh - 1rem);
+	padding-bottom: 1rem;
 }
 
 section.category {
@@ -11,7 +18,7 @@ section.category {
 	padding: var(--rounding-padding);
 	margin: var(--rounding-padding);
 	border-radius: var(--rounding-padding);
-	border: 2px solid black;
+	box-shadow: 0px 7px 13px -7px;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -19,8 +26,21 @@ section.category {
    	user-select: none;
 }
 
+div.aside-main {
+	border-radius: var(--border-radius);
+	box-shadow: 0px 9px 20px -7px;
+}
+
+aside {
+	padding: 1rem;
+	border-top-left-radius: var(--border-radius);
+	border-bottom-left-radius: var(--border-radius);
+}
+
 main {
 	padding: var(--rounding-padding);
+	border-top-right-radius: var(--border-radius);
+	border-bottom-right-radius: var(--border-radius);
 }
 
 li.item {
@@ -28,7 +48,8 @@ li.item {
 	margin: 0.4rem 1.2rem;
 	border-radius: var(--rounding-padding);
 	padding: var(--rounding-padding);
-	border: 2px solid black;
+	/*border: 2px solid black;*/
+	box-shadow: 0px 5px 13px -7px;
 	-ms-user-select: none;
    	user-select: none;
 }
@@ -39,6 +60,8 @@ button {
 
 li.item h3 {
 	font-size: 1.4rem;
+	margin-right: auto;
+	margin-left: 1rem;
 }
 
 div.interface p {
@@ -61,6 +84,7 @@ header nav {
 header {
 	-ms-user-select: none;
    	user-select: none;
+   	padding-top: 1rem;
 }
 
 .indicator {
@@ -71,8 +95,42 @@ header {
 footer {
 	-ms-user-select: none;
    	user-select: none;
+   	margin-top: 2rem;
 }
 
-img {
+/*img {
 	height: 45px;
+}*/
+
+nav ul {
+	display: flex;
+	list-style: none;
+}
+
+nav ul li {
+	padding: 1rem;
+	background-color: white;
+}
+
+nav ul li:first-child {
+	border-top-left-radius: 1rem;
+}
+
+nav ul li:last-child {
+	border-top-right-radius: 1rem;
+}
+
+nav ul li.current {
+	background-color: #46a8d0;
+	color: white;
+}
+
+div.address {
+	text-align: right;
+	margin-right: 0.2rem;
+}
+
+div.address a {
+	text-decoration-style: dotted;
+	color: black;
 }
