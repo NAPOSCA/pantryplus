@@ -15,8 +15,7 @@ public class CouponProduct extends Product {
 	}
 
 	public CouponProduct(String name, Category category, int cost) {
-		super(name, category);
-		this.cost = cost;
+		this(name, category, cost, 5);
 	}
 
 	public CouponProduct(String name, Category category, int cost, int couponLimit) {
