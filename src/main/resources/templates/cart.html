@@ -2,16 +2,14 @@
 <html>
 <head>
 	<title>Pantry+ | Cart</title>
-	<link rel="shortcut icon" href="images\favicon.ico" type="image/x-icon"/>
-	<link rel="icon" href="images\favicon.ico" type="image/x-icon"/>
-	<link rel="stylesheet" type="text/css" href="/css/layout.css"/>
+	<link rel="shortcut icon" href="images\favicon.ico" type="image/x-icon" />
+	<link rel="icon" href="images\favicon.ico" type="image/x-icon" />
+	<link rel="stylesheet" type="text/css" href="/css/layout.css" />
 </head>
 <body>
 	<div class="container">
 		<header>
-			<h1>
-				Pantry+
-			</h1>
+			<h1>Pantry+</h1>
 			<nav>
 				<ul>
 					<a th:href="'/shopping?cartId='+${cart.getId()}">Shopping</a>
@@ -24,7 +22,11 @@
 					<th>Product</th>
 					<th>Quantity</th>
 				</tr>
-				<tr class="line-item" th:each="lineItem : ${cart.lineItems}">
+				<tr class="line-item" th:each="lineItem : ${lineItems}">
+					<td th:text="${lineItem.product.name}" />
+					<td>Included</td>
+				</tr>
+				<tr class="line-item" th:each="lineItem : ${countedLineItems}">
 					<td th:text="${lineItem.product.name}"/>
 					<td th:text="${lineItem.quantity}"/>
 				</tr>
@@ -35,10 +37,10 @@
 			</p>
 			<p>
 				<span>Total coupons used: </span>
-				<span th:text="${cart.getCouponsUsed()}"/>
+				<span th:text="${cart.getCouponsUsed()}" />
 			</p>
 		</main>
-		<footer th:replace="shopping :: footer"/>
+		<footer th:replace="shopping :: footer" />
 	</div>
 </body>
 </html>

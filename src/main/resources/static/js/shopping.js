@@ -32,18 +32,17 @@ function initialize() {
 	}
 
 	const switchButtons = document.querySelectorAll(".switch__toggle");
-		for(let i = 0; i < switchButtons.length; i++) {
-			const button = switchButtons[i];
-			const productId = parseInt(button.value);
-			button.addEventListener("change", () => {
-				if(button.checked === true){
-					addToCart(productId);
-				} else{
-
-					removeFromCart(productId);
-				}
-			});
-		}
+	for(let i = 0; i < switchButtons.length; i++) {
+		const button = switchButtons[i];
+		const productId = parseInt(button.value);
+		button.addEventListener("change", () => {
+			if(button.checked === true){
+				createLineItem(productId);
+			} else{
+				removeItemFromCart(productId);
+			}
+		});
+	}
 }
 
 function toggleVisibility(items) {
@@ -51,34 +50,44 @@ function toggleVisibility(items) {
 	items.classList.toggle("visible");
 }
 
-function addToCart(productId) {
+function request(method, path) {
 	const xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = () => {
 		if (xhr.readyState == 4 && xhr.status == 200) {
 			const response = JSON.parse(xhr.response);
-			updateCartNumber(response);
+			if(response.quantity) {
+				updateProductQuantity(response);
+			}
+			updateTotals(response);
 		}
 	};
-	xhr.open("PATCH", `/carts/${cartId}/items/${productId}?increase=true`, true);
+	xhr.open(method, path, true);
 	xhr.send();
+}
+
+function addToCart(productId) {
+	request("PATCH", `/carts/${cartId}/items/${productId}?increase=true`);
 }
 
 function removeFromCart(productId) {
-	const xhr = new XMLHttpRequest();
-	xhr.onreadystatechange = () => {
-		if (xhr.readyState == 4 && xhr.status == 200) {
-			const response = JSON.parse(xhr.response);
-			updateCartNumber(response);
-		}
-	};
-	xhr.open("PATCH", `/carts/${cartId}/items/${productId}?increase=false`, true);
-	xhr.send();
+	request("PATCH", `/carts/${cartId}/items/${productId}?increase=false`);
 }
 
-function updateCartNumber(response) {
+function createLineItem(productId) {
+	request("POST", `/carts/${cartId}/items/${productId}?dichotomous=true`);
+}
+
+function removeItemFromCart(productId) {
+	request("DELETE", `/carts/${cartId}/items/${productId}`);
+}
+
+function updateProductQuantity(response) {
 	const interface = document.querySelector(`div#product-${response.product.id}`);
 	const value = interface.querySelector("span.value");
 	value.innerText = response.quantity;
+}
+
+function updateTotals(response) {
 	if(response.cart) {
 		const couponsUsed = parseInt(response.cart.couponsUsed);
 		setTotalCouponsUsed(couponsUsed);
