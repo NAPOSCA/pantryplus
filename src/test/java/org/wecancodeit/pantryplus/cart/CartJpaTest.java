@@ -359,7 +359,7 @@ public class CartJpaTest {
 		entityManager.flush();
 		entityManager.clear();
 		cart = cartRepo.findOne(cartId);
-		cart.updateCouponsUsed();
+		cart.refreshCouponsUsed();
 		cartRepo.save(cart);
 		entityManager.flush();
 		entityManager.clear();
@@ -381,7 +381,7 @@ public class CartJpaTest {
 		entityManager.flush();
 		entityManager.clear();
 		cart = cartRepo.findOne(cartId);
-		cart.updateCouponsUsed();
+		cart.refreshCouponsUsed();
 		cartRepo.save(cart);
 		cart = cartRepo.findOne(cartId);
 		int actual = cart.getCouponsUsed();
@@ -402,7 +402,7 @@ public class CartJpaTest {
 		entityManager.flush();
 		entityManager.clear();
 		cart = cartRepo.findOne(cartId);
-		cart.updateCouponsUsed();
+		cart.refreshCouponsUsed();
 		cartRepo.save(cart);
 		entityManager.flush();
 		entityManager.clear();
@@ -426,4 +426,43 @@ public class CartJpaTest {
 		int actual = countedLineItem.getQuantity();
 		assertThat(actual, is(quantity));
 	}
+
+	@Test
+	public void shouldHaveMeatPoundsUsedAsOne() {
+		lineItemRepo.save(countedLineItem);
+		entityManager.flush();
+		entityManager.clear();
+		cart = cartRepo.findOne(cartId);
+		cart.refreshMeatPoundsUsed();
+		int meatPoundsUsed = cart.getMeatPoundsUsed();
+		assertThat(meatPoundsUsed, is(1));
+	}
+
+	@Test
+	public void shouldHaveMeatPoundsUsedAsThree() {
+		lineItemRepo.save(countedLineItem);
+		lineItemRepo.save(anotherCountedLineItem);
+		entityManager.flush();
+		entityManager.clear();
+		cart = cartRepo.findOne(cartId);
+		cart.refreshMeatPoundsUsed();
+		int meatPoundsUsed = cart.getMeatPoundsUsed();
+		assertThat(meatPoundsUsed, is(3));
+	}
+
+	@Test
+	public void shouldHaveMeatPoundsUsedAsThreeDespiteThereBeingCouponProducts() {
+		lineItemRepo.save(countedLineItem);
+		lineItemRepo.save(anotherCountedLineItem);
+		CouponProduct couponProduct = new CouponProduct("", null, 2);
+		couponProduct = productRepo.save(couponProduct);
+		lineItemRepo.save(new CountedLineItem(cart, couponProduct, 2));
+		entityManager.flush();
+		entityManager.clear();
+		cart = cartRepo.findOne(cartId);
+		cart.refreshMeatPoundsUsed();
+		int meatPoundsUsed = cart.getMeatPoundsUsed();
+		assertThat(meatPoundsUsed, is(3));
+	}
+
 }

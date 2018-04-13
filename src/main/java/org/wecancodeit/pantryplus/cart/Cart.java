@@ -34,6 +34,8 @@ public class Cart {
 
 	private int couponsUsed;
 
+	private int meatPoundsUsed;
+
 	public User getUser() {
 		return user;
 	}
@@ -81,6 +83,10 @@ public class Cart {
 		return couponsUsed;
 	}
 
+	public int getMeatPoundsUsed() {
+		return meatPoundsUsed;
+	}
+
 	@SuppressWarnings("unused")
 	private Cart() {
 	}
@@ -89,7 +95,24 @@ public class Cart {
 		this.user = user;
 	}
 	
-	public void updateCouponsUsed() {
+	public void refreshStats() {
+		refreshCouponsUsed();
+		refreshMeatPoundsUsed();
+	}
+
+	public void refreshMeatPoundsUsed() {
+		meatPoundsUsed = 0;
+		for (LineItem item : getLineItems()) {
+			if (isCountedLineItem(item)) {
+				CountedLineItem countedLineItem = (CountedLineItem) item;
+				if (!countedLineItem.hasCouponProduct()) {
+					meatPoundsUsed += countedLineItem.getQuantity();
+				}
+			}
+		}
+	}
+
+	public void refreshCouponsUsed() {
 		Stream<LineItem> lineItemStream = getLineItems().stream().filter(item -> isCountedLineItem(item));
 		Stream<CountedLineItem> countedLineItemStream = lineItemStream.map(item -> (CountedLineItem) item);
 		couponsUsed = countedLineItemStream.mapToInt(item -> item.getCouponsUsed()).sum();
@@ -113,21 +136,21 @@ public class Cart {
 			countedLineItem.increaseQuantity(1);
 
 		}
-		updateCouponsUsed();
+		refreshStats();
 		return countedLineItem;
 	}
 
 	public CountedLineItem decreaseProductByOne(long productId) {
 		CountedLineItem countedLineItem = (CountedLineItem) getLineItemByProductId(productId);
 		countedLineItem.reduceQuantity(1);
-		updateCouponsUsed();
+		refreshStats();
 		return countedLineItem;
 	}
 
 	public CountedLineItem updateQuantityOfProduct(long productId, int quantity) {
 		CountedLineItem countedLineItem = (CountedLineItem) getLineItemByProductId(productId);
 		countedLineItem.setQuantity(quantity);
-		updateCouponsUsed();
+		refreshStats();
 		return countedLineItem;
 	}
 

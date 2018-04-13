@@ -91,12 +91,18 @@ function updateTotals(response) {
 	if(response.cart) {
 		const couponsUsed = parseInt(response.cart.couponsUsed);
 		setTotalCouponsUsed(couponsUsed);
+		const meatUsed = parseInt(response.cart.meatPoundsUsed);
+		setTotalMeatUsed(meatUsed);
 	} else {
 		if(response.product.cost) {
 			const cost = response.product.cost;
 			const pageCouponsUsed = getTotalCouponsUsedFromPage();
 			const serverCouponsUsed = pageCouponsUsed - cost;
 			setTotalCouponsUsed(serverCouponsUsed);
+		} else {
+			const pageMeatUsed = getTotalMeatUsedFromPage();
+			const serverMeatUsed = pageMeatUsed - 1;
+			setTotalMeatUsed(serverMeatUsed);
 		}
 	}
 }
@@ -106,7 +112,17 @@ function setTotalCouponsUsed(couponsUsed) {
 	couponsUsedSpan.innerText = couponsUsed;
 }
 
+function setTotalMeatUsed(meatUsed) {
+	const meatUsedSpan = document.querySelector("span.meat-used");
+	meatUsedSpan.innerText = meatUsed;
+}
+
 function getTotalCouponsUsedFromPage() {
 	const couponsUsedSpan = document.querySelector("span.coupon-used");
-	return couponsUsedSpan.innerText;
+	return parseInt(couponsUsedSpan.innerText);
+}
+
+function getTotalMeatUsedFromPage() {
+	const meatUsedSpan = document.querySelector("span.meat-used");
+	return parseInt(meatUsedSpan.innerText);
 }

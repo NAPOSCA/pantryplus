@@ -32,6 +32,10 @@
 				</tr>
 			</table>
 			<p>
+				<span>Total lbs. of Meat: </span>
+				<span th:text="${cart.getMeatPoundsUsed()}"/>
+			</p>
+			<p>
 				<span>Total coupons used: </span>
 				<span th:text="${cart.getCouponsUsed()}" />
 			</p>

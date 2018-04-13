@@ -127,7 +127,7 @@ public class CartRestController {
 		entityManager.flush();
 		entityManager.clear();
 		cart = retrieveCartBy(cartId);
-		cart.updateCouponsUsed();
+		cart.refreshStats();
 		cartRepo.save(cart);
 		entityManager.flush();
 		entityManager.clear();
