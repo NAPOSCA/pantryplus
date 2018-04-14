@@ -10,6 +10,14 @@ public class CouponProduct extends Product {
 	private int cost;
 	private int couponlimit;
 
+	public int getCost() {
+		return cost;
+	}
+
+	public int getCouponLimit() {
+		return couponlimit;
+	}
+
 	protected CouponProduct() {
 		super();
 	}
@@ -22,14 +30,6 @@ public class CouponProduct extends Product {
 		super(name, category);
 		this.cost = cost;
 		this.couponlimit = couponLimit;
-	}
-
-	public int getCost() {
-		return cost;
-	}
-
-	public int getCouponLimit() {
-		return couponlimit;
 	}
 
 }
