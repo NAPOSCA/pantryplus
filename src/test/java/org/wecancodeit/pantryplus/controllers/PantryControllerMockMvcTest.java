@@ -37,15 +37,15 @@ public class PantryControllerMockMvcTest {
 
 	@MockBean
 	private CategoryRepository categoryRepo;
-	
+
 	@MockBean
 	private LineItemRepository lineItemRepo;
 
 	@Mock
 	Cart cart;
 
-	 @Mock
-	 User user;
+	@Mock
+	User user;
 
 	long cartId = 1L;
 
@@ -53,6 +53,7 @@ public class PantryControllerMockMvcTest {
 	public void setup() {
 		when(cartRepo.findOne(cartId)).thenReturn(cart);
 		when(userRepo.save(user)).thenReturn(user);
+		when(cart.getUser()).thenReturn(user);
 	}
 
 	@Test
@@ -63,11 +64,14 @@ public class PantryControllerMockMvcTest {
 	@Ignore
 	@Test
 	public void shouldRedirectFromUserFormToShoppingView() throws Exception {
-		mvc.perform(get("/user-form?familySize=1&schoolkidsCount=1&infants=false&pickUpDate=2018-04-08&zipCode=00000")).andExpect(status().is3xxRedirection());
+		mvc.perform(get("/user-form?familySize=1&schoolkidsCount=1&infants=false&pickUpDate=2018-04-08&zipCode=00000"))
+				.andExpect(status().is3xxRedirection());
 	}
 
 	@Test
 	public void shouldLoadCartOk() throws Exception {
-		mvc.perform(get("/carts/1")).andExpect(status().isOk());
+		String path = "/carts/"+cartId;
+		System.out.println(path);
+		mvc.perform(get(path)).andExpect(status().isOk());
 	}
 }
