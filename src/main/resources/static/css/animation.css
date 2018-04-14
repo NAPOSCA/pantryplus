@@ -8,6 +8,7 @@
 	font-size: 0;
 	margin: 0;
 	border: none;
+	opacity: 0;
 }
 
 .hidden .item > * {
