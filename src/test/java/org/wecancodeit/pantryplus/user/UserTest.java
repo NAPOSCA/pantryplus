@@ -12,7 +12,7 @@ public class UserTest {
 	@Test
 	public void shouldCalculateCouponTotalForOneOrTwoPersonFamily() {
 		User user = new User("firstName", "lastName", 1, 0, false, date, "00000");
-		int couponTotal = user.calculateCouponTotal();
+		int couponTotal = user.calculateCouponLimit();
 
 		assertThat(couponTotal, is(10));
 	}
@@ -20,7 +20,7 @@ public class UserTest {
 	@Test
 	public void shouldCalculateCouponTotalForThreePersonFamily() {
 		User user = new User("firstName", "lastName", 3, 0, false, date, "00000");
-		int couponTotal = user.calculateCouponTotal();
+		int couponTotal = user.calculateCouponLimit();
 
 		assertThat(couponTotal, is(20));
 	}
@@ -28,7 +28,7 @@ public class UserTest {
 	@Test
 	public void shouldCalculateMeatTotalForOneOrTwoPersonFamily() {
 		User user = new User("firstName", "lastName", 1, 0, false, date, "00000");
-		int meatTotal = user.calculateMeatTotal();
+		int meatTotal = user.calculateMeatLimit();
 
 		assertThat(meatTotal, is(4));
 	}
@@ -36,7 +36,7 @@ public class UserTest {
 	@Test
 	public void shouldCalculateMeatTotalForThreeToFivePersonFamily() {
 		User user = new User("firstName", "lastName", 3, 0, false, date, "00000");
-		int meatTotal = user.calculateMeatTotal();
+		int meatTotal = user.calculateMeatLimit();
 
 		assertThat(meatTotal, is(6));
 	}
@@ -44,7 +44,7 @@ public class UserTest {
 	@Test
 	public void shouldCalculateMeatTotalForSixOrMorePersonFamily() {
 		User user = new User("firstName", "lastName", 6, 0, false, date, "00000");
-		int meatTotal = user.calculateMeatTotal();
+		int meatTotal = user.calculateMeatLimit();
 
 		assertThat(meatTotal, is(8));
 	}

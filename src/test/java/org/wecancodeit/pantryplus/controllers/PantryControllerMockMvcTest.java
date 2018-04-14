@@ -57,7 +57,7 @@ public class PantryControllerMockMvcTest {
 	}
 
 	@Test
-	public void shouldLoadIndexOk() throws Exception {
+	public void shouldLoadFormOk() throws Exception {
 		mvc.perform(get("/")).andExpect(status().isOk());
 	}
 
@@ -67,11 +67,15 @@ public class PantryControllerMockMvcTest {
 		mvc.perform(get("/user-form?familySize=1&schoolkidsCount=1&infants=false&pickUpDate=2018-04-08&zipCode=00000"))
 				.andExpect(status().is3xxRedirection());
 	}
+	
+	@Test
+	public void shouldLoadShoppingOk() throws Exception {
+		mvc.perform(get("/shopping?cartId="+cartId)).andExpect(status().isOk());
+	}
 
 	@Test
 	public void shouldLoadCartOk() throws Exception {
 		String path = "/carts/"+cartId;
-		System.out.println(path);
 		mvc.perform(get(path)).andExpect(status().isOk());
 	}
 }

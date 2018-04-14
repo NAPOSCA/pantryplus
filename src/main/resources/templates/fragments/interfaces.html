@@ -18,11 +18,11 @@
 	<div>
 		<p>
 			<span>Cost:</span>
-			<span th:text="${product.cost}"/>
+			<span th:text="${product.price}"/>
 		</p>
 		<p>
 			<span>Limit:</span>
-			<span th:text="${product.couponLimit}"></span>
+			<span th:text="${product.maximumQuantity}"></span>
 		</p>
 	</div>
 	<button class="remove" th:value="${product.id}">-</button>

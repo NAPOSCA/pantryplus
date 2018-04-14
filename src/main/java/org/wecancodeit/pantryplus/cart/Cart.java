@@ -11,7 +11,8 @@ import javax.persistence.OneToMany;
 
 import org.wecancodeit.pantryplus.lineitem.CountedLineItem;
 import org.wecancodeit.pantryplus.lineitem.LineItem;
-import org.wecancodeit.pantryplus.product.CouponProduct;
+import org.wecancodeit.pantryplus.product.LimitedProduct;
+import org.wecancodeit.pantryplus.product.PricedProduct;
 import org.wecancodeit.pantryplus.product.Product;
 import org.wecancodeit.pantryplus.user.User;
 
@@ -93,7 +94,7 @@ public class Cart {
 	public Cart(User user) {
 		this.user = user;
 	}
-	
+
 	public void refreshStats() {
 		refreshCouponsUsed();
 		refreshMeatPoundsUsed();
@@ -124,19 +125,39 @@ public class Cart {
 	public CountedLineItem increaseProductByOne(long productId) {
 		CountedLineItem countedLineItem = (CountedLineItem) getLineItemByProductId(productId);
 		Product product = countedLineItem.getProduct();
-		if (product instanceof CouponProduct) {
-			CouponProduct couponProduct = (CouponProduct) product;
-			int couponLimit = couponProduct.getCouponLimit();
-			int quantity = countedLineItem.getQuantity();
-			if (couponLimit > quantity) {
+		if (product.getCategory().getName() == "Meat") {
+			if (willAddingQuantityBeWithinMeatLimit()) {
 				countedLineItem.increaseQuantity(1);
+			}
+		} else if (product instanceof PricedProduct) {
+			PricedProduct couponProduct = (PricedProduct) product;
+			refreshCouponsUsed();
+			int quantityBeingAdded = 1;
+			if (willAddingQuantityBeWithinCouponLimit(couponProduct, quantityBeingAdded)) {
+				if (this.couponsUsed < this.user.calculateCouponLimit()) {
+					if (isCouponProductWithinQuantityLimit(countedLineItem, couponProduct)) {
+						countedLineItem.increaseQuantity(1);
+					}
+				}
 			}
 		} else {
 			countedLineItem.increaseQuantity(1);
-
 		}
 		refreshStats();
 		return countedLineItem;
+	}
+
+	public boolean willAddingQuantityBeWithinMeatLimit() {
+		refreshMeatPoundsUsed();
+		return getUser().calculateMeatLimit() > meatPoundsUsed;
+	}
+
+	public boolean willAddingQuantityBeWithinCouponLimit(PricedProduct couponProduct, int quantityBeingAdded) {
+		return (couponProduct.getPrice() * quantityBeingAdded + couponsUsed) <= user.calculateCouponLimit();
+	}
+
+	private boolean isCouponProductWithinQuantityLimit(CountedLineItem countedLineItem, LimitedProduct couponProduct) {
+		return couponProduct.getMaximumQuantity() > countedLineItem.getQuantity();
 	}
 
 	public CountedLineItem decreaseProductByOne(long productId) {

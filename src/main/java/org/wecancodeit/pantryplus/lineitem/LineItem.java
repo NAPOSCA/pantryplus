@@ -6,7 +6,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 import org.wecancodeit.pantryplus.cart.Cart;
-import org.wecancodeit.pantryplus.product.CouponProduct;
+import org.wecancodeit.pantryplus.product.PricedProduct;
 import org.wecancodeit.pantryplus.product.Product;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -46,7 +46,7 @@ public class LineItem {
 	}
 
 	public boolean hasCouponProduct() {
-		return product instanceof CouponProduct;
+		return product instanceof PricedProduct;
 	}
 
 	@Override

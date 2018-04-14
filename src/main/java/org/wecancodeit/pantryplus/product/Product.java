@@ -78,4 +78,8 @@ public class Product {
 		return false;
 	}
 
+	public Category getCategory() {
+		return category;
+	}
+
 }

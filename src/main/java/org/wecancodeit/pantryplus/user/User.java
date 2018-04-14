@@ -71,7 +71,7 @@ public class User {
 		return pickupDateTime;
 	}
 
-	public int calculateCouponTotal() {
+	public int calculateCouponLimit() {
 		if (familySize <= 2) {
 			return 10;
 		} else if (familySize <= 4) {
@@ -84,7 +84,7 @@ public class User {
 		return 35;
 	}
 
-	public int calculateMeatTotal() {
+	public int calculateMeatLimit() {
 		if (familySize <= 2) {
 			return 4;
 		} else if (familySize <= 5) {
