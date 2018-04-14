@@ -81,6 +81,9 @@ header nav {
 	align-items: center;
 	-ms-user-select: none;
    	user-select: none;
+   	box-shadow: 0px 7px 18px -6px;
+   	border-top-left-radius: 1rem;
+   	border-top-right-radius: 1rem;
 }
 
 header {
@@ -139,6 +142,24 @@ div.address a {
 
 div.stats {
 	margin-top: 1rem;
-	text-align: center;
 	position: fixed;
+}
+
+h2 a {
+	text-decoration-line: none;
+}
+
+div.container.cart div.aside-main aside div.stats {
+	position: static;
+}
+
+section.line-item {
+    display: flex;
+    justify-content:  space-between;
+    margin: 0.1rem 6rem;
+    padding: 0.1rem;
+}
+
+.line-item h3 {
+    text-decoration-line: underline;
 }
