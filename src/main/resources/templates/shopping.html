@@ -36,18 +36,8 @@
 		</header>
 		<div class="aside-main">
 			<aside>
-				<img class="logo" src="images/broad-street-logo.jpg"/>
-				<div class="address">
-					<span>Get directions to our pantry:</span>
-					<a href="https://goo.gl/maps/LSXtd39SXJo">
-						<p>
-							760 East Broad Street
-						</p>
-						<p>
-							Columbus, Ohio 43205
-						</p>
-					</a>
-				</div>
+				<img th:replace="user-form :: img.logo"/>
+				<div th:replace="user-form :: div.address"/>
 				<div class="stats">
 					<p>
 						<span>Meat: </span>
