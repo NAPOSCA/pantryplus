@@ -6,6 +6,9 @@ import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -16,6 +19,8 @@ import org.wecancodeit.pantryplus.cart.Cart;
 import org.wecancodeit.pantryplus.cart.CartRepository;
 import org.wecancodeit.pantryplus.category.Category;
 import org.wecancodeit.pantryplus.category.CategoryRepository;
+import org.wecancodeit.pantryplus.lineitem.CountedLineItem;
+import org.wecancodeit.pantryplus.lineitem.LineItem;
 import org.wecancodeit.pantryplus.user.User;
 import org.wecancodeit.pantryplus.user.UserRepository;
 
@@ -44,13 +49,26 @@ public class PantryControllerTest {
 
 	@Mock
 	private Cart cart;
+	private Long cartId = 1L;
 
 	@Mock
 	private User user;
+	
+	@Mock
+	private LineItem lineItem;
+	
+	@Mock
+	private CountedLineItem countedLineItem;
+
 
 	@Before
 	public void setup() {
 		MockitoAnnotations.initMocks(this);
+		Set<LineItem> lineItems = new HashSet<>();
+		lineItems.add(lineItem);
+		lineItems.add(countedLineItem);
+		when(cart.getLineItems()).thenReturn(lineItems);
+		when(cartRepo.findOne(cartId)).thenReturn(cart);
 	}
 
 	@Test
@@ -68,7 +86,7 @@ public class PantryControllerTest {
 
 	@Test
 	public void shouldHaveDisplayCartReturnCart() {
-		String templateName = underTest.displayCart(model, 0);
+		String templateName = underTest.displayCart(model, cartId);
 		assertThat(templateName, is("cart"));
 	}
 

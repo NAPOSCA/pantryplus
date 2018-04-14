@@ -2,39 +2,57 @@
 <html>
 <head>
 	<title>Pantry+ | Cart</title>
-	<link rel="shortcut icon" href="images\favicon.ico" type="image/x-icon"/>
-	<link rel="icon" href="images\favicon.ico" type="image/x-icon"/>
+	<link rel="shortcut icon" href="images\favicon.ico" type="image/x-icon" />
+	<link rel="icon" href="images\favicon.ico" type="image/x-icon" />
 	<link rel="stylesheet" type="text/css" href="/css/layout.css"/>
+	<link rel="stylesheet" type="text/css" href="/css/style.css"/>
+	<link rel="stylesheet" type="text/css" href="/css/animation.css"/>
+	<link rel="stylesheet" type="text/css" href="/css/slide-toggle.css"/>
 </head>
 <body>
-	<div class="container">
+	<div class="container cart">
 		<header>
-			<h1>
-				Pantry+
-			</h1>
 			<nav>
 				<ul>
-					<a th:href="'/shopping?cartId='+${cart.getId()}">Shopping</a>
+					<li class="previous">
+						<h2>Form</h2>
+					</li>
+					<li class="previous">
+						<h2>
+							<a th:href="'/shopping?cartId='+${cart.getId()}">Shopping</a>
+						</h2>
+					</li>
+					<li class="current">
+						<h2>Cart</h2>
+					</li>
 				</ul>
 			</nav>
 		</header>
-		<main>
-			<table style="text-align: center;">
-				<tr>
-					<th>Product</th>
-					<th>Quantity</th>
-				</tr>
-				<tr class="line-item" th:each="lineItem : ${cart.lineItems}">
-					<td th:text="${lineItem.product.name}"/>
-					<td th:text="${lineItem.quantity}"/>
-				</tr>
-			</table>
-			<p>
-				<span>Total coupons used: </span>
-				<span th:text="${cart.getCouponsUsed()}"/>
-			</p>
-		</main>
-		<footer th:replace="shopping :: footer"/>
+		<div class="aside-main">
+			<aside>
+				<img th:replace="user-form :: img.logo"/>
+				<div th:replace="user-form :: div.address"/>
+				<div th:replace="shopping :: div.stats"/>
+				<form>
+					<input type="submit" value="Send Order"/>
+				</form>
+			</aside>
+			<main>
+				<section class="line-item">
+					<h3>Product</h3>
+					<h3>Quantity</h3>
+				</section>
+				<section class="line-item" th:each="lineItem : ${lineItems}">
+					<p th:text="${lineItem.product.name}" />
+					<p>Included</p>
+				</section>
+				<section class="line-item" th:each="lineItem : ${countedLineItems}">
+					<p th:text="${lineItem.product.name}"/>
+					<p th:text="${lineItem.quantity}"/>
+				</section>
+			</main>
+		</div>
+		<footer th:replace="shopping :: footer" />
 	</div>
 </body>
 </html>
