@@ -48,6 +48,21 @@
 						</p>
 					</a>
 				</div>
+				<div class="stats">
+					<p>
+						<span>Meat: </span>
+						<span class="meat-used" th:text="${cart.getMeatPoundsUsed()}"/>
+						<span>/</span>
+						<span th:text="${cart.getUser().calculateMeatTotal()}"/>
+						<span>lbs.</span>
+					</p>
+					<p>
+						<span>Coupons: </span>
+						<span class="coupon-used" th:text="${cart.getCouponsUsed()}"/>
+						<span>/</span>
+						<span class="coupon-total" th:text="${cart.getUser().calculateCouponTotal()}"/>
+					</p>
+				</div>
 			</aside>
 			<main>
 				<div th:each="category : ${categories}" class="category-items" th:unless="${category.name == 'After School Snacks' and cart.user.schoolAgeChildren == 0}">
@@ -55,22 +70,6 @@
 						<h2 th:text="${category.name}"/>
 						<p class="indicator visible">+</p>
 						<p class="indicator hidden">-</p>
-						<p th:if="${category.name == 'Meat'}">
-							<span>Available lbs. of Meat: </span>
-							<span th:text="${cart.getUser().calculateMeatTotal()}"/>
-						</p>
-						<p th:if="${category.name == 'Meat'}">
-							<span>Total lbs. of Meat used: </span>
-							<span class="meat-used" th:text="${cart.getMeatPoundsUsed()}"/>
-						</p>
-						<p th:if="${category.name == 'Coupon'}">
-							<span>Available points of Coupons: </span>
-							<span class="coupon-total" th:text="${cart.getUser().calculateCouponTotal()}"/>
-						</p>
-						<p th:if="${category.name == 'Coupon'}">
-							<span>Total coupons used: </span>
-							<span class="coupon-used" th:text="${cart.getCouponsUsed()}"/>
-						</p>
 					</section>
 					<ul class="items hidden">
 						<li class="item" th:each="product : ${category.products}" th:unless="${product.name == 'Diapers' and cart.user.hasInfants() == false}">

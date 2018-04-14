@@ -55,13 +55,15 @@ li.item {
 }
 
 button {
-	padding: 0 2rem;
+	padding: 0 1rem;
+	height: 1.6rem;
 }
 
 li.item h3 {
 	font-size: 1.4rem;
 	margin-right: auto;
 	margin-left: 1rem;
+	width: min-content;
 }
 
 div.interface p {
@@ -72,6 +74,7 @@ div.interface p {
 
 .product-image {
 	max-height: 170%;
+	height: 1.6rem;
 }
 
 header nav {
@@ -133,4 +136,10 @@ div.address {
 div.address a {
 	text-decoration-style: dotted;
 	color: black;
+}
+
+div.stats {
+	margin-top: 1rem;
+	text-align: center;
+	position: fixed;
 }
