@@ -59,6 +59,8 @@ li.item {
 
 div.interface {
 	display: flex;
+	align-items: center;
+	width: max-content;
 }
 
 img.logo {
