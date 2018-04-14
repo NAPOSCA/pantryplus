@@ -574,6 +574,9 @@ public class CartJpaTest {
 
 	@Test
 	public void shouldHaveCountedLineItemWithMeatProductNotIncreaseQuantityIfAtCartMeatLimit() {
+		entityManager.flush();
+		entityManager.clear();
+		cart = cartRepo.findOne(cartId);
 		int quantity = cart.getUser().calculateMeatLimit();
 		Category meat = new Category("Meat");
 		meat = categoryRepo.save(meat);
@@ -596,6 +599,9 @@ public class CartJpaTest {
 
 	@Test
 	public void shouldHaveCountedLineItemWithMeatProductIncreaseIfCartIsNoWhereNearLimit() {
+		entityManager.flush();
+		entityManager.clear();
+		cart = cartRepo.findOne(cartId);
 		int quantity = 1;
 		Category meat = new Category("Meat");
 		meat = categoryRepo.save(meat);
