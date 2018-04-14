@@ -36,8 +36,9 @@ public class CartRestController {
 	@Resource
 	private LineItemRepository lineItemRepo;
 
+	@Transactional
 	@RequestMapping(path = "/carts/{cartId}/items/{productId}", method = POST)
-	public LineItem receivePostOnCart(@PathVariable long cartId, @PathVariable long productId,
+	public Cart receivePostOnCart(@PathVariable long cartId, @PathVariable long productId,
 			@RequestParam boolean dichotomous) {
 
 		if (dichotomous) {
@@ -46,8 +47,9 @@ public class CartRestController {
 		return tellLineItemRepoToSaveCountedLineItemBy(cartId, productId);
 	}
 
+	@Transactional
 	@RequestMapping(path = "/carts/{cartId}/items/{productId}", method = PUT)
-	public CountedLineItem receivePutRequestOnProductInCart(@PathVariable long cartId, @PathVariable long productId,
+	public Cart receivePutRequestOnProductInCart(@PathVariable long cartId, @PathVariable long productId,
 			@RequestParam int quantity) {
 
 		return tellCartToUpdateProductQuantity(cartId, productId, quantity);
@@ -55,7 +57,7 @@ public class CartRestController {
 
 	@Transactional
 	@RequestMapping(path = "/carts/{cartId}/items/{productId}", method = PATCH)
-	public CountedLineItem receivePatchRequestOnProductInCart(@PathVariable long cartId, @PathVariable long productId,
+	public Cart receivePatchRequestOnProductInCart(@PathVariable long cartId, @PathVariable long productId,
 			@RequestParam boolean increase) {
 
 		if (increase) {
@@ -81,22 +83,27 @@ public class CartRestController {
 		cartRepo.delete(cartId);
 	}
 
-	CountedLineItem tellCartToIncreaseProductQuantityByOne(long cartId, long productId) {
+	Cart tellCartToIncreaseProductQuantityByOne(long cartId, long productId) {
 		Cart cart = retrieveCartBy(cartId);
 		if (cart.has(productId)) {
 			CountedLineItem countedLineItem = cart.increaseProductByOne(productId);
-			return lineItemRepo.save(countedLineItem);
+			lineItemRepo.save(countedLineItem);
+			entityManager.flush();
+			entityManager.clear();
+			return retrieveCartBy(cartId);
 		}
 		return tellLineItemRepoToSaveCountedLineItemBy(cartId, productId);
 	}
 
-	CountedLineItem tellCartToDecreaseProductQuantityByOne(long cartId, long productId) {
+	Cart tellCartToDecreaseProductQuantityByOne(long cartId, long productId) {
 		Cart cart = retrieveCartBy(cartId);
 		if (cart.has(productId)) {
 			CountedLineItem countedLineItem = cart.decreaseProductByOne(productId);
-			return lineItemRepo.save(countedLineItem);
+			countedLineItem = lineItemRepo.save(countedLineItem);
+			entityManager.flush();
+			entityManager.clear();
 		}
-		return null;
+		return retrieveCartBy(cartId);
 	}
 
 	Cart tellCartToRemoveItem(long cartId, long productId) {
@@ -106,40 +113,46 @@ public class CartRestController {
 		return cart;
 	}
 
-	LineItem tellLineItemRepoToSaveDichotomousLineItemBy(long cartId, long productId) {
+	Cart tellLineItemRepoToSaveDichotomousLineItemBy(long cartId, long productId) {
 		Cart cart = retrieveCartBy(cartId);
 		Product product = retrieveProductBy(productId);
 		LineItem lineItem = new LineItem(cart, product);
 		lineItemRepo.save(lineItem);
-		return lineItem;
+//		return lineItem;
+		entityManager.flush();
+		entityManager.clear();
+		return retrieveCartBy(cartId);
 	}
 
-	CountedLineItem tellLineItemRepoToSaveCountedLineItemBy(long cartId, long productId) {
+	Cart tellLineItemRepoToSaveCountedLineItemBy(long cartId, long productId) {
 		return tellLineItemRepoToSaveCountedLineItemBy(cartId, productId, 1);
 	}
 
-	public CountedLineItem tellLineItemRepoToSaveCountedLineItemBy(long cartId, long productId, int quantity) {
+	public Cart tellLineItemRepoToSaveCountedLineItemBy(long cartId, long productId, int quantity) {
 		Cart cart = retrieveCartBy(cartId);
 		Product product = retrieveProductBy(productId);
 		CountedLineItem countedLineItem = new CountedLineItem(cart, product, quantity);
 		countedLineItem = lineItemRepo.save(countedLineItem);
-		long id = countedLineItem.getId();
+//		long id = countedLineItem.getId();
 		entityManager.flush();
 		entityManager.clear();
 		cart = retrieveCartBy(cartId);
 		cart.refreshStats();
-		cartRepo.save(cart);
-		entityManager.flush();
-		entityManager.clear();
-		countedLineItem = (CountedLineItem) lineItemRepo.findOne(id);
-		return countedLineItem;
+		return cartRepo.save(cart);
+//		entityManager.flush();
+//		entityManager.clear();
+//		countedLineItem = (CountedLineItem) lineItemRepo.findOne(id);
+//		return countedLineItem;
 	}
 
-	private CountedLineItem tellCartToUpdateProductQuantity(long cartId, long productId, int quantity) {
+	private Cart tellCartToUpdateProductQuantity(long cartId, long productId, int quantity) {
 		Cart cart = retrieveCartBy(cartId);
 		if (cart.has(productId)) {
 			CountedLineItem countedLineItem = cart.updateQuantityOfProduct(productId, quantity);
-			return lineItemRepo.save(countedLineItem);
+			lineItemRepo.save(countedLineItem);
+			entityManager.flush();
+			entityManager.clear();
+			return retrieveCartBy(cartId);
 		}
 		return tellLineItemRepoToSaveCountedLineItemBy(cartId, productId, quantity);
 	}

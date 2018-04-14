@@ -28,7 +28,6 @@ public class Cart {
 	@ManyToOne
 	private User user;
 
-	@JsonIgnore
 	@OneToMany(mappedBy = "cart", orphanRemoval = true)
 	Set<LineItem> lineItems;
 

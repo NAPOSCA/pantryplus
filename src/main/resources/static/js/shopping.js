@@ -50,41 +50,57 @@ function toggleVisibility(items) {
 	items.classList.toggle("visible");
 }
 
-function request(method, path) {
+function request(method, path, productId) {
 	const xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = () => {
 		if (xhr.readyState == 4 && xhr.status == 200) {
-			const response = JSON.parse(xhr.response);
-			if(response.quantity) {
-				updateProductQuantity(response);
+			let cart = JSON.parse(xhr.response);
+			const lineItem = getLineItemByProductId(cart, productId);
+			let quantity = 0;
+			if(lineItem) {
+				quantity = lineItem.quantity;
 			}
-			updateTotals(response);
+			updateProductQuantity(productId, quantity);
+			setTotalCouponsUsed(cart.couponsUsed);
+			setTotalMeatUsed(cart.meatPoundsUsed);
 		}
 	};
 	xhr.open(method, path, true);
 	xhr.send();
 }
 
+function getLineItemByProductId(cart, productId) {
+	const lineItems = cart.lineItems;
+	for (var i = 0; i < lineItems.length; i++) {
+		const lineItem = lineItems[i];
+		const product = lineItem.product;
+		const id = product.id;
+		if(id === productId) {
+			return lineItem;
+		}
+	}
+}
+
+function updateProductQuantity(productId, quantity) {
+	const interface = document.querySelector(`div#product-${productId}`);
+	const value = interface.querySelector("span.value");
+	value.innerText = quantity;
+}
+
 function addToCart(productId) {
-	request("PATCH", `/carts/${cartId}/items/${productId}?increase=true`);
+	request("PATCH", `/carts/${cartId}/items/${productId}?increase=true`, productId);
 }
 
 function removeFromCart(productId) {
-	request("PATCH", `/carts/${cartId}/items/${productId}?increase=false`);
+	request("PATCH", `/carts/${cartId}/items/${productId}?increase=false`, productId);
 }
 
 function createLineItem(productId) {
-	request("POST", `/carts/${cartId}/items/${productId}?dichotomous=true`);
+	request("POST", `/carts/${cartId}/items/${productId}?dichotomous=true`, productId);
 }
 
 function removeItemFromCart(productId) {
-	request("DELETE", `/carts/${cartId}/items/${productId}`);
-}
-
-function updateProductQuantity(response) {
-	const interface = document.querySelector(`div#product-${response.product.id}`);
-	const value = interface.querySelector("span.value");
-	value.innerText = response.quantity;
+	request("DELETE", `/carts/${cartId}/items/${productId}`, productId);
 }
 
 function updateTotals(response) {

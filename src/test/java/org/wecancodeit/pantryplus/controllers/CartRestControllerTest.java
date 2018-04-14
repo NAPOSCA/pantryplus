@@ -27,10 +27,10 @@ import org.wecancodeit.pantryplus.user.UserRepository;
 @RunWith(SpringRunner.class)
 @DataJpaTest
 public class CartRestControllerTest {
-	
+
 	@Resource
 	private TestEntityManager entityManager;
-	
+
 	@Resource
 	private UserRepository userRepo;
 
@@ -39,21 +39,20 @@ public class CartRestControllerTest {
 
 	@Resource
 	private LineItemRepository lineItemRepo;
-	
+
 	@Resource
 	private ProductRepository productRepo;
-	
+
 	private CartRestController underTest;
 
 	private Product product;
 	private long productId;
-	
+
 	private Cart cart;
 	private long cartId;
-	
+
 	private User user;
 
-	
 	@Before
 	public void setup() {
 		product = new Product("product", null);
@@ -65,13 +64,13 @@ public class CartRestControllerTest {
 		entityManager.flush();
 		entityManager.clear();
 	}
-	
+
 	@Ignore
 	@Test
 	public void shouldReceivePostRequestOnCartAndTellCartToCreateCountedLineItem() {
 		boolean dichotomous = false;
 		CountedLineItem check = new CountedLineItem(cart, product, 1);
-		LineItem actual = underTest.receivePostOnCart(cartId, productId, dichotomous);
+		Cart actual = underTest.receivePostOnCart(cartId, productId, dichotomous);
 		assertThat(actual, is(check));
 	}
 
@@ -79,8 +78,7 @@ public class CartRestControllerTest {
 	@Test
 	public void shouldAddCountedProductToCart() {
 		CountedLineItem check = new CountedLineItem(cart, product, 1);
-		CountedLineItem actual = (CountedLineItem) underTest.tellLineItemRepoToSaveCountedLineItemBy(cartId,
-				productId);
+		Cart actual = underTest.tellLineItemRepoToSaveCountedLineItemBy(cartId, productId);
 		assertThat(actual, is(check));
 	}
 
