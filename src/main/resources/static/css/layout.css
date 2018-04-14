@@ -61,10 +61,6 @@ div.interface {
 	display: flex;
 }
 
-.hidden {
-	display: none;
-}
-
 img.logo {
 	max-width: 100%;
 }
