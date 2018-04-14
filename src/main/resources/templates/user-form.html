@@ -2,8 +2,10 @@
 <html>
 <head>
 	<title>Welcome to BSFP</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
 	<link rel="stylesheet" type="text/css" href="/css/layout.css"/>
 	<link rel="stylesheet" type="text/css" href="/css/style.css"/>
+	<link rel="stylesheet" type="text/css" href="/css/animation.css"/>
 	<link rel="shortcut icon" href="images\favicon.ico" type="image/x-icon"/>
 	<link rel="icon" href="images\favicon.ico" type="image/x-icon"/>
 	<script type="text/javascript" src="/js/user-form.js"></script>
@@ -11,73 +13,107 @@
 <body onload="initializeUserForm()">
 	<div class="container user-form">
 		<header>
-			<h1>Welcome to Broad Street Food Pantry</h1>
-			<h3>Please enter your information</h3>
+			<nav>
+				<ul>
+					<li class="current">
+						<h2>Form</h2>
+					</li>
+					<li>
+						<h2>Shopping</h2>
+					</li>
+					<li>
+						<h2>Cart</h2>
+					</li>
+				</ul>
+			</nav>
 		</header>
-		<main>		
-			<form action="/user-form">
-				<p>First name:</p>
-				<input type="text" name="firstName" maxlength="20"></input>
-				
-				<p>Last name:</p>
-				<input type="text" name="lastName" maxlength="20"></input>
+		<div class="aside-main">
+			<aside>
+				<img class="logo" src="/images/broad-street-logo.jpg"/>
+				<div class="address">
+					<span>Get directions to our pantry:</span>
+					<a href="https://goo.gl/maps/hYbaW9JbYFr">
+						<p>
+							760 East Broad Street
+						</p>
+						<p>
+							Columbus, Ohio 43205
+						</p>
+					</a>
+				</div>
+			</aside>
+			<main>
+				<h1>Welcome to Broad Street Food Pantry</h1>
+				<h3>Please enter your information</h3>
+				<form action="/user-form">
+					<label for="first-name">First name:</label>
+					<input type="text" name="firstName" maxlength="20" id="first-name" autofocus="true"></input>
 
-				<p>Zip code:</p>
-				<select name="zipCode" required="true">
-					<option selected="true" disabled="true" hidden="true" value="">Select...</option>
-					<option value="43203">43203</option>
-					<option value="43205">43205</option>
-					<option value="43209">43209</option>
-					<option value="43213">43213</option>
-					<option value="43215">43215</option>
-					<option value="Partnership">I am a partner</option>
-					<option value="Other">Other</option>
-				</select>
+					<br />
 
-				<p>Total family size:</p>
-				<select class="familySizeMenu" name="familySize" required="true">
-					<option selected="true" disabled="true" hidden="true" value="">Select...</option>
-					<option value="1">1</option>
-					<option value="2">2</option>
-					<option value="3">3</option>
-					<option value="4">4</option>
-					<option value="5">5</option>
-					<option value="6">6</option>
-					<option value="7">7</option>
-					<option value="8">8</option>
-					<option value="9">9+</option>
-				</select>
+					<label for="last-name">Last name:</label>
+					<input type="text" name="lastName" maxlength="20" id="last-name"></input>
 
-				<p>Children between the ages of 4 and 17:</p>
-				<select class="schoolKidsMenu" name="schoolkidsCount" required="true">
-					<option selected="true" disabled="true" hidden="true" value="">Select...</option>
-					<option value="0">0</option>
-					<option value="1" class="hidden">1</option>
-					<option value="2" class="hidden">2</option>
-					<option value="3" class="hidden">3</option>
-					<option value="4" class="hidden">4</option>
-					<option value="5" class="hidden">5</option>
-					<option value="6" class="hidden">6</option>
-					<option value="7" class="hidden">7</option>
-					<option value="8" class="hidden">8</option>
-					<option value="9" class="hidden">9+</option>
-				</select>
+					<p>Zip code:</p>
+					<select name="zipCode" required="true">
+						<option selected="true" disabled="true" hidden="true" value="">Select...</option>
+						<option value="43203">43203</option>
+						<option value="43205">43205</option>
+						<option value="43209">43209</option>
+						<option value="43213">43213</option>
+						<option value="43215">43215</option>
+						<option value="Partnership">I am a partner</option>
+						<option value="Other">Other</option>
+					</select>
 
-				<p>Children age 3 or younger:</p>
-				<input id="Yes" type="radio" name="infants" value="true"/>
-				<label for="Yes">Yes</label>
-				<input id="No" type="radio" name="infants" value=""/>
-				<label for="No">No</label>
+					<p>Total family size:</p>
+					<select class="familySizeMenu" name="familySize" required="true">
+						<option selected="true" disabled="true" hidden="true" value="">Select...</option>
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+						<option value="6">6</option>
+						<option value="7">7</option>
+						<option value="8">8</option>
+						<option value="9">9+</option>
+					</select>
 
-				<p>Pick up date:</p>
-				<select name="pickUpDate" required="true">
-					<option selected="true" disabled="true" hidden="true" value="">Select...</option>
-					<option value="2018-04-17">04/17/2018</option>
-				</select>	
+					<p>Children between the ages of 4 and 17:</p>
+					<select class="schoolKidsMenu" name="schoolkidsCount" required="true">
+						<option selected="true" disabled="true" hidden="true" value="">Select...</option>
+						<option value="0">0</option>
+						<option value="1" class="hidden">1</option>
+						<option value="2" class="hidden">2</option>
+						<option value="3" class="hidden">3</option>
+						<option value="4" class="hidden">4</option>
+						<option value="5" class="hidden">5</option>
+						<option value="6" class="hidden">6</option>
+						<option value="7" class="hidden">7</option>
+						<option value="8" class="hidden">8</option>
+						<option value="9" class="hidden">9+</option>
+					</select>
 
-				<p><input type="submit" value="Start Shopping"/></p>
-			</form> 
-		</main>
+					<p>Children age 3 or younger:</p>
+					<input id="yes" type="radio" name="infants" value="true"/>
+					<label for="yes">Yes</label>
+					<input id="no" type="radio" name="infants" value="" checked="true"/>
+					<label for="no">No</label>
+
+					<p>Pick up date:</p>
+					<select name="pickUpDate" required="true">
+						<option selected="true" disabled="true" hidden="true" value="">Select...</option>
+						<option value="2018-04-17">04/17/2018</option>
+					</select>	
+
+					<p><input type="submit" value="Start Shopping"/></p>
+				</form> 
+			</main>
+		</div>
+		<footer>
+			<small>Created by <a href="/about-us">NAPOSCA</a></small>
+		</footer>
 	</div>
 </body>
 </html>

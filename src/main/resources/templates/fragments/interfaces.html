@@ -15,16 +15,19 @@
 	<button class="add" th:value="${product.id}">+</button>
 </div>
 <div class="coupon interface">
-	<p>Cost:
-		<span th:text="${product.cost}"/>
-		<span class="units">Coupons</span>
-	</p>
+	<div>
+		<p>
+			<span>Cost:</span>
+			<span th:text="${product.cost}"/>
+		</p>
+		<p>
+			<span>Limit:</span>
+			<span th:text="${product.couponLimit}"></span>
+		</p>
+	</div>
 	<button class="remove" th:value="${product.id}">-</button>
 	<p>
 		<span class="value" th:text="${cart.getLineItemQuantityByProductId(product.id)}"/>
 	</p>
 	<button class="add" th:value="${product.id}">+</button>
-	<p>Limit:
-		<span th:text="${product.couponLimit}"></span>
-	</p>
 </div>
