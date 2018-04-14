@@ -21,3 +21,7 @@
 .hidden.indicator {
 	display: none;
 }
+
+option.hidden {
+	display: none;
+}
