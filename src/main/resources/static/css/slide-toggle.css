@@ -102,10 +102,10 @@
 /* demo styles for switch */
 
 .switch{
-	--switchSize: 3.3rem;
+	--switchSize: 2.8rem;
 }
 
-.switch_type2{
-	--switchBgColorActive: #e85c3f;
-	--switchBgColorFocus: #d54b2e;
+.switch_type1{
+	--switchBgColorActive: #065777;
+	--switchBgColorFocus: #06577747;
 }
