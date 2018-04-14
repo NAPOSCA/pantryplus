@@ -3,7 +3,7 @@ package org.wecancodeit.pantryplus.lineitem;
 import javax.persistence.Entity;
 
 import org.wecancodeit.pantryplus.cart.Cart;
-import org.wecancodeit.pantryplus.product.CouponProduct;
+import org.wecancodeit.pantryplus.product.PricedProduct;
 import org.wecancodeit.pantryplus.product.Product;
 
 @Entity
@@ -33,8 +33,12 @@ public class CountedLineItem extends LineItem {
 		}
 		couponsUsed = 0;
 		updateCouponsUsed();
-		if (product instanceof CouponProduct) {
-			CouponProduct couponProduct = (CouponProduct) product;
+		if (product.getCategory().getName() == "Meat") {
+			if(!cart.willAddingQuantityBeWithinMeatLimit()) {
+				detachFromCart();
+			}
+		} else if (product instanceof PricedProduct) {
+			PricedProduct couponProduct = (PricedProduct) product;
 			if (!cart.willAddingQuantityBeWithinCouponLimit(couponProduct, quantity)) {
 				detachFromCart();
 			}
@@ -43,7 +47,7 @@ public class CountedLineItem extends LineItem {
 
 	private void updateCouponsUsed() {
 		if (hasCouponProduct()) {
-			int cost = ((CouponProduct) this.product).getCost();
+			int cost = ((PricedProduct) this.product).getPrice();
 			couponsUsed = cost * this.quantity;
 		}
 	}

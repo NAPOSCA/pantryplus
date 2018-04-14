@@ -43,14 +43,14 @@
 						<span>Meat: </span>
 						<span class="meat-used" th:text="${cart.getMeatPoundsUsed()}"/>
 						<span>/</span>
-						<span th:text="${cart.getUser().calculateMeatTotal()}"/>
+						<span th:text="${cart.getUser().calculateMeatLimit()}"/>
 						<span>lbs.</span>
 					</p>
 					<p>
 						<span>Coupons: </span>
 						<span class="coupon-used" th:text="${cart.getCouponsUsed()}"/>
 						<span>/</span>
-						<span class="coupon-total" th:text="${cart.getUser().calculateCouponTotal()}"/>
+						<span class="coupon-total" th:text="${cart.getUser().calculateCouponLimit()}"/>
 					</p>
 				</div>
 			</aside>
