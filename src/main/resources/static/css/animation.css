@@ -4,15 +4,20 @@
 
 .hidden .item {
 	height: 0;
-	padding: 0;
 	font-size: 0;
-	margin: 0;
 	border: none;
 	opacity: 0;
+	visibility: hidden;
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+ul.hidden {
+	height: 0;
 }
 
 .hidden .item > * {
-	display: none;
+	/*display: none;*/
 }
 
 .visible .item {
