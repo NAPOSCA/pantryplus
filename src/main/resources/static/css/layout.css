@@ -67,16 +67,24 @@ img.logo {
 	max-width: 100%;
 }
 
-/*div.container.shopping div.aside-main aside div.stats a.button {
-	left: 1.3rem;
-	top: 3rem;
-}*/
-
-div.container.cart div.aside-main aside div.stats a.button {
-}
-
 a.button {
 	display: block;
-    margin-top: 1rem;
-    text-align: center;
+	margin-top: 1rem;
+	text-align: center;
+}
+
+div.container.confirmation {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+div.container.confirmation div.message {
+	width: 50%;
+	height: 6rem;
+	background-color: white;
+	display: block;
+	border-radius: 1rem;
+	padding: 1rem;
+	box-shadow: 0px 7px 12px -7px;
 }
