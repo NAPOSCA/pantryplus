@@ -31,9 +31,9 @@ public class EmailController {
 			String subject = name + "'s Order";
 			String message = cart.print();
 			sendEmail(subject, message);
-			return "redirect:/email-success";
+			return "redirect:/email-success.html";
 		} catch (Exception exThrown) {
-			return "redirect:/email-failure?error=" + exThrown;
+			return "redirect:/email-failure.html?error=" + exThrown;
 		}
 	}
 
