@@ -4,7 +4,7 @@
 }
 
 * {
-	font-family: sans-serif;
+	font-family: 'Open Sans', Helvetica, Arial, sans-serif;
 }
 
 div.container {
@@ -23,7 +23,7 @@ section.category {
 	justify-content: space-between;
 	align-items: center;
 	-ms-user-select: none;
-   	user-select: none;
+	user-select: none;
 }
 
 div.aside-main {
@@ -32,7 +32,7 @@ div.aside-main {
 }
 
 aside {
-	padding: 1rem;
+	padding: 0.9rem;
 	border-top-left-radius: var(--border-radius);
 	border-bottom-left-radius: var(--border-radius);
 }
@@ -51,7 +51,7 @@ li.item {
 	/*border: 2px solid black;*/
 	box-shadow: 0px 5px 13px -7px;
 	-ms-user-select: none;
-   	user-select: none;
+	user-select: none;
 }
 
 button {
@@ -80,16 +80,16 @@ header nav {
 	display: flex;
 	align-items: center;
 	-ms-user-select: none;
-   	user-select: none;
-   	box-shadow: 0px 7px 18px -6px;
-   	border-top-left-radius: 1rem;
-   	border-top-right-radius: 1rem;
+	user-select: none;
+	box-shadow: 0px 7px 18px -6px;
+	border-top-left-radius: 1rem;
+	border-top-right-radius: 1rem;
 }
 
 header {
 	-ms-user-select: none;
-   	user-select: none;
-   	padding-top: 1rem;
+	user-select: none;
+	padding-top: 1rem;
 }
 
 .indicator {
@@ -99,13 +99,9 @@ header {
 
 footer {
 	-ms-user-select: none;
-   	user-select: none;
-   	margin-top: 2rem;
+	user-select: none;
+	margin-top: 2rem;
 }
-
-/*img {
-	height: 45px;
-}*/
 
 nav ul {
 	display: flex;
@@ -143,6 +139,7 @@ div.address a {
 div.stats {
 	margin-top: 1rem;
 	position: fixed;
+	width: 13.4rem;
 }
 
 h2 a {
@@ -155,12 +152,30 @@ div.container.cart div.aside-main aside div.stats {
 }
 
 section.line-item {
-    display: flex;
-    justify-content:  space-between;
-    margin: 0.1rem 6rem;
-    padding: 0.1rem;
+	display: flex;
+	justify-content:  space-between;
+	margin: 0.1rem 6rem;
+	padding: 0.1rem;
 }
 
 .line-item h3 {
-    text-decoration-line: underline;
+	text-decoration-line: underline;
+}
+
+a.button {
+	background-color: #46a8d0;
+	padding: 0.4rem 0.8rem;
+	border-radius: 0.7rem;
+	text-decoration-line: none;
+	color: white;
+	box-shadow: 0 10px 8px -10px black;
+	border: none;
+}
+
+input[type="submit"] {
+	padding: 0.2rem 0.4rem;
+}
+
+h1 {
+	font-size: 30.3px;
 }

@@ -8,6 +8,7 @@
 	<link rel="stylesheet" type="text/css" href="/css/slide-toggle.css"/>
 	<link rel="shortcut icon" href="images\favicon.ico" type="image/x-icon"/>
 	<link rel="icon" href="images\favicon.ico" type="image/x-icon"/>
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet"/>
 	<script type="text/javascript" src="/js/shopping.js"></script>
 	<script th:inline="javascript">
 		/*<![CDATA[*/
@@ -39,19 +40,22 @@
 				<img th:replace="user-form :: img.logo"/>
 				<div th:replace="user-form :: div.address"/>
 				<div class="stats">
-					<p>
+					<p class="meat-stats">
 						<span>Meat: </span>
 						<span class="meat-used" th:text="${cart.getMeatPoundsUsed()}"/>
 						<span>/</span>
 						<span th:text="${cart.getUser().calculateMeatLimit()}"/>
 						<span>lbs.</span>
 					</p>
-					<p>
+					<p class="coupon-stats">
 						<span>Coupons: </span>
 						<span class="coupon-used" th:text="${cart.getCouponsUsed()}"/>
 						<span>/</span>
 						<span class="coupon-total" th:text="${cart.getUser().calculateCouponLimit()}"/>
 					</p>
+					<a class="button" th:href="'/carts/' + ${cart.getId()}">
+						Go to Cart
+					</a>
 				</div>
 			</aside>
 			<main>

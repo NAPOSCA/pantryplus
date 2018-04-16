@@ -9,7 +9,7 @@ div.container {
 
 div.aside-main {
 	display: grid;
-	grid-template-columns: 60fr 139fr;
+	grid-template-columns: 613fr 1390fr;
 	margin: 0rem auto;
 	width: 49.7rem;
 }
@@ -65,4 +65,18 @@ div.interface {
 
 img.logo {
 	max-width: 100%;
+}
+
+/*div.container.shopping div.aside-main aside div.stats a.button {
+	left: 1.3rem;
+	top: 3rem;
+}*/
+
+div.container.cart div.aside-main aside div.stats a.button {
+}
+
+a.button {
+	display: block;
+    margin-top: 1rem;
+    text-align: center;
 }
