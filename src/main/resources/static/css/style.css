@@ -179,3 +179,8 @@ input[type="submit"] {
 h1 {
 	font-size: 30.3px;
 }
+
+p.address {
+	width: 12rem;
+	margin-left: auto;
+}
