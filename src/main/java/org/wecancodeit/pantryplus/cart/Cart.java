@@ -217,4 +217,27 @@ public class Cart {
 		return false;
 	}
 
+	public String print() {
+		String message = new String();
+		message += "<table>";
+		message += "<tr><th>Product</th><th>Quantity</th></tr>";
+		for(LineItem lineItem : getLineItems()) {
+			message += "<tr>";
+			message += "<td>";
+			message += lineItem.getProduct().getName();
+			message += "</td>";
+			message += "<td>";
+			if(lineItem instanceof CountedLineItem) {
+				CountedLineItem countedLineItem = (CountedLineItem) lineItem;
+				message += countedLineItem.getQuantity();
+			} else {
+				message += "Included";
+			}
+			message += "</td>";
+			message += "</tr>";
+		}
+		message += "</table>";
+		return message;
+	}
+
 }

@@ -36,7 +36,7 @@
 				<div class="stats">
 					<p th:replace="shopping :: p.meat-stats"/>
 					<p th:replace="shopping :: p.coupon-stats"/>
-					<a class="button">Send Order</a>
+					<a class="button" th:href="'/email?cartId=' + ${cart.getId()}">Send Order</a>
 				</div>
 			</aside>
 			<main>
