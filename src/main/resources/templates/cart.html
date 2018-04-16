@@ -8,6 +8,7 @@
 	<link rel="stylesheet" type="text/css" href="/css/style.css"/>
 	<link rel="stylesheet" type="text/css" href="/css/animation.css"/>
 	<link rel="stylesheet" type="text/css" href="/css/slide-toggle.css"/>
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet"/>
 </head>
 <body>
 	<div class="container cart">
@@ -32,10 +33,11 @@
 			<aside>
 				<img th:replace="user-form :: img.logo"/>
 				<div th:replace="user-form :: div.address"/>
-				<div th:replace="shopping :: div.stats"/>
-				<form>
-					<input type="submit" value="Send Order"/>
-				</form>
+				<div class="stats">
+					<p th:replace="shopping :: p.meat-stats"/>
+					<p th:replace="shopping :: p.coupon-stats"/>
+					<a class="button">Send Order</a>
+				</div>
 			</aside>
 			<main>
 				<section class="line-item">
