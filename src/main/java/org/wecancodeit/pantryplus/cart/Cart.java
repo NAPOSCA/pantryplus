@@ -126,9 +126,13 @@ public class Cart {
 		CountedLineItem countedLineItem = (CountedLineItem) getLineItemByProductId(productId);
 		Product product = countedLineItem.getProduct();
 		if (product.getCategory().getName() == "Meat") {
-			if (willAddingQuantityBeWithinMeatLimit()) {
-				countedLineItem.increaseQuantity(1);
-			}
+			if (willAddingQuantityBeWithinMeatLimit())
+				if (product.getName() == "Ground Beef") {
+					if (countedLineItem.getQuantity() < 2)
+						countedLineItem.increaseQuantity(1);
+				} else {
+					countedLineItem.increaseQuantity(1);
+				}
 		} else if (product instanceof PricedProduct) {
 			PricedProduct couponProduct = (PricedProduct) product;
 			refreshCouponsUsed();
@@ -221,13 +225,13 @@ public class Cart {
 		String message = new String();
 		message += "<table>";
 		message += "<tr><th>Product</th><th>Quantity</th></tr>";
-		for(LineItem lineItem : getLineItems()) {
+		for (LineItem lineItem : getLineItems()) {
 			message += "<tr>";
 			message += "<td>";
 			message += lineItem.getProduct().getName();
 			message += "</td>";
 			message += "<td>";
-			if(lineItem instanceof CountedLineItem) {
+			if (lineItem instanceof CountedLineItem) {
 				CountedLineItem countedLineItem = (CountedLineItem) lineItem;
 				message += countedLineItem.getQuantity();
 			} else {
