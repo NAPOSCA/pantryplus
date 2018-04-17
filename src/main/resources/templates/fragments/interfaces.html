@@ -10,6 +10,8 @@
 	<button class="remove" th:value="${product.id}">-</button>
 	<p>
 		<span class="value" th:text="${cart.getLineItemQuantityByProductId(product.id)}"/>
+		
+		<span th:if="${product.name == 'Ground Beef'}" th:text="'/ ' + ${product.maximumQuantity}"/>
 		<span class="units">lbs.</span>
 	</p>
 	<button class="add" th:value="${product.id}">+</button>
