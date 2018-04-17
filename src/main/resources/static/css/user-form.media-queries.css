@@ -8,7 +8,7 @@
 	}
 
 	div.aside-main {
-		grid-template-columns: 940fr 1390fr;
+		grid-template-columns: 470fr 707fr;
 	}
 }
 
@@ -23,7 +23,7 @@
 	}
 }
 
-@media screen and (max-width: 595px) {
+@media screen and (max-width: 507px) {
 	div.aside-main {
 		grid-template-columns: 1fr;
 	}
@@ -56,5 +56,19 @@
 
 	nav ul li {
 		padding: 0.5rem;
+	}
+}
+
+@media screen and (max-width: 323px) {
+	form {
+		width: initial;
+	}
+
+	nav ul li {
+		padding: 0.15rem;
+	}
+
+	header {
+		padding-top: 0.7rem;
 	}
 }
