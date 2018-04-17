@@ -16,18 +16,17 @@
 </div>
 <div class="coupon interface">
 	<div>
-		<p>
-			<span>Cost:</span>
+		<p class="cost">
+			<span class="cost-big">Cost:</span>
+			<span class="cost-small">$</span>
 			<span th:text="${product.price}"/>
-		</p>
-		<p>
-			<span>Limit:</span>
-			<span th:text="${product.maximumQuantity}"></span>
 		</p>
 	</div>
 	<button class="remove" th:value="${product.id}">-</button>
 	<p>
 		<span class="value" th:text="${cart.getLineItemQuantityByProductId(product.id)}"/>
+		<span>/</span>
+		<span th:text="${product.maximumQuantity}"/>
 	</p>
 	<button class="add" th:value="${product.id}">+</button>
 </div>
