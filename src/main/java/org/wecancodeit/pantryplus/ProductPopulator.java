@@ -25,11 +25,12 @@ public class ProductPopulator implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 
 		Category personalHygiene = categoryRepo.save(new Category("Personal Hygiene"));
-		Product bathroomTissue = productRepo.save(new Product("Bathroom Tissue", personalHygiene, "/images/bathroom-tissue.png"));
+		Product bathroomTissue = productRepo
+				.save(new Product("Bathroom Tissue", personalHygiene, "/images/bathroom-tissue.png"));
 		Product diapers = productRepo.save(new Product("Diapers", personalHygiene, "/images/diaper.png"));
 
 		Category mealStarter = categoryRepo.save(new Category("Meal Starter"));
-		Product recipeOfTheDay = productRepo.save(new Product("Recipe of the Month", mealStarter, "/images/recipe.png"));
+		Product recipeOfTheDay = productRepo.save(new Product("Sausage Pasta", mealStarter, "/images/recipe.png"));
 
 		Category dairy = categoryRepo.save(new Category("Dairy"));
 		Product milk = productRepo.save(new Product("Milk", dairy, "/images/milk.png"));
@@ -43,16 +44,18 @@ public class ProductPopulator implements CommandLineRunner {
 
 		Category afterSchoolSnacks = categoryRepo.save(new Category("After School Snacks"));
 		Product yogurt = productRepo.save(new Product("Yogurt", afterSchoolSnacks, "/images/yogurt.png"));
-		Product cheeseStick = productRepo.save(new Product("Cheese Stick", afterSchoolSnacks, "/images/string-cheese.png"));
-		Product peanutButter = productRepo.save(new Product("Peanut Butter", afterSchoolSnacks, "/images/peanut-butter.png"));
+		Product cheeseStick = productRepo
+				.save(new Product("Cheese Stick", afterSchoolSnacks, "/images/string-cheese.png"));
+		Product peanutButter = productRepo
+				.save(new Product("Peanut Butter", afterSchoolSnacks, "/images/peanut-butter.png"));
 		Product jelly = productRepo.save(new Product("Jelly", afterSchoolSnacks, "/images/jelly.png"));
 		Product cans = productRepo.save(new Product("Canned Goods", afterSchoolSnacks, "/images/canned-food.png"));
 		Product fruit = productRepo.save(new Product("Fruit", afterSchoolSnacks, "/images/oranges-cartoon.png"));
 		Product snacks = productRepo.save(new Product("Snacks", afterSchoolSnacks, "/images/applesauce-cartoon.png"));
 
 		Category meat = categoryRepo.save(new Category("Meat"));
-		Product chicken = productRepo.save(new LimitedProduct("Ground Chicken", meat, "/images/chicken.png", 6));
-		Product turkey = productRepo.save(new LimitedProduct("Ground Turkey", meat, "/images/turkey.png", 6));
+		Product chicken = productRepo.save(new LimitedProduct("Ground Chicken", meat, "/images/chicken.png", 8));
+		Product turkey = productRepo.save(new LimitedProduct("Ground Turkey", meat, "/images/turkey.png", 8));
 		Product beef = productRepo.save(new LimitedProduct("Ground Beef", meat, "/images/beef.png", 2));
 
 		Category coupon = categoryRepo.save(new Category("Coupon"));
