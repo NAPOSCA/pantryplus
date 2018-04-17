@@ -4,7 +4,7 @@
 }
 
 div.container {
-	overflow-y: overlay; 
+	overflow-y: hidden; 
 }
 
 div.aside-main {
