@@ -58,7 +58,7 @@ public class ProductPopulator implements CommandLineRunner {
 		Product turkey = productRepo.save(new LimitedProduct("Ground Turkey", meat, "/images/turkey.png", 8));
 		Product beef = productRepo.save(new LimitedProduct("Ground Beef", meat, "/images/beef.png", 2));
 
-		Category coupon = categoryRepo.save(new Category("Coupon"));
+		Category coupon = categoryRepo.save(new Category("Choice Items"));
 		Product coupon6 = productRepo.save(new PricedProduct("Canned Applesauce", coupon, 5, 1));
 		Product coupon20 = productRepo.save(new PricedProduct("Canned Beef Stew", coupon, 5, 1));
 		Product coupon24 = productRepo.save(new PricedProduct("Canned Black Beans", coupon, 5, 1));
