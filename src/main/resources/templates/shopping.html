@@ -50,7 +50,7 @@
 						<span>lbs.</span>
 					</p>
 					<p class="coupon-stats">
-						<span>Coupons: </span>
+						<span>Choice Items: </span>
 						<span class="coupon-used" th:text="${cart.getCouponsUsed()}"/>
 						<span>/</span>
 						<span class="coupon-total" th:text="${cart.getUser().calculateCouponLimit()}"/>
@@ -72,7 +72,7 @@
 							<img class="product-image" th:src="${product.image}" draggable="false"/>
 							<h3 th:text="${product.name}"/>
 							<div th:id="'product-'+${product.id}" th:switch="true" class="switch">
-								<div th:case="${category.name == 'Coupon'}" class="case">
+								<div th:case="${category.name == 'Choice Items'}" class="case">
 									<div th:replace="fragments/interfaces :: .coupon"/>
 								</div>
 								<div th:case="${category.name == 'Meat'}" class="case">

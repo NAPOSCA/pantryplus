@@ -37,7 +37,7 @@ public class ProductPopulator implements CommandLineRunner {
 		Product cheese = productRepo.save(new Product("Eggs", dairy, "/images/eggs.png"));
 
 		Category produce = categoryRepo.save(new Category("Produce"));
-		Product apple = productRepo.save(new Product("Seasonal Vegetables", produce, "/images/produce.png"));
+		Product apple = productRepo.save(new Product("Seasonal Produce", produce, "/images/produce.png"));
 
 		Category bread = categoryRepo.save(new Category("Bakery Item"));
 		Product whiteBread = productRepo.save(new Product("Bread", bread, "/images/bread.png"));
@@ -58,7 +58,7 @@ public class ProductPopulator implements CommandLineRunner {
 		Product turkey = productRepo.save(new LimitedProduct("Ground Turkey", meat, "/images/turkey.png", 8));
 		Product beef = productRepo.save(new LimitedProduct("Ground Beef", meat, "/images/beef.png", 2));
 
-		Category coupon = categoryRepo.save(new Category("Coupon"));
+		Category coupon = categoryRepo.save(new Category("Choice Items"));
 		Product coupon6 = productRepo.save(new PricedProduct("Canned Applesauce", coupon, 5, 1));
 		Product coupon20 = productRepo.save(new PricedProduct("Canned Beef Stew", coupon, 5, 1));
 		Product coupon24 = productRepo.save(new PricedProduct("Canned Black Beans", coupon, 5, 1));
