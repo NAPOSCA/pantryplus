@@ -97,4 +97,8 @@ public class User {
 		return zipCode;
 	}
 
+	public int getFamilySize() {
+		return familySize;
+	}
+
 }
