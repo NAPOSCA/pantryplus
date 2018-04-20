@@ -1,6 +1,9 @@
 <div class="container">
 	<div class="personal-info">
-		<h2>Personal Info</h2>
+		<h1>
+			<span th:text="${firstName}"/>
+			<span th:text="${lastName}"/>
+		</h1>
 		<p>
 			<span style="color: black;">First Name: </span>
 			<span th:text="${firstName}"/>
@@ -28,7 +31,12 @@
 			<tr th:each="lineItem : ${lineItems}">
 				<td th:text="${lineItem.product.category.name}"/>
 				<td th:text="${lineItem.product.name}"/>
-				<td th:text="${lineItem}"/>
+				<td>Included</td>
+			</tr>
+			<tr th:each="countedLineItem : ${countedLineItems}">
+				<td th:text="${countedLineItem.product.category.name}"/>
+				<td th:text="${countedLineItem.product.name}"/>
+				<td th:text="${countedLineItem.quantity}"/>
 			</tr>
 		</table>
 	</div>
