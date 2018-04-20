@@ -1,6 +1,7 @@
 package org.wecancodeit.pantryplus.cart;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Stream;
@@ -11,7 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-import org.wecancodeit.pantryplus.category.Category;
 import org.wecancodeit.pantryplus.lineitem.CountedLineItem;
 import org.wecancodeit.pantryplus.lineitem.LineItem;
 import org.wecancodeit.pantryplus.product.LimitedProduct;
@@ -230,9 +230,18 @@ public class Cart {
 		model.put("familySize", familySize);
 		int schoolAgeChildren = getUser().getSchoolAgeChildren();
 		model.put("schoolAgeChildren", schoolAgeChildren);
-		Set<CountedLineItem> countedLineItems;
-		Set<LineItem> lineItems;
+		Set<LineItem> lineItems = new HashSet<>();
+		Set<CountedLineItem> countedLineItems = new HashSet<>();
+		for(LineItem lineItem : getLineItems()) {
+			if(lineItem instanceof CountedLineItem) {
+				CountedLineItem countedLineItem = (CountedLineItem) lineItem;
+				countedLineItems.add(countedLineItem);
+			} else {
+				lineItems.add(lineItem);
+			}
+		}
 		model.put("lineItems", lineItems);
+		model.put("countedLineItems", countedLineItems);
 		model.put("firstName", getUser().getFirstName());
 		model.put("lastName", getUser().getLastName());
 		return model;
