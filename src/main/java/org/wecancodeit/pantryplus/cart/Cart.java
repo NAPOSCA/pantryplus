@@ -1,5 +1,8 @@
 package org.wecancodeit.pantryplus.cart;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -221,27 +224,27 @@ public class Cart {
 		return false;
 	}
 
-	public String print() {
-		String message = new String();
-		message += "<table>";
-		message += "<tr><th>Product</th><th>Quantity</th></tr>";
-		for (LineItem lineItem : getLineItems()) {
-			message += "<tr>";
-			message += "<td>";
-			message += lineItem.getProduct().getName();
-			message += "</td>";
-			message += "<td>";
-			if (lineItem instanceof CountedLineItem) {
+	public Map<String, Object> print() {
+		Map<String, Object> model = new HashMap<>();
+		int familySize = getUser().getFamilySize();
+		model.put("familySize", familySize);
+		int schoolAgeChildren = getUser().getSchoolAgeChildren();
+		model.put("schoolAgeChildren", schoolAgeChildren);
+		Set<LineItem> lineItems = new HashSet<>();
+		Set<CountedLineItem> countedLineItems = new HashSet<>();
+		for(LineItem lineItem : getLineItems()) {
+			if(lineItem instanceof CountedLineItem) {
 				CountedLineItem countedLineItem = (CountedLineItem) lineItem;
-				message += countedLineItem.getQuantity();
+				countedLineItems.add(countedLineItem);
 			} else {
-				message += "Included";
+				lineItems.add(lineItem);
 			}
-			message += "</td>";
-			message += "</tr>";
 		}
-		message += "</table>";
-		return message;
+		model.put("lineItems", lineItems);
+		model.put("countedLineItems", countedLineItems);
+		model.put("firstName", getUser().getFirstName());
+		model.put("lastName", getUser().getLastName());
+		return model;
 	}
 
 }

@@ -1,0 +1,43 @@
+<div class="container">
+	<div class="personal-info">
+		<h1>
+			<span th:text="${firstName}"/>
+			<span th:text="${lastName}"/>
+		</h1>
+		<p>
+			<span style="color: black;">First Name: </span>
+			<span th:text="${firstName}"/>
+		</p>
+		<p>
+			<span>Last Name: </span>
+			<span th:text="${lastName}"/>
+		</p>
+		<p>
+			<span>Family Size: </span>
+			<span th:text="${familySize}"/>
+		</p>
+		<p>
+			<span>School Age Children: </span>
+			<span th:text="${schoolAgeChildren}"/>
+		</p>
+	</div>
+	<div class="product-info">
+		<table border="1">
+			<tr>
+				<th>Category</th>
+				<th>Product</th>
+				<th>Quantity</th>
+			</tr>
+			<tr th:each="lineItem : ${lineItems}">
+				<td th:text="${lineItem.product.category.name}"/>
+				<td th:text="${lineItem.product.name}"/>
+				<td>Included</td>
+			</tr>
+			<tr th:each="countedLineItem : ${countedLineItems}">
+				<td th:text="${countedLineItem.product.category.name}"/>
+				<td th:text="${countedLineItem.product.name}"/>
+				<td th:text="${countedLineItem.quantity}"/>
+			</tr>
+		</table>
+	</div>
+</div>
