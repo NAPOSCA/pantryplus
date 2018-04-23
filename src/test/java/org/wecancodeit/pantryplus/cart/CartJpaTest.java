@@ -635,7 +635,7 @@ public class CartJpaTest {
 		int actual = cart.getLineItemQuantityByProductId(productId);
 		assertThat(actual, is(quantity + 1));
 	}
-	
+
 	@Test
 	public void shouldAddFirstNameToCartModel() {
 		entityManager.flush();
@@ -645,7 +645,7 @@ public class CartJpaTest {
 		User actual = (User) model.get("user");
 		assertThat(actual.getFirstName(), is(firstName));
 	}
-	
+
 	@Test
 	public void shouldAddLastNameToCartModel() {
 		entityManager.flush();
@@ -655,7 +655,7 @@ public class CartJpaTest {
 		User actual = (User) model.get("user");
 		assertThat(actual.getLastName(), is(lastName));
 	}
-	
+
 	@Test
 	public void shouldAddFamilySizeToCartModel() {
 		entityManager.flush();
@@ -665,7 +665,7 @@ public class CartJpaTest {
 		User actual = (User) model.get("user");
 		assertThat(actual.getFamilySize(), is(familySize));
 	}
-	
+
 	@Test
 	public void shouldAddLineItemsToCartModel() {
 		Product product = new Product("Product", coupon);
@@ -686,5 +686,29 @@ public class CartJpaTest {
 		Map<String, Object> model = cart.toModel();
 		Iterable<LineItem> lineItems = (Iterable<LineItem>) model.get("lineItems");
 		assertThat(lineItems, containsInAnyOrder(lineItem, anotherLineItem));
+	}
+
+	@Test
+	public void shouldAddCountedLineItemsToCartModel() {
+		Product product = new Product("Product", coupon);
+		productRepo.save(product);
+		Product anotherProduct = new Product("Another Product", coupon);
+		productRepo.save(anotherProduct);
+		LineItem lineItem = new LineItem(cart, product);
+		lineItem = lineItemRepo.save(lineItem);
+		LineItem anotherLineItem = new LineItem(cart, anotherProduct);
+		anotherLineItem = lineItemRepo.save(anotherLineItem);
+		product = productRepo.save(new Product("", coupon));
+		CountedLineItem countedLineItem = new CountedLineItem(cart, product, 5);
+		countedLineItem = lineItemRepo.save(countedLineItem);
+		product = productRepo.save(new Product("", coupon));
+		CountedLineItem anotherCountedLineItem = new CountedLineItem(cart, product, 2);
+		anotherCountedLineItem = lineItemRepo.save(anotherCountedLineItem);
+		entityManager.flush();
+		entityManager.clear();
+		cart = cartRepo.findOne(cartId);
+		Map<String, Object> model = cart.toModel();
+		Iterable<CountedLineItem> countedLineItems = (Iterable<CountedLineItem>) model.get("countedLineItems");
+		assertThat(countedLineItems, containsInAnyOrder(countedLineItem, anotherCountedLineItem));
 	}
 }

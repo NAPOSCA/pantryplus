@@ -1,8 +1,11 @@
 package org.wecancodeit.pantryplus.cart;
 
+import static java.util.stream.Collectors.toSet;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import javax.persistence.Entity;
@@ -227,21 +230,14 @@ public class Cart {
 		Map<String, Object> model = new HashMap<>();
 		User u = getUser();
 		model.put("user", u);
-		Set<LineItem> lineItems = getLineItems();
-		lineItems.removeIf(lineItem -> lineItem instanceof CountedLineItem);
+
+		Set<LineItem> lineItems = getLineItems().stream().filter(lineItem -> !(lineItem instanceof CountedLineItem))
+				.collect(toSet());
 		model.put("lineItems", lineItems);
-//		Set<LineItem> lineItems = new HashSet<>();
-//		Set<CountedLineItem> countedLineItems = new HashSet<>();
-//		for(LineItem lineItem : getLineItems()) {
-//			if(lineItem instanceof CountedLineItem) {
-//				CountedLineItem countedLineItem = (CountedLineItem) lineItem;
-//				countedLineItems.add(countedLineItem);
-//			} else {
-//				lineItems.add(lineItem);
-//			}
-//		}
-//		model.put("lineItems", lineItems);
-//		model.put("countedLineItems", countedLineItems);
+
+		Set<LineItem> countedLineItems = getLineItems().stream().filter(lineItem -> lineItem instanceof CountedLineItem)
+				.collect(toSet());
+		model.put("countedLineItems", countedLineItems);
 		return model;
 	}
 
