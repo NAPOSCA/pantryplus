@@ -227,6 +227,7 @@ public class Cart {
 		Map<String, Object> model = new HashMap<>();
 		model.put("firstName", getUser().getFirstName());
 		model.put("birthdate", getUser().getBirthdate());
+		model.put("lastName", getUser().getLastName());
 //		int familySize = getUser().getFamilySize();
 //		model.put("familySize", familySize);
 //		int schoolAgeChildren = getUser().getSchoolAgeChildren();
@@ -243,7 +244,6 @@ public class Cart {
 //		}
 //		model.put("lineItems", lineItems);
 //		model.put("countedLineItems", countedLineItems);
-//		model.put("lastName", getUser().getLastName());
 //		model.put("address", getUser().getAddress());
 		return model;
 	}
