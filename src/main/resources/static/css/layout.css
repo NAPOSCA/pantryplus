@@ -88,3 +88,7 @@ div.container.confirmation div.message {
 	padding: 1rem;
 	box-shadow: 0px 7px 12px -7px;
 }
+
+div section.category{
+	cursor: pointer;
+}
