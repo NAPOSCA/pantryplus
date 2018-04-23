@@ -70,11 +70,13 @@ public class CartJpaTest {
 	private Category otherCategory;
 
 	private String birthdate;
+	private String firstName;
 
 	@Before
 	public void setUp() {
 		birthdate = "January 1st 1969";
-		user = new User("firstName", "lastName", 3, 1, false, "2018-04-09", "43201", "1234 Main St", birthdate);
+		firstName = "Foobeedoobeedo";
+		user = new User(firstName, "lastName", 3, 1, false, "2018-04-09", "43201", "1234 Main St", birthdate);
 		cart = new Cart(user);
 		anotherCart = new Cart(user);
 		otherCategory = new Category("FOOOBAAAAR");
@@ -654,5 +656,14 @@ public class CartJpaTest {
 		cart = cartRepo.findOne(cartId);
 		Map<String, Object> model = cart.toModel();
 		assertThat(model.get("birthdate"), is(birthdate));
+	}
+	
+	@Test
+	public void shouldAddFirstNameToCartModel() {
+		entityManager.flush();
+		entityManager.clear();
+		cart = cartRepo.findOne(cartId);
+		Map<String, Object> model = cart.toModel();
+		assertThat(model.get("firstName"), is(firstName));
 	}
 }

@@ -1,7 +1,6 @@
 package org.wecancodeit.pantryplus.cart;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Stream;
@@ -226,6 +225,8 @@ public class Cart {
 
 	public Map<String, Object> toModel() {
 		Map<String, Object> model = new HashMap<>();
+		model.put("firstName", getUser().getFirstName());
+		model.put("birthdate", getUser().getBirthdate());
 //		int familySize = getUser().getFamilySize();
 //		model.put("familySize", familySize);
 //		int schoolAgeChildren = getUser().getSchoolAgeChildren();
@@ -242,9 +243,7 @@ public class Cart {
 //		}
 //		model.put("lineItems", lineItems);
 //		model.put("countedLineItems", countedLineItems);
-//		model.put("firstName", getUser().getFirstName());
 //		model.put("lastName", getUser().getLastName());
-		model.put("birthdate", getUser().getBirthdate());
 //		model.put("address", getUser().getAddress());
 		return model;
 	}
