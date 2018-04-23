@@ -225,9 +225,11 @@ public class Cart {
 
 	public Map<String, Object> toModel() {
 		Map<String, Object> model = new HashMap<>();
-		model.put("firstName", getUser().getFirstName());
-		model.put("birthdate", getUser().getBirthdate());
-		model.put("lastName", getUser().getLastName());
+		User u = getUser();
+		model.put("firstName", u.getFirstName());
+		model.put("birthdate", u.getBirthdate());
+		model.put("lastName", u.getLastName());
+		model.put("familySize", u.getFamilySize());
 //		int familySize = getUser().getFamilySize();
 //		model.put("familySize", familySize);
 //		int schoolAgeChildren = getUser().getSchoolAgeChildren();
