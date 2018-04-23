@@ -67,4 +67,36 @@ public class UserTest {
 		assertThat(check, is(zip));
 	}
 
+	@Test
+	public void shouldAddFamilySizeToModel() {
+		int familySize = 4;
+		User underTest = new User("firstName", "lastName", familySize, 0, true, date, "", "", "January 1st, 1969");
+		int actual = (int) underTest.toModel().get("familySize");
+		assertThat(actual, is(familySize));
+	}
+
+	@Test
+	public void shouldAddBirthdateToModel() {
+		String birthdate = "January 1st, 1969";
+		User underTest = new User("firstName", "lastName", 0, 0, true, date, "", "", birthdate);
+		String actual = (String) underTest.toModel().get("birthdate");
+		assertThat(actual, is(birthdate));
+	}
+	
+	@Test
+	public void shouldAddAddressToModel() {
+		String address = "your house";
+		User underTest = new User("firstName", "lastName", 0, 0, true, date, "", address, "January 1st, 1969");
+		String actual = (String) underTest.toModel().get("address");
+		assertThat(actual, is(address));
+	}
+	
+	@Test
+	public void shouldAddSacToModel() {
+		int sacs = 2;
+		User underTest = new User("firstName", "lastName", 6, sacs, true, date, "", "", "January 1st, 1969");
+		int actual = (int) underTest.toModel().get("schoolAgeChildren");
+		assertThat(actual, is(sacs));
+	}
+
 }

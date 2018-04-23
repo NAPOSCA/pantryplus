@@ -121,10 +121,10 @@ public class User {
 		Map<String, Object> model = new HashMap<>();
 		model.put("firstName", getFirstName());
 		model.put("lastName", getLastName());
-//		user.put("firstName", u.getFirstName());
-//		user.put("lastName", u.getLastName());
-//		user.put("familySize", u.getFamilySize());
-//		user.put("birthdate", u.getBirthdate());
+		model.put("familySize", getFamilySize());
+		model.put("birthdate", getBirthdate());
+		model.put("address", getAddress());
+		model.put("schoolAgeChildren", getSchoolAgeChildren());
 		return model;
 	}
 
