@@ -37,7 +37,7 @@ public class EmailController {
 			String lastname = cart.getUser().getLastName();
 			name = firstname + " " + lastname;
 			String subject = name + "'s Order";
-			Map<String, Object> message = cart.print();
+			Map<String, Object> message = cart.toModel();
 			sendEmail(subject, message);
 			return "redirect:/email-success.html";
 		} catch (Exception exThrown) {

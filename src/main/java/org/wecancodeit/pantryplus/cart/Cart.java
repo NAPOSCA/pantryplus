@@ -224,28 +224,28 @@ public class Cart {
 		return false;
 	}
 
-	public Map<String, Object> print() {
+	public Map<String, Object> toModel() {
 		Map<String, Object> model = new HashMap<>();
-		int familySize = getUser().getFamilySize();
-		model.put("familySize", familySize);
-		int schoolAgeChildren = getUser().getSchoolAgeChildren();
-		model.put("schoolAgeChildren", schoolAgeChildren);
-		Set<LineItem> lineItems = new HashSet<>();
-		Set<CountedLineItem> countedLineItems = new HashSet<>();
-		for(LineItem lineItem : getLineItems()) {
-			if(lineItem instanceof CountedLineItem) {
-				CountedLineItem countedLineItem = (CountedLineItem) lineItem;
-				countedLineItems.add(countedLineItem);
-			} else {
-				lineItems.add(lineItem);
-			}
-		}
-		model.put("lineItems", lineItems);
-		model.put("countedLineItems", countedLineItems);
-		model.put("firstName", getUser().getFirstName());
-		model.put("lastName", getUser().getLastName());
+//		int familySize = getUser().getFamilySize();
+//		model.put("familySize", familySize);
+//		int schoolAgeChildren = getUser().getSchoolAgeChildren();
+//		model.put("schoolAgeChildren", schoolAgeChildren);
+//		Set<LineItem> lineItems = new HashSet<>();
+//		Set<CountedLineItem> countedLineItems = new HashSet<>();
+//		for(LineItem lineItem : getLineItems()) {
+//			if(lineItem instanceof CountedLineItem) {
+//				CountedLineItem countedLineItem = (CountedLineItem) lineItem;
+//				countedLineItems.add(countedLineItem);
+//			} else {
+//				lineItems.add(lineItem);
+//			}
+//		}
+//		model.put("lineItems", lineItems);
+//		model.put("countedLineItems", countedLineItems);
+//		model.put("firstName", getUser().getFirstName());
+//		model.put("lastName", getUser().getLastName());
 		model.put("birthdate", getUser().getBirthdate());
-		model.put("address", getUser().getAddress());
+//		model.put("address", getUser().getAddress());
 		return model;
 	}
 

@@ -7,6 +7,8 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertThat;
 
+import java.util.Map;
+
 import javax.annotation.Resource;
 
 import org.junit.Before;
@@ -67,9 +69,12 @@ public class CartJpaTest {
 	private Category meat;
 	private Category otherCategory;
 
+	private String birthdate;
+
 	@Before
 	public void setUp() {
-		user = new User("firstName", "lastName", 3, 1, false, "2018-04-09", "43201", "1234 Main St", "January 1st 1969");
+		birthdate = "January 1st 1969";
+		user = new User("firstName", "lastName", 3, 1, false, "2018-04-09", "43201", "1234 Main St", birthdate);
 		cart = new Cart(user);
 		anotherCart = new Cart(user);
 		otherCategory = new Category("FOOOBAAAAR");
@@ -622,9 +627,8 @@ public class CartJpaTest {
 		assertThat(actual, is(quantity + 1));
 	}
 
-	@Ignore
 	@Test
-	public void shouldPrintGoods() {
+	public void shouldTurnCartToModel() {
 		Product product = new Product("Product", coupon);
 		productRepo.save(product);
 		Product anotherProduct = new Product("Another Product", coupon);
@@ -640,7 +644,15 @@ public class CartJpaTest {
 		entityManager.flush();
 		entityManager.clear();
 		cart = cartRepo.findOne(cartId);
-		// String message = cart.print();
-		// assertEquals("<table><tr><th>Product</th><th>Quantity</th></tr><tr><td>Product</td><td>Included</td></tr><tr><td>Another Product</td><td>Included</td></tr><tr><td>Product</td><td>5</td></tr><tr><td>Another Product</td><td>2</td></tr></table>", message);
+		Map<String, Object> model = cart.toModel();
+	}
+	
+	@Test
+	public void shouldAddBirthdateToCartModel() {
+		entityManager.flush();
+		entityManager.clear();
+		cart = cartRepo.findOne(cartId);
+		Map<String, Object> model = cart.toModel();
+		assertThat(model.get("birthdate"), is(birthdate));
 	}
 }
