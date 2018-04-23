@@ -2,6 +2,8 @@ package org.wecancodeit.pantryplus.user;
 
 import java.time.ZonedDateTime;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -113,6 +115,17 @@ public class User {
 
 	public String getAddress() {
 		return address;
+	}
+
+	public Map<String, Object> toModel() {
+		Map<String, Object> model = new HashMap<>();
+		model.put("firstName", getFirstName());
+		model.put("lastName", getLastName());
+//		user.put("firstName", u.getFirstName());
+//		user.put("lastName", u.getLastName());
+//		user.put("familySize", u.getFamilySize());
+//		user.put("birthdate", u.getBirthdate());
+		return model;
 	}
 
 }

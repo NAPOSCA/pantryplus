@@ -11,8 +11,6 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
-import org.hamcrest.Matchers;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -77,13 +75,16 @@ public class CartJpaTest {
 
 	private int familySize;
 
+	private String address;
+
 	@Before
 	public void setUp() {
 		birthdate = "January 1st 1969";
 		firstName = "Foobeedoobeedo";
 		lastName = "lasty namey";
 		familySize = 4;
-		user = new User(firstName, lastName, familySize, 1, false, "2018-04-09", "43201", "1234 Main St", birthdate);
+		address = "1234 Main St";
+		user = new User(firstName, lastName, familySize, 1, false, "2018-04-09", "43201", address, birthdate);
 		cart = new Cart(user);
 		anotherCart = new Cart(user);
 		otherCategory = new Category("FOOOBAAAAR");
@@ -637,39 +638,6 @@ public class CartJpaTest {
 	}
 
 	@Test
-	public void shouldAddFirstNameToCartModel() {
-		entityManager.flush();
-		entityManager.clear();
-		cart = cartRepo.findOne(cartId);
-		Map<String, Object> model = cart.toModel();
-		Map<String, Object> user = (Map<String, Object>) model.get("user");
-		String actual = (String) user.get("firstName");
-		assertThat(actual, is(firstName));
-	}
-
-	@Ignore
-	@Test
-	public void shouldAddLastNameToCartModel() {
-		entityManager.flush();
-		entityManager.clear();
-		cart = cartRepo.findOne(cartId);
-		Map<String, Object> model = cart.toModel();
-		User actual = (User) model.get("user");
-		assertThat(actual.getLastName(), is(lastName));
-	}
-
-	@Ignore
-	@Test
-	public void shouldAddFamilySizeToCartModel() {
-		entityManager.flush();
-		entityManager.clear();
-		cart = cartRepo.findOne(cartId);
-		Map<String, Object> model = cart.toModel();
-		User actual = (User) model.get("user");
-		assertThat(actual.getFamilySize(), is(familySize));
-	}
-
-	@Test
 	public void shouldAddLineItemsToCartModel() {
 		Product product = new Product("Product", coupon);
 		productRepo.save(product);
@@ -713,5 +681,16 @@ public class CartJpaTest {
 		Map<String, Object> model = cart.toModel();
 		Iterable<CountedLineItem> countedLineItems = (Iterable<CountedLineItem>) model.get("countedLineItems");
 		assertThat(countedLineItems, containsInAnyOrder(countedLineItem, anotherCountedLineItem));
+	}
+
+	@Test
+	public void shouldAddUserModelToCartModel() {
+		entityManager.flush();
+		entityManager.clear();
+		cart = cartRepo.findOne(cartId);
+		Map<String, Object> model = cart.toModel();
+		Map<String, Object> actual = (Map<String, Object>) model.get("user");
+		Map<String, Object> check = cart.getUser().toModel();
+		assertThat(actual, is(check));
 	}
 }

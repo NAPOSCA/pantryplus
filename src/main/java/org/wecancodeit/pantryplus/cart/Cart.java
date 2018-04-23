@@ -5,7 +5,6 @@ import static java.util.stream.Collectors.toSet;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import javax.persistence.Entity;
@@ -228,9 +227,13 @@ public class Cart {
 
 	public Map<String, Object> toModel() {
 		Map<String, Object> model = new HashMap<>();
-		Map<String, Object> user = new HashMap<>();
-		User u = getUser();
-		user.put("firstName", u.getFirstName());
+		Map<String, Object> user = getUser().toModel();
+//		Map<String, Object> user = new HashMap<>();
+//		User u = getUser();
+//		user.put("firstName", u.getFirstName());
+//		user.put("lastName", u.getLastName());
+//		user.put("familySize", u.getFamilySize());
+//		user.put("birthdate", u.getBirthdate());
 		model.put("user", user);
 
 		Set<LineItem> lineItems = getLineItems().stream().filter(lineItem -> !(lineItem instanceof CountedLineItem))
