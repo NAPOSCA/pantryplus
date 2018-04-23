@@ -655,21 +655,13 @@ public class CartJpaTest {
 	}
 	
 	@Test
-	public void shouldAddBirthdateToCartModel() {
-		entityManager.flush();
-		entityManager.clear();
-		cart = cartRepo.findOne(cartId);
-		Map<String, Object> model = cart.toModel();
-		assertThat(model.get("birthdate"), is(birthdate));
-	}
-	
-	@Test
 	public void shouldAddFirstNameToCartModel() {
 		entityManager.flush();
 		entityManager.clear();
 		cart = cartRepo.findOne(cartId);
 		Map<String, Object> model = cart.toModel();
-		assertThat(model.get("firstName"), is(firstName));
+		User actual = (User) model.get("user");
+		assertThat(actual.getFirstName(), is(firstName));
 	}
 	
 	@Test
@@ -678,7 +670,8 @@ public class CartJpaTest {
 		entityManager.clear();
 		cart = cartRepo.findOne(cartId);
 		Map<String, Object> model = cart.toModel();
-		assertThat(model.get("lastName"), is(lastName));
+		User actual = (User) model.get("user");
+		assertThat(actual.getLastName(), is(lastName));
 	}
 	
 	@Test
@@ -687,6 +680,7 @@ public class CartJpaTest {
 		entityManager.clear();
 		cart = cartRepo.findOne(cartId);
 		Map<String, Object> model = cart.toModel();
-		assertThat(model.get("familySize"), is(familySize));
+		User actual = (User) model.get("user");
+		assertThat(actual.getFamilySize(), is(familySize));
 	}
 }

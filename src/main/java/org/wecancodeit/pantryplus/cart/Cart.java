@@ -226,13 +226,7 @@ public class Cart {
 	public Map<String, Object> toModel() {
 		Map<String, Object> model = new HashMap<>();
 		User u = getUser();
-		model.put("firstName", u.getFirstName());
-		model.put("birthdate", u.getBirthdate());
-		model.put("lastName", u.getLastName());
-		model.put("familySize", u.getFamilySize());
-//		int familySize = getUser().getFamilySize();
-//		model.put("familySize", familySize);
-//		int schoolAgeChildren = getUser().getSchoolAgeChildren();
+		model.put("user", u);
 //		model.put("schoolAgeChildren", schoolAgeChildren);
 //		Set<LineItem> lineItems = new HashSet<>();
 //		Set<CountedLineItem> countedLineItems = new HashSet<>();
@@ -246,7 +240,6 @@ public class Cart {
 //		}
 //		model.put("lineItems", lineItems);
 //		model.put("countedLineItems", countedLineItems);
-//		model.put("address", getUser().getAddress());
 		return model;
 	}
 
