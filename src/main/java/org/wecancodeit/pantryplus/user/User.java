@@ -2,6 +2,8 @@ package org.wecancodeit.pantryplus.user;
 
 import java.time.ZonedDateTime;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -28,12 +30,16 @@ public class User {
 	private ZonedDateTime pickupDateTime;
 	private String zipCode;
 
+	private String birthdate;
+
+	private String address;
+
 	@SuppressWarnings("unused")
 	private User() {
 	}
 
 	public User(String firstName, String lastName, int familySize, int schoolAgeChildren, boolean hasInfants,
-			String pickupDateString, String zipCode) {
+			String pickupDateString, String zipCode, String address, String birthdate) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.familySize = familySize;
@@ -41,6 +47,8 @@ public class User {
 		this.hasInfants = hasInfants;
 		this.zipCode = zipCode;
 		pickupDateTime = ZonedDateTime.parse(pickupDateString + "T12:00:00-04:00[US/Eastern]");
+		this.birthdate = birthdate;
+		this.address = address;
 	}
 
 	public long getId() {
@@ -99,6 +107,25 @@ public class User {
 
 	public int getFamilySize() {
 		return familySize;
+	}
+
+	public String getBirthdate() {
+		return birthdate;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public Map<String, Object> toModel() {
+		Map<String, Object> model = new HashMap<>();
+		model.put("firstName", getFirstName());
+		model.put("lastName", getLastName());
+		model.put("familySize", getFamilySize());
+		model.put("birthdate", getBirthdate());
+		model.put("address", getAddress());
+		model.put("schoolAgeChildren", getSchoolAgeChildren());
+		return model;
 	}
 
 }

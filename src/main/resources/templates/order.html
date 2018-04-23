@@ -1,24 +1,32 @@
 <div class="container">
-	<div class="personal-info">
+	<div class="personal-info" th:object="${user}">
 		<h1>
-			<span th:text="${firstName}"/>
-			<span th:text="${lastName}"/>
+			<span th:text="*{firstName}"/>
+			<span th:text="*{lastName}"/>
 		</h1>
 		<p>
 			<span style="color: black;">First Name: </span>
-			<span th:text="${firstName}"/>
+			<span th:text="*{firstName}"/>
 		</p>
 		<p>
 			<span>Last Name: </span>
-			<span th:text="${lastName}"/>
+			<span th:text="*{lastName}"/>
+		</p>
+		<p>
+			<span>Birthdate: </span>
+			<span th:text="*{birthdate}"/>
+		</p>
+		<p>
+			<span>Address: </span>
+			<span th:text="*{address}"/>
 		</p>
 		<p>
 			<span>Family Size: </span>
-			<span th:text="${familySize}"/>
+			<span th:text="*{familySize}"/>
 		</p>
 		<p>
 			<span>School Age Children: </span>
-			<span th:text="${schoolAgeChildren}"/>
+			<span th:text="*{schoolAgeChildren}"/>
 		</p>
 	</div>
 	<div class="product-info">

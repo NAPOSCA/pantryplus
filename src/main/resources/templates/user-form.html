@@ -46,12 +46,22 @@
 				<h3>Please enter your information</h3>
 				<form action="/user-form">
 					<label for="first-name">First name:</label>
-					<input type="text" name="firstName" maxlength="20" id="first-name" autofocus="true"></input>
+					<input type="text" name="firstName" maxlength="20" id="first-name" autofocus="true" required="true"/>
 
 					<br />
 
 					<label for="last-name">Last name:</label>
-					<input type="text" name="lastName" maxlength="20" id="last-name"></input>
+					<input type="text" name="lastName" maxlength="20" id="last-name" required="true"/>
+
+					<br />
+
+					<label for="birthdate">Birthdate:</label>
+					<input type="date" name="birthdate" id="birthdate" required="true"/>
+
+					<br />
+
+					<label for="address">Address:</label>
+					<input type="text" name="address" id="address" required="true"/>
 
 					<p>Zip code:</p>
 					<select name="zipCode" required="true">

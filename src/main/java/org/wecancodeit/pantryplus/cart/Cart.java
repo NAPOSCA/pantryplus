@@ -1,7 +1,8 @@
 package org.wecancodeit.pantryplus.cart;
 
+import static java.util.stream.Collectors.toSet;
+
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Stream;
@@ -224,26 +225,24 @@ public class Cart {
 		return false;
 	}
 
-	public Map<String, Object> print() {
+	public Map<String, Object> toModel() {
 		Map<String, Object> model = new HashMap<>();
-		int familySize = getUser().getFamilySize();
-		model.put("familySize", familySize);
-		int schoolAgeChildren = getUser().getSchoolAgeChildren();
-		model.put("schoolAgeChildren", schoolAgeChildren);
-		Set<LineItem> lineItems = new HashSet<>();
-		Set<CountedLineItem> countedLineItems = new HashSet<>();
-		for(LineItem lineItem : getLineItems()) {
-			if(lineItem instanceof CountedLineItem) {
-				CountedLineItem countedLineItem = (CountedLineItem) lineItem;
-				countedLineItems.add(countedLineItem);
-			} else {
-				lineItems.add(lineItem);
-			}
-		}
+		Map<String, Object> user = getUser().toModel();
+//		Map<String, Object> user = new HashMap<>();
+//		User u = getUser();
+//		user.put("firstName", u.getFirstName());
+//		user.put("lastName", u.getLastName());
+//		user.put("familySize", u.getFamilySize());
+//		user.put("birthdate", u.getBirthdate());
+		model.put("user", user);
+
+		Set<LineItem> lineItems = getLineItems().stream().filter(lineItem -> !(lineItem instanceof CountedLineItem))
+				.collect(toSet());
 		model.put("lineItems", lineItems);
+
+		Set<LineItem> countedLineItems = getLineItems().stream().filter(lineItem -> lineItem instanceof CountedLineItem)
+				.collect(toSet());
 		model.put("countedLineItems", countedLineItems);
-		model.put("firstName", getUser().getFirstName());
-		model.put("lastName", getUser().getLastName());
 		return model;
 	}
 
