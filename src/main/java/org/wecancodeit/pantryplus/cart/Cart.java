@@ -245,6 +245,7 @@ public class Cart {
 		model.put("firstName", getUser().getFirstName());
 		model.put("lastName", getUser().getLastName());
 		model.put("birthdate", getUser().getBirthdate());
+		model.put("address", getUser().getAddress());
 		return model;
 	}
 

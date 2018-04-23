@@ -30,6 +30,8 @@ public class User {
 
 	private String birthdate;
 
+	private String address;
+
 	@SuppressWarnings("unused")
 	private User() {
 	}
@@ -44,6 +46,7 @@ public class User {
 		this.zipCode = zipCode;
 		pickupDateTime = ZonedDateTime.parse(pickupDateString + "T12:00:00-04:00[US/Eastern]");
 		this.birthdate = birthdate;
+		this.address = address;
 	}
 
 	public long getId() {
@@ -106,6 +109,10 @@ public class User {
 
 	public String getBirthdate() {
 		return birthdate;
+	}
+
+	public String getAddress() {
+		return address;
 	}
 
 }
