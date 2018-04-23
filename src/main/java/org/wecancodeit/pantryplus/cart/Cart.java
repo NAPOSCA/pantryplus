@@ -227,7 +227,9 @@ public class Cart {
 		Map<String, Object> model = new HashMap<>();
 		User u = getUser();
 		model.put("user", u);
-//		model.put("schoolAgeChildren", schoolAgeChildren);
+		Set<LineItem> lineItems = getLineItems();
+		lineItems.removeIf(lineItem -> lineItem instanceof CountedLineItem);
+		model.put("lineItems", lineItems);
 //		Set<LineItem> lineItems = new HashSet<>();
 //		Set<CountedLineItem> countedLineItems = new HashSet<>();
 //		for(LineItem lineItem : getLineItems()) {
