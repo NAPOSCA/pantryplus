@@ -30,7 +30,7 @@ public class PantryController {
 
 	@Resource
 	private UserRepository userRepo;
-	
+
 	@Resource
 	private LineItemRepository lineItemRepo;
 
@@ -40,9 +40,11 @@ public class PantryController {
 	}
 
 	@RequestMapping("/user-form")
-	public String userFormProcessing(@RequestParam String firstName, @RequestParam String lastName, @RequestParam int familySize, @RequestParam int schoolkidsCount,
-			@RequestParam(defaultValue = "false") boolean infants, @RequestParam String pickUpDate, @RequestParam String zipCode) {
-		User user = new User(firstName, lastName, familySize, schoolkidsCount, infants, pickUpDate, zipCode);
+	public String userFormProcessing(@RequestParam String firstName, @RequestParam String lastName,
+			@RequestParam int familySize, @RequestParam int schoolkidsCount,
+			@RequestParam(defaultValue = "false") boolean infants, @RequestParam String pickUpDate,
+			@RequestParam String zipCode, @RequestParam String birthdate, @RequestParam String address) {
+		User user = new User(firstName, lastName, familySize, schoolkidsCount, infants, pickUpDate, zipCode, address);
 		user = userRepo.save(user);
 		Cart cart = cartRepo.save(new Cart(user));
 		long cartId = cart.getId();
@@ -63,8 +65,8 @@ public class PantryController {
 		Iterable<LineItem> lineItems = cart.getLineItems();
 		Set<LineItem> superLineItems = new HashSet<>();
 		Set<CountedLineItem> countedLineItems = new HashSet<>();
-		for(LineItem item : lineItems) {
-			if(item instanceof CountedLineItem) {
+		for (LineItem item : lineItems) {
+			if (item instanceof CountedLineItem) {
 				countedLineItems.add((CountedLineItem) item);
 			} else {
 				superLineItems.add(item);
