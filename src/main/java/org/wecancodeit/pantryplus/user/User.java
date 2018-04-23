@@ -28,6 +28,8 @@ public class User {
 	private ZonedDateTime pickupDateTime;
 	private String zipCode;
 
+	private String birthdate;
+
 	@SuppressWarnings("unused")
 	private User() {
 	}
@@ -41,6 +43,7 @@ public class User {
 		this.hasInfants = hasInfants;
 		this.zipCode = zipCode;
 		pickupDateTime = ZonedDateTime.parse(pickupDateString + "T12:00:00-04:00[US/Eastern]");
+		this.birthdate = birthdate;
 	}
 
 	public long getId() {
@@ -99,6 +102,10 @@ public class User {
 
 	public int getFamilySize() {
 		return familySize;
+	}
+
+	public String getBirthdate() {
+		return birthdate;
 	}
 
 }

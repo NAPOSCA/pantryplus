@@ -244,6 +244,7 @@ public class Cart {
 		model.put("countedLineItems", countedLineItems);
 		model.put("firstName", getUser().getFirstName());
 		model.put("lastName", getUser().getLastName());
+		model.put("birthdate", getUser().getBirthdate());
 		return model;
 	}
 
