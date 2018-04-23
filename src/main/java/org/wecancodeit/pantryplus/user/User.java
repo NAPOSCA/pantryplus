@@ -33,7 +33,7 @@ public class User {
 	}
 
 	public User(String firstName, String lastName, int familySize, int schoolAgeChildren, boolean hasInfants,
-			String pickupDateString, String zipCode, String address) {
+			String pickupDateString, String zipCode, String address, String birthdate) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.familySize = familySize;

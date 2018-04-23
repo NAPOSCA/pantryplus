@@ -44,7 +44,7 @@ public class PantryController {
 			@RequestParam int familySize, @RequestParam int schoolkidsCount,
 			@RequestParam(defaultValue = "false") boolean infants, @RequestParam String pickUpDate,
 			@RequestParam String zipCode, @RequestParam String birthdate, @RequestParam String address) {
-		User user = new User(firstName, lastName, familySize, schoolkidsCount, infants, pickUpDate, zipCode, address);
+		User user = new User(firstName, lastName, familySize, schoolkidsCount, infants, pickUpDate, zipCode, address, birthdate);
 		user = userRepo.save(user);
 		Cart cart = cartRepo.save(new Cart(user));
 		long cartId = cart.getId();
