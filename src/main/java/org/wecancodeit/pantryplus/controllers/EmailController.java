@@ -55,13 +55,13 @@ public class EmailController {
 		MimeMessage message = sender.createMimeMessage();
 		MimeMessageHelper helper = new MimeMessageHelper(message);
 
-		Context context = new Context();
-		context.setVariables(model);
-		String html = templateEngine.process("order", context);
+//		Context context = new Context();
+//		context.setVariables(model);
+//		String html = templateEngine.process("order", context);
 
 		helper.setTo("bsfppantryplus@gmail.com");
-		helper.setText(html, true);
-		helper.setSubject(subject);
+//		helper.setText(html, true);
+//		helper.setSubject(subject);
 
 		sender.send(message);
 	}
