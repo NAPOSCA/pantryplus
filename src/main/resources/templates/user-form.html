@@ -34,7 +34,7 @@
 				<img class="logo" src="/images/broad-street-logo.png"/>
 				<div class="address">
 					<p class="directions">Get directions to our pantry:</p>
-					<a href="https://goo.gl/maps/hYbaW9JbYFr">
+					<a href="https://goo.gl/maps/hYbaW9JbYFr" target="_blank">
 						<p class="address">
 							760 E. Broad St, Columbus, OH 43205
 						</p>
@@ -88,7 +88,13 @@
 						<option value="8">8</option>
 						<option value="9">9+</option>
 					</select>
-
+					
+					<p>Children age 3 or younger:</p>
+					<input id="yes" type="radio" name="infants" value="true"/>
+					<label for="yes">Yes</label>
+					<input id="no" type="radio" name="infants" value="" checked="true"/>
+					<label for="no">No</label>
+					
 					<p>Children between the ages of 4 and 17:</p>
 					<select class="schoolKidsMenu" name="schoolkidsCount" required="true">
 						<option selected="true" disabled="true" hidden="true" value="">Select...</option>
@@ -104,11 +110,6 @@
 						<option value="9" class="hidden">9+</option>
 					</select>
 
-					<p>Children age 3 or younger:</p>
-					<input id="yes" type="radio" name="infants" value="true"/>
-					<label for="yes">Yes</label>
-					<input id="no" type="radio" name="infants" value="" checked="true"/>
-					<label for="no">No</label>
 
 					<p>Pick up date:</p>
 					<select name="pickUpDate" required="true">
