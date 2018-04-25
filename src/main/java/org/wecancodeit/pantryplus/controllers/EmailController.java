@@ -53,13 +53,13 @@ public class EmailController {
 
 	public void sendEmail(String subject, Map<String, Object> model) throws Exception {
 		MimeMessage message = sender.createMimeMessage();
-		MimeMessageHelper helper = new MimeMessageHelper(message);
+//		MimeMessageHelper helper = new MimeMessageHelper(message);
 
 //		Context context = new Context();
 //		context.setVariables(model);
 //		String html = templateEngine.process("order", context);
 
-		helper.setTo("bsfppantryplus@gmail.com");
+//		helper.setTo("bsfppantryplus@gmail.com");
 //		helper.setText(html, true);
 //		helper.setSubject(subject);
 

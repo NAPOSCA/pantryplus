@@ -6,7 +6,6 @@ import static org.mockito.Mockito.when;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.mail.Session;
 import javax.mail.internet.MimeMessage;
 
 import org.junit.Before;
@@ -15,7 +14,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.wecancodeit.pantryplus.cart.Cart;
 import org.wecancodeit.pantryplus.cart.CartRepository;
@@ -41,9 +39,6 @@ public class EmailControllerMockTest {
 	
 	@Mock
 	private MimeMessage message;
-	
-	@Mock(name = "helper")
-	private MimeMessageHelper helper;
 
 	@Before
 	public void setup() {
@@ -57,11 +52,5 @@ public class EmailControllerMockTest {
 	public void shouldSendEmail() throws Exception {
 		controller.sendEmail("", cart.toModel());
 		verify(sender).send(message);
-	}
-	
-	@Test
-	public void shouldSetEmailOnHelper() throws Exception {
-		controller.sendEmail("", cart.toModel());
-		verify(helper).setTo("bsfppantryplus@gmail.com");
 	}
 }
