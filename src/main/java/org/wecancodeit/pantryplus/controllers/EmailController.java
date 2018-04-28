@@ -3,6 +3,7 @@ package org.wecancodeit.pantryplus.controllers;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
 import org.springframework.mail.javamail.JavaMailSender;
@@ -18,6 +19,8 @@ import org.wecancodeit.pantryplus.cart.CartRepository;
 
 @Controller
 public class EmailController {
+
+	private static final String RECIPIENT = "bsfppantryplus@gmail.com";
 
 	@Resource
 	private JavaMailSender sender;
@@ -52,18 +55,50 @@ public class EmailController {
 	}
 
 	public void sendEmail(String subject, Map<String, Object> model) throws Exception {
-		MimeMessage message = sender.createMimeMessage();
-		MimeMessageHelper helper = new MimeMessageHelper(message);
+		MimeMessage message = createMimeMessage();
+		MimeMessageHelper helper = createMimeMessageHelper(message);
 
-//		Context context = new Context();
-//		context.setVariables(model);
-//		String html = templateEngine.process("order", context);
+		Context context = createContext(model);
+		String html = processTemplate(context);
 
-		helper.setTo("bsfppantryplus@gmail.com");
-//		helper.setText(html, true);
-//		helper.setSubject(subject);
+		setRecipient(helper);
+		setBody(helper, html);
+		setSubject(subject, helper);
 
 		sender.send(message);
+	}
+
+	private void setSubject(String subject, MimeMessageHelper helper) throws MessagingException {
+		helper.setSubject(subject);
+	}
+
+	private void setBody(MimeMessageHelper helper, String html) throws MessagingException {
+		helper.setText(html, true);
+	}
+
+	private MimeMessage createMimeMessage() {
+		MimeMessage message = sender.createMimeMessage();
+		return message;
+	}
+
+	private MimeMessageHelper createMimeMessageHelper(MimeMessage message) {
+		MimeMessageHelper helper = new MimeMessageHelper(message);
+		return helper;
+	}
+
+	private String processTemplate(Context context) {
+		String html = templateEngine.process("order", context);
+		return html;
+	}
+
+	private Context createContext(Map<String, Object> model) {
+		Context context = new Context();
+		context.setVariables(model);
+		return context;
+	}
+
+	public void setRecipient(MimeMessageHelper helper) throws MessagingException {
+		helper.setTo(RECIPIENT);
 	}
 
 }
