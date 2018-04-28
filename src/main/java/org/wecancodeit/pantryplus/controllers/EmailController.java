@@ -65,6 +65,10 @@ public class EmailController {
 		setBody(helper, html);
 		setSubject(subject, helper);
 
+		sendEmail(message);
+	}
+
+	public void sendEmail(MimeMessage message) {
 		sender.send(message);
 	}
 
