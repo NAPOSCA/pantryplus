@@ -72,7 +72,7 @@ public class EmailController {
 		sender.send(message);
 	}
 
-	private void setSubject(String subject, MimeMessageHelper helper) throws MessagingException {
+	public void setSubject(String subject, MimeMessageHelper helper) throws MessagingException {
 		helper.setSubject(subject);
 	}
 
