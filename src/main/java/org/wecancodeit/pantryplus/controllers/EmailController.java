@@ -58,8 +58,7 @@ public class EmailController {
 		MimeMessage message = createMimeMessage();
 		MimeMessageHelper helper = createMimeMessageHelper(message);
 
-		Context context = createContext(model);
-		String html = processTemplate(context);
+		String html = processModelIntoHtml(model);
 
 		setRecipient(helper);
 		setBody(helper, html);
@@ -68,29 +67,35 @@ public class EmailController {
 		sendEmail(message);
 	}
 
-	public void sendEmail(MimeMessage message) {
+	public String processModelIntoHtml(Map<String, Object> model) {
+		Context context = createContext(model);
+		String html = processContextIntoHtml(context);
+		return html;
+	}
+
+	void sendEmail(MimeMessage message) {
 		sender.send(message);
 	}
 
-	public void setSubject(String subject, MimeMessageHelper helper) throws MessagingException {
+	void setSubject(String subject, MimeMessageHelper helper) throws MessagingException {
 		helper.setSubject(subject);
 	}
 
-	private void setBody(MimeMessageHelper helper, String html) throws MessagingException {
+	void setBody(MimeMessageHelper helper, String html) throws MessagingException {
 		helper.setText(html, true);
 	}
 
-	private MimeMessage createMimeMessage() {
+	MimeMessage createMimeMessage() {
 		MimeMessage message = sender.createMimeMessage();
 		return message;
 	}
 
-	private MimeMessageHelper createMimeMessageHelper(MimeMessage message) {
+	MimeMessageHelper createMimeMessageHelper(MimeMessage message) {
 		MimeMessageHelper helper = new MimeMessageHelper(message);
 		return helper;
 	}
 
-	private String processTemplate(Context context) {
+	private String processContextIntoHtml(Context context) {
 		String html = templateEngine.process("order", context);
 		return html;
 	}
@@ -101,7 +106,7 @@ public class EmailController {
 		return context;
 	}
 
-	public void setRecipient(MimeMessageHelper helper) throws MessagingException {
+	void setRecipient(MimeMessageHelper helper) throws MessagingException {
 		helper.setTo(RECIPIENT);
 	}
 
