@@ -1,12 +1,15 @@
 package org.wecancodeit.pantryplus.controllers;
 
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
+<<<<<<< HEAD
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.mail.internet.MimeMessage;
+=======
+import javax.mail.MessagingException;
+>>>>>>> fe754d6ea01ac9e7daa44e6e041a523abe404b17
 
 import org.junit.Before;
 import org.junit.Test;
@@ -14,9 +17,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.thymeleaf.spring4.SpringTemplateEngine;
-import org.wecancodeit.pantryplus.cart.Cart;
-import org.wecancodeit.pantryplus.cart.CartRepository;
 
 public class EmailControllerMockTest {
 
@@ -27,30 +29,20 @@ public class EmailControllerMockTest {
 	private JavaMailSender sender;
 
 	@Mock
-	private CartRepository cartRepo;
-
-	@Mock
-	private Cart cart;
-	private long cartId = 1L;
-	private Map<String, Object> model = new HashMap<>();
-
-	@Mock
 	private SpringTemplateEngine templateEngine;
-	
+
 	@Mock
-	private MimeMessage message;
+	private MimeMessageHelper helper;
 
 	@Before
 	public void setup() {
 		MockitoAnnotations.initMocks(this);
-		when(cartRepo.findOne(cartId)).thenReturn(cart);
-		when(cart.toModel()).thenReturn(model);
-		when(sender.createMimeMessage()).thenReturn(message);
 	}
 
 	@Test
-	public void shouldSendEmail() throws Exception {
-		controller.sendEmail("", cart.toModel());
-		verify(sender).send(message);
+	public void shouldSetToOfMimeMessageHelper() throws MessagingException {
+		String address = "bsfppantryplus@gmail.com";
+		controller.setRecipient(helper);
+		verify(helper).setTo(address);
 	}
 }
