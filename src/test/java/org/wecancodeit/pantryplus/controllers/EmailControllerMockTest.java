@@ -1,5 +1,6 @@
 package org.wecancodeit.pantryplus.controllers;
 
+import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.verify;
@@ -9,6 +10,7 @@ import java.util.Map;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
+import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -17,6 +19,7 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.ui.Model;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 
 public class EmailControllerMockTest {
@@ -36,6 +39,9 @@ public class EmailControllerMockTest {
 	private Map<String, Object> model;
 
 	private MimeMessage message;
+	
+	@Mock
+	Model model1;
 
 	@Before
 	public void setup() {
@@ -74,5 +80,18 @@ public class EmailControllerMockTest {
 		doNothing().when(controllerSpy).sendEmail(message);
 		controllerSpy.sendEmail("subject", model);
 		verify(controllerSpy).sendEmail(message);
+	}
+	
+	@Test
+	public void shouldReturnEmailFailureView() {
+		String actual = controller.emailFailure("error", model1);
+		assertThat(actual, Matchers.is("email-failure"));
+	}
+	
+	@Test
+	public void shouldAttachTheErrorToTheModel() {
+		String error = "Off by 1";
+		controller.emailFailure(error, model1);
+		Mockito.verify(model1).addAttribute("error", error);
 	}
 }
