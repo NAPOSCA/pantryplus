@@ -228,12 +228,6 @@ public class Cart {
 	public Map<String, Object> toModel() {
 		Map<String, Object> model = new HashMap<>();
 		Map<String, Object> user = getUser().toModel();
-//		Map<String, Object> user = new HashMap<>();
-//		User u = getUser();
-//		user.put("firstName", u.getFirstName());
-//		user.put("lastName", u.getLastName());
-//		user.put("familySize", u.getFamilySize());
-//		user.put("birthdate", u.getBirthdate());
 		model.put("user", user);
 
 		Set<LineItem> lineItems = getLineItems().stream().filter(lineItem -> !(lineItem instanceof CountedLineItem))
