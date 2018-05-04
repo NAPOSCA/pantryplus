@@ -77,5 +77,10 @@ public class PantryController {
 		model.addAttribute("countedLineItems", countedLineItems);
 		return "cart";
 	}
+	
+	@RequestMapping("/about-us")
+	public String displayAboutUs(Model model) {
+		return "about-us";
+	}
 
 }
