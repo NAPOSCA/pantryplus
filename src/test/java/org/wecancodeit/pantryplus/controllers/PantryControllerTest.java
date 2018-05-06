@@ -104,7 +104,7 @@ public class PantryControllerTest {
 	public void shouldReturnInvalidZipCodeViewWhenGivenOtherAsZipCode() {
 		PantryController underTest = new PantryController();
 		String result = underTest.userFormProcessing(null, null, 0, 0, false, null, "Other", null, null);
-		assertThat(result, is("invalid-zipcode"));
+		assertThat(result, is("redirect:/invalid-zipcode"));
 	}
 	
 }
