@@ -100,11 +100,18 @@ public class PantryControllerTest {
 		verify(model).addAttribute("categories", categories);
 		verify(model).addAttribute("cart", cart);
 	}
+	
 	@Test
 	public void shouldReturnInvalidZipCodeViewWhenGivenOtherAsZipCode() {
 		PantryController underTest = new PantryController();
 		String result = underTest.userFormProcessing(null, null, 0, 0, false, null, "Other", null, null);
 		assertThat(result, is("redirect:/invalid-zipcode"));
+	}
+	
+	@Test
+	public void shouldReturnInvalidZipCodeView() {
+		String templateName = underTest.displayIncorrectZipcode();
+		assertThat(templateName, is("invalid-zipcode"));
 	}
 	
 }
