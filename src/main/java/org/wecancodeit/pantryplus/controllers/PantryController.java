@@ -87,7 +87,7 @@ public class PantryController {
 	}
 	
 	@RequestMapping("/about-us")
-	public String displayAboutUs(Model model) {
+	public String displayAboutUs() {
 		return "about-us";
 	}
 
