@@ -14,8 +14,27 @@ header {
     margin: 0 auto;
 }
 
+h1 {
+	display: grid;
+	grid-template-rows: auto;
+}
+
 body {
-  background-color: #d3e3ea;
+	background-color: #d3e3ea;
+}
+
+div {
+    border-radius: 10px;
+    background-color: #46a8d0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 15%;
+    margin-right: 15%;
+}
+
+img {
+	border-radius: 10px;
 }
 
 /* div.container {
