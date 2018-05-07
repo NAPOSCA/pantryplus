@@ -44,12 +44,20 @@ public class PantryController {
 			@RequestParam int familySize, @RequestParam int schoolkidsCount,
 			@RequestParam(defaultValue = "false") boolean infants, @RequestParam String pickUpDate,
 			@RequestParam String zipCode, @RequestParam String birthdate, @RequestParam String address) {
+		if (zipCode.equals("Other")){
+			return "redirect:/invalid-zipcode";
+		}
 		User user = new User(firstName, lastName, familySize, schoolkidsCount, infants, pickUpDate, zipCode, address,
 				birthdate);
 		user = userRepo.save(user);
 		Cart cart = cartRepo.save(new Cart(user));
 		long cartId = cart.getId();
 		return "redirect:/shopping?cartId=" + cartId;
+	}
+	
+	@RequestMapping("/invalid-zipcode")
+	public String displayIncorrectZipcode() {
+		return "invalid-zipcode";
 	}
 
 	@RequestMapping("/shopping")
