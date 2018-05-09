@@ -114,4 +114,10 @@ public class PantryControllerTest {
 		assertThat(templateName, is("invalid-zipcode"));
 	}
 	
+	@Test
+	public void shouldReturnAboutUsView() {
+		String templateName = underTest.displayAboutUs();
+		assertThat(templateName, is("about-us"));
+	}
+	
 }
