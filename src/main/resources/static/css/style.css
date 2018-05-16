@@ -185,6 +185,6 @@ p.address {
 	margin-left: auto;
 }
 
-.invalid h1, p {
+.invalid h1, .invalid p, .success h1 {
 	text-align: center; 
 }

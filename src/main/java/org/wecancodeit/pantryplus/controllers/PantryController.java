@@ -35,7 +35,7 @@ public class PantryController {
 	private LineItemRepository lineItemRepo;
 
 	@RequestMapping("/")
-	public String displayUserForm(Model model) {
+	public String displayUserForm() {
 		return "user-form";
 	}
 
