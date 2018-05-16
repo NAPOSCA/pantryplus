@@ -73,7 +73,7 @@ public class PantryControllerTest {
 
 	@Test
 	public void shouldHaveDisplayUserFormReturnUserForm() {
-		String templateName = underTest.displayUserForm(model);
+		String templateName = underTest.displayUserForm();
 		assertThat(templateName, is("user-form"));
 	}
 
