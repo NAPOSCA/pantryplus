@@ -184,3 +184,7 @@ p.address {
 	width: 12rem;
 	margin-left: auto;
 }
+
+.invalid h1, p {
+	text-align: center; 
+}
