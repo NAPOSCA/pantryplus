@@ -41,6 +41,9 @@ repositories {
 	mavenCentral()
 }
 
+test {
+	environment "JDBC_DATABASE_URL", "" //I don't know how this empty quote is working but it works just as well as 'jdbc:h2:~/test' for some reason
+}
 
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter-data-jpa')
@@ -49,6 +52,7 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-mail')
 	compile('org.springframework.data:spring-data-rest-hal-browser')
 	runtime('org.springframework.boot:spring-boot-devtools')
-	runtime('com.h2database:h2')
+	runtime('org.postgresql:postgresql')
+	testCompile('com.h2database:h2')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
