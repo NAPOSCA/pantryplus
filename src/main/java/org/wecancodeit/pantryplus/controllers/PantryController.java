@@ -52,9 +52,8 @@ public class PantryController {
 			Cart cart = cartRepo.save(new Cart(user));
 			long cartId = cart.getId();
 			return "redirect:/shopping?cartId=" + cartId;
-		} else {
-			return "redirect:/invalid-zipcode";
-		}	
+		} 
+			return "redirect:/invalid-zipcode";	
 	}
 	
 	@RequestMapping("/invalid-zipcode")
