@@ -76,6 +76,9 @@ public class CartJpaTest {
 	private int familySize;
 
 	private String address;
+	
+	private String phoneNumber;
+	private String emailAddress;
 
 	@Before
 	public void setUp() {
@@ -84,7 +87,9 @@ public class CartJpaTest {
 		lastName = "lasty namey";
 		familySize = 4;
 		address = "1234 Main St";
-		user = new User(firstName, lastName, familySize, 1, false, "2018-04-09", "43201", address, birthdate);
+		phoneNumber = "777-777-7777";
+		emailAddress = "happy@nowhere";
+		user = new User(firstName, lastName, familySize, 1, false, "2018-04-09", "43201", address, birthdate, phoneNumber, emailAddress);
 		cart = new Cart(user);
 		anotherCart = new Cart(user);
 		otherCategory = new Category("FOOOBAAAAR");
