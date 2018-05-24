@@ -29,17 +29,18 @@ public class User {
 	private boolean hasInfants;
 	private ZonedDateTime pickupDateTime;
 	private String zipCode;
-
 	private String birthdate;
-
 	private String address;
+	private String phoneNumber;
+	private String emailAddress;
+	
 
 	@SuppressWarnings("unused")
 	private User() {
 	}
 
 	public User(String firstName, String lastName, int familySize, int schoolAgeChildren, boolean hasInfants,
-			String pickupDateString, String zipCode, String address, String birthdate) {
+			String pickupDateString, String zipCode, String address, String birthdate, String phoneNumber, String emailAddress) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.familySize = familySize;
@@ -49,6 +50,8 @@ public class User {
 		pickupDateTime = ZonedDateTime.parse(pickupDateString + "T12:00:00-04:00[US/Eastern]");
 		this.birthdate = birthdate;
 		this.address = address;
+		this.phoneNumber = phoneNumber;
+		this.emailAddress = emailAddress;
 	}
 
 	public long getId() {
@@ -115,6 +118,14 @@ public class User {
 
 	public String getAddress() {
 		return address;
+	}
+	
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+	
+	public String getEmailAddress() {
+		return emailAddress;
 	}
 
 	public Map<String, Object> toModel() {

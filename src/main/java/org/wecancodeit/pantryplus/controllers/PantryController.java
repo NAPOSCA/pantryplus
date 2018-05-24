@@ -43,12 +43,12 @@ public class PantryController {
 	public String userFormProcessing(@RequestParam String firstName, @RequestParam String lastName,
 			@RequestParam int familySize, @RequestParam int schoolkidsCount,
 			@RequestParam(defaultValue = "false") boolean infants, @RequestParam String pickUpDate,
-			@RequestParam String zipCode, @RequestParam String birthdate, @RequestParam String address) {
+			@RequestParam String zipCode, @RequestParam String birthdate, @RequestParam String address, @RequestParam String phoneNumber, @RequestParam String emailAddress) {
 		if (zipCode.equals("Other")){
 			return "redirect:/invalid-zipcode";
 		}
 		User user = new User(firstName, lastName, familySize, schoolkidsCount, infants, pickUpDate, zipCode, address,
-				birthdate);
+				birthdate, phoneNumber, emailAddress);
 		user = userRepo.save(user);
 		Cart cart = cartRepo.save(new Cart(user));
 		long cartId = cart.getId();
