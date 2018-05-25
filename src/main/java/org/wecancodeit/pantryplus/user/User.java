@@ -1,5 +1,7 @@
 package org.wecancodeit.pantryplus.user;
 
+import static javax.persistence.GenerationType.IDENTITY;
+
 import java.time.ZonedDateTime;
 import java.util.Collection;
 import java.util.HashMap;
@@ -7,6 +9,7 @@ import java.util.Map;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
@@ -16,7 +19,7 @@ import org.wecancodeit.pantryplus.cart.Cart;
 public class User {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = IDENTITY)
 	private long id;
 
 	@OneToMany(mappedBy = "user")

@@ -1,6 +1,7 @@
 package org.wecancodeit.pantryplus.category;
 
 import static java.util.Arrays.asList;
+import static javax.persistence.GenerationType.IDENTITY;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -16,7 +17,7 @@ import org.wecancodeit.pantryplus.product.Product;
 public class Category {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = IDENTITY)
 	private long id;
 	private String name;
 
