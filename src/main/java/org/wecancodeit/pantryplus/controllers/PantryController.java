@@ -44,7 +44,7 @@ public class PantryController {
 			@RequestParam int familySize, @RequestParam int schoolkidsCount,
 			@RequestParam(defaultValue = "false") boolean infants, @RequestParam String pickUpDate,
 			@RequestParam String zipCodeInput, @RequestParam String birthdate, @RequestParam String address) {
-		String zipCode = zipCodeInput.replaceAll("\\s", "");
+		String zipCode = zipCodeInput.trim();
 		if (zipCode.equals("43203") || zipCode.equals("43205") || zipCode.equals("43209") || zipCode.equals("43213") || zipCode.equals("43215")){
 			User user = new User(firstName, lastName, familySize, schoolkidsCount, infants, pickUpDate, zipCode, address,
 					birthdate);

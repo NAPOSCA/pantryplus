@@ -24,7 +24,7 @@ import org.wecancodeit.pantryplus.lineitem.LineItem;
 import org.wecancodeit.pantryplus.user.User;
 import org.wecancodeit.pantryplus.user.UserRepository;
 
-public class PantryControllerTest {
+public class PantryControllerMockTest {
 
 	@InjectMocks
 	private PantryController underTest;
