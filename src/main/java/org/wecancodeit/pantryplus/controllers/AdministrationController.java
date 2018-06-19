@@ -4,11 +4,13 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 import javax.annotation.Resource;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.wecancodeit.pantryplus.category.Category;
 import org.wecancodeit.pantryplus.category.CategoryRepository;
 
+@Controller
 public class AdministrationController {
 	
 	@Resource
