@@ -14,6 +14,9 @@
         <section class="category-creator">
             <h2>Category Creator</h2>
             <form action="/admin/categories" method="post">
+                <label for="category-name"></label>
+                <input id="category-name" type="text" />
+                <input type="submit" />
             </form>
         </section>
         <div th:each="category : ${categories}">
