@@ -10,6 +10,12 @@
 </head>
 <body>
     <div class="container admin">
+        <h1>Administration Page</h1>
+        <section class="category-creator">
+            <h2>Category Creator</h2>
+            <form action="/admin/categories" method="post">
+            </form>
+        </section>
         <div th:each="category : ${categories}">
             <p th:text="${category.name}" />
         </div>
