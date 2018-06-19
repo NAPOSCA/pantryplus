@@ -16,4 +16,7 @@ public class AdministrationController {
 		model.addAttribute("categories", categories);
 		return "admin";
 	}
+
+	public void receiveAPostRequestOnCategories(String categoryName) {
+	}
 }
