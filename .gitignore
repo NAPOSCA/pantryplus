@@ -1,6 +1,7 @@
 .gradle
 /build/
 !gradle/wrapper/gradle-wrapper.jar
+*.db
 
 #Eclipse
 /bin/
@@ -10,6 +11,7 @@ node_modules
 
 #Apple
 .DS_Store
+**/.DS_Store
 
 ### STS ###
 .apt_generated

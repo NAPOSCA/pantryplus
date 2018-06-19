@@ -42,7 +42,7 @@ repositories {
 }
 
 test {
-	environment "JDBC_DATABASE_URL", "" //I don't know how this empty quote is working but it works just as well as 'jdbc:h2:~/test' for some reason
+	environment "JDBC_DATABASE_URL", "jdbc:h2:./database"
 }
 
 dependencies {
