@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.wecancodeit.pantryplus.category.Category;
@@ -23,6 +24,13 @@ public class AdministrationController {
 		Iterable<Category> categories = categoryRepo.findAll();
 		model.addAttribute("categories", categories);
 		return "administration/categories";
+	}
+	
+	@RequestMapping(value = "/admin/categories/{categoryId}", method = GET)
+	public String displayAdminCategoryView(Model model, @PathVariable Long categoryId) {
+		Category category = categoryRepo.findOne(categoryId);
+		model.addAttribute("category", category);
+		return "administration/category";
 	}
 
 	@RequestMapping(value = "/admin/categories", method = POST)
