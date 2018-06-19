@@ -15,7 +15,7 @@ import org.springframework.ui.Model;
 import org.wecancodeit.pantryplus.category.Category;
 import org.wecancodeit.pantryplus.category.CategoryRepository;
 
-public class AdministrationControllerTest {
+public class AdministrationControllerMockTest {
 	
 	@InjectMocks
 	private AdministrationController underTest;
