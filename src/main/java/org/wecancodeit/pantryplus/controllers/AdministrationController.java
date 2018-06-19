@@ -1,8 +1,19 @@
 package org.wecancodeit.pantryplus.controllers;
 
-public class AdministrationController {
+import javax.annotation.Resource;
 
-	public String displayAdminView() {
+import org.springframework.ui.Model;
+import org.wecancodeit.pantryplus.category.Category;
+import org.wecancodeit.pantryplus.category.CategoryRepository;
+
+public class AdministrationController {
+	
+	@Resource
+	private CategoryRepository categoryRepo;
+
+	public String displayAdminView(Model model) {
+		Iterable<Category> categories = categoryRepo.findAll();
+		model.addAttribute("categories", categories);
 		return "admin";
 	}
 }
