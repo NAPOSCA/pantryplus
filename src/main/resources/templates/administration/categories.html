@@ -3,13 +3,13 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Administration</title>
+    <title>Categories</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" type="text/css" href="/css/layout.css"/>
 	<link rel="stylesheet" type="text/css" href="/css/style.css"/>
 </head>
 <body>
-    <div class="container admin">
+    <div class="container admin categories">
         <h1>Administration Page</h1>
         <section class="category-creator">
             <h2>Category Creator</h2>
@@ -20,7 +20,9 @@
             </form>
         </section>
         <div th:each="category : ${categories}">
-            <p th:text="${category.name}" />
+            <p>
+                <a th:href="@{'/admin/categories/' + ${category.id}}" th:text="${category.name}" />
+            </p>
         </div>
     </div>
 </body>
