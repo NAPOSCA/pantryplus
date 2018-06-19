@@ -2,6 +2,7 @@
 /build/
 !gradle/wrapper/gradle-wrapper.jar
 *.db
+gradle.properties
 
 #Eclipse
 /bin/
