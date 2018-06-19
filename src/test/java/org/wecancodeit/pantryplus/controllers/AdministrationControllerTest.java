@@ -7,7 +7,7 @@ import org.junit.Test;
 
 public class AdministrationControllerTest {
 	
-	private AdministrationController underTest;
+	private AdministrationController underTest = new AdministrationController();
 
 	@Test
 	public void shouldHaveAdminControllerDisplayAdminView() {
