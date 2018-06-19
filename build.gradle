@@ -42,7 +42,9 @@ repositories {
 }
 
 test {
-	environment "JDBC_DATABASE_URL", "jdbc:h2:./database"
+	if(System.env["JDBC_DATABASE_URL"] == null) {
+		environment "JDBC_DATABASE_URL", DATABASE_URL
+	}
 }
 
 dependencies {
