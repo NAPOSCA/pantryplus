@@ -39,15 +39,15 @@ public class AdministrationControllerMockTest {
 
 	@Test
 	public void shouldHaveAdminControllerDisplayAdminView() {
-		String templateName = underTest.displayAdminView(model);
-		assertThat(templateName, is("admin"));
+		String templateName = underTest.displayAdminCategoriesView(model);
+		assertThat(templateName, is("administration/categories"));
 	}
 	
 	@Test
 	public void shouldAttachCategoriesToModel() {
 		Iterable<Category> categories = asList(category, anotherCategory);
 		when(categoryRepo.findAll()).thenReturn(categories);
-		underTest.displayAdminView(model);
+		underTest.displayAdminCategoriesView(model);
 		verify(model).addAttribute("categories", categories);
 	}
 }
