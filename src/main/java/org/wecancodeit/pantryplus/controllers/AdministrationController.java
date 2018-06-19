@@ -26,6 +26,6 @@ public class AdministrationController {
 	@RequestMapping(value = "/admin/categories", method = POST)
 	public String receiveAPostRequestOnCategories(String categoryName) {
 		categoryRepo.save(new Category(categoryName));
-		return "administraction/categories";
+		return "administration/categories";
 	}
 }
