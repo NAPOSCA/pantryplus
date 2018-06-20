@@ -1,7 +1,4 @@
 spring:
-    jpa:
-        hibernate:
-            ddl-auto: update
     datasource:
         url: ${JDBC_DATABASE_URL}
     mail:
