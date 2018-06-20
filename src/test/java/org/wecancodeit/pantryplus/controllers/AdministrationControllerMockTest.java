@@ -40,7 +40,7 @@ public class AdministrationControllerMockTest {
 	@Test
 	public void shouldHaveAdminControllerDisplayAdminView() {
 		String templateName = underTest.displayAdminCategoriesView(model);
-		assertThat(templateName, is("administration/categories"));
+		assertThat(templateName, is("admin/categories"));
 	}
 	
 	@Test
