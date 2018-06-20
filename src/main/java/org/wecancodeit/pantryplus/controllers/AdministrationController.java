@@ -51,6 +51,12 @@ public class AdministrationController {
 		model.addAttribute("category", category);
 		Product product = productRepo.findOne(productId);
 		model.addAttribute("product", product);
+		if (product.getClass().equals(PricedProduct.class)) {
+			return "admin/priced-product";
+		}
+		if (product.getClass().equals(LimitedProduct.class)) {
+			return "admin/limited-product";
+		}
 		return "admin/product";
 	}
 
