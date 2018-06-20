@@ -72,13 +72,13 @@ public class AdministrationController {
 			@RequestParam String type, @RequestParam String productName, @RequestParam(required = false) String image,
 			@RequestParam(defaultValue = "0") int maximumQuantity, @RequestParam(defaultValue = "0") int price) {
 		Category category = categoryRepo.findOne(categoryId);
-		if (type == "Product") {
+		if (type.equals("Product")) {
 			Product product = new Product(productName, category, image);
 			productRepo.save(product);
-		} else if (type == "LimitedProduct") {
+		} else if (type.equals("LimitedProduct")) {
 			LimitedProduct product = new LimitedProduct(productName, category, image, maximumQuantity);
 			productRepo.save(product);
-		} else if (type == "PricedProduct") {
+		} else if (type.equals("PricedProduct")) {
 			PricedProduct product = new PricedProduct(productName, category, image, maximumQuantity, price);
 			productRepo.save(product);
 		}
