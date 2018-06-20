@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title th:text="'Category: ' + ${category.name}" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" href="/css/layout.css"/>
+	<link rel="stylesheet" type="text/css" href="/css/style.css"/>
+</head>
+<body>
+    <div class="container admin category">
+        <header>
+			<a href="/admin/categories">Go Back</a>
+			<h1 th:text="${category.name}" />
+        </header>
+        <section class="product-creator">
+            <h2>Product Creator</h2>
+            <form th:action="@{'/admin/categories/' + ${category.id} + '/products'}" method="post">
+                <label for="product-name">Product name</label>
+                <input id="product-name" type="text" name="productName" />
+                <input type="submit" />
+            </form>
+        </section>
+        <section class="products">
+        	<div th:each="product : ${category.products}">
+        		<p>
+        			<a th:href="@{'/admin/categories/' + ${category.id} + '/products/' + ${product.id}}" th:text="${product.name}" />
+        		</p>
+        	</div>
+        </section>
+    </div>
+</body>
+</html>
