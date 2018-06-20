@@ -10,10 +10,22 @@
 </head>
 <body>
     <div class="container admin product">
-        <p th:text="${product.name}" />
-        <p th:text="${product.image}" />
-        <p th:text="${product.maximumQuantity}" />
-        <p th:text="${product.price}" />
+        <p>
+			<span>Product Name:</span>
+			<span th:text="${product.name}" />
+		</p>
+		<p>
+			<span>Image Path:</span>
+			<span th:text="${product.image}" />
+		</p>
+		<p>
+			<span>Maximum Quantity:</span>
+			<span th:text="${product.maximumQuantity}" />
+		</p>
+		<p>
+			<span>Price:</span>
+			<span th:text="${product.price}" />
+		</p>
     </div>
 </body>
 </html>

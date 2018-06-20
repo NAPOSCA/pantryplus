@@ -10,8 +10,14 @@
 </head>
 <body>
     <div class="container admin product">
-        <p th:text="${product.name}" />
-        <p th:text="${product.image}" />
+        <p>
+            <span>Product Name:</span>
+            <span th:text="${product.name}" />
+        </p>
+        <p>
+            <span>Image Path:</span>
+            <span th:text="${product.image}" />
+        </p>
     </div>
 </body>
 </html>
