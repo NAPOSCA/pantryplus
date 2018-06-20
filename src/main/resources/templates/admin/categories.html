@@ -19,11 +19,14 @@
                 <input type="submit" />
             </form>
         </section>
-        <div th:each="category : ${categories}">
-            <p>
-                <a th:href="@{'/admin/categories/' + ${category.id}}" th:text="${category.name}" />
-            </p>
-        </div>
+        <section>
+			<h2>Categories</h2>
+			<div th:each="category : ${categories}">
+				<p>
+					<a th:href="@{'/admin/categories/' + ${category.id}}" th:text="${category.name}" />
+				</p>
+			</div>
+        </section>
     </div>
 </body>
 </html>
