@@ -14,18 +14,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.wecancodeit.pantryplus.category.Category;
 import org.wecancodeit.pantryplus.category.CategoryRepository;
+import org.wecancodeit.pantryplus.product.LimitedProduct;
+import org.wecancodeit.pantryplus.product.PricedProduct;
 import org.wecancodeit.pantryplus.product.Product;
 import org.wecancodeit.pantryplus.product.ProductRepository;
 
 @Controller
 public class AdministrationController {
-	
+
 	@Resource
 	private CategoryRepository categoryRepo;
-	
+
 	@Resource
 	private ProductRepository productRepo;
-	
+
 	@Resource
 	private EntityManager entityManager;
 
@@ -35,7 +37,7 @@ public class AdministrationController {
 		model.addAttribute("categories", categories);
 		return "admin/categories";
 	}
-	
+
 	@RequestMapping(value = "/admin/categories/{categoryId}", method = GET)
 	public String displayAdminCategoryView(Model model, @PathVariable Long categoryId) {
 		Category category = categoryRepo.findOne(categoryId);
@@ -57,12 +59,23 @@ public class AdministrationController {
 		categoryRepo.save(new Category(categoryName));
 		return "redirect:/admin/categories";
 	}
-	
+
 	@Transactional
 	@RequestMapping(value = "/admin/categories/{categoryId}/products", method = POST)
-	public String receiveAPostRequestOnACategorysProducts(Model model, @PathVariable Long categoryId, @RequestParam String productName) {
+	public String receiveAPostRequestOnACategorysProducts(Model model, @PathVariable Long categoryId,
+			@RequestParam String type, @RequestParam String productName, @RequestParam(required = false) String image,
+			@RequestParam(required = false) int maximumQuantity, @RequestParam(required = false) int price) {
 		Category category = categoryRepo.findOne(categoryId);
-		productRepo.save(new Product(productName, category));
+		if (type == "Product") {
+			Product product = new Product(productName, category, image);
+			productRepo.save(product);
+		} else if (type == "LimitedProduct") {
+			LimitedProduct product = new LimitedProduct(productName, category, image, maximumQuantity);
+			productRepo.save(product);
+		} else if (type == "PricedProduct") {
+			PricedProduct product = new PricedProduct(productName, category, image, maximumQuantity, price);
+			productRepo.save(product);
+		}
 		entityManager.flush();
 		entityManager.clear();
 		category = categoryRepo.findOne(categoryId);
