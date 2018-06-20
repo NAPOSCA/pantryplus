@@ -10,6 +10,10 @@
 </head>
 <body>
     <div class="container admin product">
+		<header>
+			<a th:href="@{'/admin/categories/' + ${product.category.id}}">Go Back</a>
+			<h1 th:text="${product.name}" />
+		</header>
         <p>
 			<span>Product Name:</span>
 			<span th:text="${product.name}" />
