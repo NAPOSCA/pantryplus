@@ -70,7 +70,7 @@ public class AdministrationController {
 	@RequestMapping(value = "/admin/categories/{categoryId}/products", method = POST)
 	public String receiveAPostRequestOnACategorysProducts(Model model, @PathVariable Long categoryId,
 			@RequestParam String type, @RequestParam String productName, @RequestParam(required = false) String image,
-			@RequestParam(required = false) int maximumQuantity, @RequestParam(required = false) int price) {
+			@RequestParam(defaultValue = "0") int maximumQuantity, @RequestParam(defaultValue = "0") int price) {
 		Category category = categoryRepo.findOne(categoryId);
 		if (type == "Product") {
 			Product product = new Product(productName, category, image);
