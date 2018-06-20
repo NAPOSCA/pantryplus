@@ -40,9 +40,6 @@ public class AdministrationController {
 	public String displayAdminCategoryView(Model model, @PathVariable Long categoryId) {
 		Category category = categoryRepo.findOne(categoryId);
 		model.addAttribute("category", category);
-//		System.out.println(category);
-//		System.out.println(category.getProducts());
-//		System.out.println(category.getProducts().size());
 		return "admin/category";
 	}
 
