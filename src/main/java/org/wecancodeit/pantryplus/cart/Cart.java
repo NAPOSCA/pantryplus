@@ -1,6 +1,7 @@
 package org.wecancodeit.pantryplus.cart;
 
 import static java.util.stream.Collectors.toSet;
+import static javax.persistence.GenerationType.IDENTITY;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -26,7 +27,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Cart {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = IDENTITY)
 	private long id;
 
 	@JsonIgnore
