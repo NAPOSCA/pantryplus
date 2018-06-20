@@ -1,7 +1,7 @@
 package org.wecancodeit.pantryplus.category;
 
 import static java.util.Arrays.asList;
-import static javax.persistence.GenerationType.IDENTITY;
+import static javax.persistence.GenerationType.SEQUENCE;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 
 import org.wecancodeit.pantryplus.product.Product;
 
@@ -17,7 +18,8 @@ import org.wecancodeit.pantryplus.product.Product;
 public class Category {
 
 	@Id
-	@GeneratedValue(strategy = IDENTITY)
+	@GeneratedValue(strategy = SEQUENCE, generator = "HashTagIDGenerator")
+	@SequenceGenerator(name = "HashTagIDGenerator", sequenceName = "SEQ_HASHTAG_ID")
 	private long id;
 	private String name;
 

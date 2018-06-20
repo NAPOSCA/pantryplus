@@ -1,11 +1,12 @@
 package org.wecancodeit.pantryplus.lineitem;
 
-import static javax.persistence.GenerationType.IDENTITY;
+import static javax.persistence.GenerationType.SEQUENCE;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 
 import org.wecancodeit.pantryplus.cart.Cart;
 import org.wecancodeit.pantryplus.product.PricedProduct;
@@ -17,7 +18,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class LineItem {
 
 	@Id
-	@GeneratedValue(strategy = IDENTITY)
+	@GeneratedValue(strategy = SEQUENCE, generator = "HashTagIDGenerator")
+	@SequenceGenerator(name = "HashTagIDGenerator", sequenceName = "SEQ_HASHTAG_ID")
 	private long id;
 
 	@JsonIgnore

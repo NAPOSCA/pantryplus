@@ -1,6 +1,6 @@
 package org.wecancodeit.pantryplus.product;
 
-import static javax.persistence.GenerationType.IDENTITY;
+import static javax.persistence.GenerationType.SEQUENCE;
 
 import java.util.Collection;
 
@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 
 import org.wecancodeit.pantryplus.category.Category;
 import org.wecancodeit.pantryplus.lineitem.LineItem;
@@ -19,7 +20,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Product {
 
 	@Id
-	@GeneratedValue(strategy = IDENTITY)
+	@GeneratedValue(strategy = SEQUENCE, generator = "HashTagIDGenerator")
+	@SequenceGenerator(name = "HashTagIDGenerator", sequenceName = "SEQ_HASHTAG_ID")
 	private long id;
 	private String name;
 	private String image;

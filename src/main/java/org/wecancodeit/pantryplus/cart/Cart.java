@@ -1,7 +1,7 @@
 package org.wecancodeit.pantryplus.cart;
 
 import static java.util.stream.Collectors.toSet;
-import static javax.persistence.GenerationType.IDENTITY;
+import static javax.persistence.GenerationType.SEQUENCE;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 
 import org.wecancodeit.pantryplus.lineitem.CountedLineItem;
 import org.wecancodeit.pantryplus.lineitem.LineItem;
@@ -27,7 +28,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Cart {
 
 	@Id
-	@GeneratedValue(strategy = IDENTITY)
+	@GeneratedValue(strategy = SEQUENCE, generator = "HashTagIDGenerator")
+	@SequenceGenerator(name = "HashTagIDGenerator", sequenceName = "SEQ_HASHTAG_ID")
 	private long id;
 
 	@JsonIgnore

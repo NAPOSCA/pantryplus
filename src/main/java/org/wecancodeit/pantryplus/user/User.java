@@ -1,6 +1,6 @@
 package org.wecancodeit.pantryplus.user;
 
-import static javax.persistence.GenerationType.IDENTITY;
+import static javax.persistence.GenerationType.SEQUENCE;
 
 import java.time.ZonedDateTime;
 import java.util.Collection;
@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 
 import org.wecancodeit.pantryplus.cart.Cart;
 
@@ -18,7 +19,8 @@ import org.wecancodeit.pantryplus.cart.Cart;
 public class User {
 
 	@Id
-	@GeneratedValue(strategy = IDENTITY)
+	@GeneratedValue(strategy = SEQUENCE, generator = "HashTagIDGenerator")
+	@SequenceGenerator(name = "HashTagIDGenerator", sequenceName = "SEQ_HASHTAG_ID")
 	private long id;
 
 	@OneToMany(mappedBy = "user")
