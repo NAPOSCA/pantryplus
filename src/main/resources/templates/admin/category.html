@@ -6,7 +6,8 @@
     <title th:text="'Category: ' + ${category.name}" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" type="text/css" href="/css/layout.css"/>
-	<link rel="stylesheet" type="text/css" href="/css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/animation.css"/>
 </head>
 <body>
     <div class="container admin category">
@@ -16,13 +17,35 @@
         </header>
         <section class="product-creator">
             <h2>Product Creator</h2>
-            <form th:action="@{'/admin/categories/' + ${category.id} + '/products'}" method="post">
-                <label for="product-name">Product name</label>
-                <input id="product-name" type="text" name="productName" />
+            <form th:action="@{'/admin/categories/' + ${category.id} + '/products'}" method="post" class="product-creator">
+				<p>Type</p>
+				<br />
+				<label for="type-product">Product</label>
+				<input type="radio" name="type" value="Product" id="type-product" />
+				<br />
+				<label for="type-limited-product">Limited Product</label>
+				<input type="radio" name="type" value="LimitedProduct" id="type-limited-product" />
+				<br />
+				<label for="type-priced-product">Priced Product</label>
+				<input type="radio" name="type" value="PricedProduct" id="type-priced-product" />
+				<br />
+				<label for="product-name">Product Name</label>
+				<input id="product-name" type="text" name="productName" />
+				<br />
+				<label for="image">Image Path</label>
+				<input id="image" type="text" name="image" />
+				<br />
+				<label for="maximumQuantity" class="reveal-if-limited-product reveal-if-priced-product">Maximum Quantity</label>
+				<input type="number" name="maximumQuantity" id="maximumQuantity" class="reveal-if-limited-product reveal-if-priced-product" />
+				<br />
+				<label for="price" class="reveal-if-priced-product">Price</label>
+				<input type="number" name="price" id="price" class="reveal-if-priced-product" />
+				<br />
                 <input type="submit" />
             </form>
         </section>
         <section class="products">
+			<h2>Products</h2>
         	<div th:each="product : ${category.products}">
         		<p>
         			<a th:href="@{'/admin/categories/' + ${category.id} + '/products/' + ${product.id}}" th:text="${product.name}" />

@@ -30,3 +30,12 @@ ul.hidden {
 option.hidden {
 	display: none;
 }
+
+.reveal-if-limited-product, .reveal-if-priced-product {
+	visibility: hidden;
+}
+
+#type-limited-product:checked ~ .reveal-if-limited-product,
+#type-priced-product:checked ~ .reveal-if-priced-product {
+	visibility: visible;
+}
