@@ -1,5 +1,7 @@
 package org.wecancodeit.pantryplus.product;
 
+import static javax.persistence.GenerationType.IDENTITY;
+
 import java.util.Collection;
 
 import javax.persistence.Entity;
@@ -17,7 +19,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Product {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = IDENTITY)
 	private long id;
 	private String name;
 	private String image;

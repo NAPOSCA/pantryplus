@@ -1,5 +1,7 @@
 package org.wecancodeit.pantryplus.lineitem;
 
+import static javax.persistence.GenerationType.IDENTITY;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -15,7 +17,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class LineItem {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = IDENTITY)
 	private long id;
 
 	@JsonIgnore
