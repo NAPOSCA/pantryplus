@@ -1,9 +1,6 @@
 package org.wecancodeit.pantryplus.category;
 
-import static java.util.Arrays.asList;
-
 import java.util.Collection;
-import java.util.HashSet;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,13 +20,11 @@ public class Category {
 	@OneToMany(mappedBy = "category")
 	private Collection<Product> products;
 
-	@SuppressWarnings("unused")
-	private Category() {
+	protected Category() {
 	}
 
-	public Category(String name, Product... products) {
+	public Category(String name) {
 		this.name = name;
-		this.products = new HashSet<Product>(asList(products));
 	}
 
 	public long getId() {
