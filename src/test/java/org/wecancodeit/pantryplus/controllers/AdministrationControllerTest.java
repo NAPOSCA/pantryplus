@@ -17,10 +17,10 @@ import org.wecancodeit.pantryplus.category.CategoryRepository;
 @RunWith(SpringRunner.class)
 @DataJpaTest
 public class AdministrationControllerTest {
-	
+
 	@Resource
 	private CategoryRepository categoryRepo;
-	
+
 	@Resource
 	private TestEntityManager entityManager;
 
@@ -32,7 +32,7 @@ public class AdministrationControllerTest {
 		underTest.receiveAPostRequestOnCategories(categoryName);
 		entityManager.flush();
 		entityManager.clear();
-		Category category = categoryRepo.findOne(1L);
+		Category category = categoryRepo.findById(1L).get();
 		assertThat(category.getName(), is(categoryName));
 	}
 }

@@ -35,7 +35,7 @@ public class UserJpaTest {
 		entityManager.flush();
 		entityManager.clear();
 
-		user = userRepo.findOne(userId);
+		user = userRepo.findById(userId).get();
 		assertThat(user.getId(), is(greaterThan(0L)));
 	}
 }

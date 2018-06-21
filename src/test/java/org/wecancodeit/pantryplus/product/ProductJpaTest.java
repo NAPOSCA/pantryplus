@@ -49,7 +49,7 @@ public class ProductJpaTest {
 		long categoryId = category.getId();
 		entityManager.flush();
 		entityManager.clear();
-		category = categoryRepo.findOne(categoryId);
+		category = categoryRepo.findById(categoryId).get();
 		assertThat(category.getName(), is("fruit"));
 	}
 
@@ -58,7 +58,7 @@ public class ProductJpaTest {
 		long productId = product1.getId();
 		entityManager.flush();
 		entityManager.clear();
-		product1 = productRepo.findOne(productId);
+		product1 = productRepo.findById(productId).get();
 		assertThat(product1.getName(), is("pineapple"));
 	}
 
@@ -67,7 +67,7 @@ public class ProductJpaTest {
 		long categoryId = category.getId();
 		entityManager.flush();
 		entityManager.clear();
-		category = categoryRepo.findOne(categoryId);
+		category = categoryRepo.findById(categoryId).get();
 		assertThat(category.getProducts(), containsInAnyOrder(product1, product2));
 	}
 
