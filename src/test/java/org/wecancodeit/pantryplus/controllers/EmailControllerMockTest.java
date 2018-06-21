@@ -12,8 +12,6 @@ import java.util.Map;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
-import org.hamcrest.Matchers;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
