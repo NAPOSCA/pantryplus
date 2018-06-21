@@ -3,6 +3,8 @@ package org.wecancodeit.pantryplus.controllers;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
+import java.util.Optional;
+
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
@@ -40,24 +42,39 @@ public class AdministrationController {
 
 	@RequestMapping(value = "/admin/categories/{categoryId}", method = GET)
 	public String displayAdminCategoryView(Model model, @PathVariable Long categoryId) {
-		Category category = categoryRepo.findOne(categoryId);
-		model.addAttribute("category", category);
-		return "admin/category";
+		Optional<Category> potentialCategory = categoryRepo.findById(categoryId);
+		if (potentialCategory.isPresent()) {
+			Category category = potentialCategory.get();
+			model.addAttribute("category", category);
+			return "admin/category";
+		} else {
+			return "redirect:/admin/categories";
+		}
 	}
 
 	@RequestMapping(value = "/admin/categories/{categoryId}/products/{productId}", method = GET)
 	public String displayAdminProductView(Model model, @PathVariable Long categoryId, @PathVariable Long productId) {
-		Category category = categoryRepo.findOne(categoryId);
-		model.addAttribute("category", category);
-		Product product = productRepo.findOne(productId);
-		model.addAttribute("product", product);
-		if (product.getClass().equals(PricedProduct.class)) {
-			return "admin/priced-product";
+		Optional<Category> potentialCategory = categoryRepo.findById(categoryId);
+		if (potentialCategory.isPresent()) {
+			Category category = potentialCategory.get();
+			model.addAttribute("category", category);
+			Optional<Product> potentialProduct = productRepo.findById(productId);
+			if (potentialProduct.isPresent()) {
+				Product product = potentialProduct.get();
+				model.addAttribute("product", product);
+				if (product.getClass().equals(PricedProduct.class)) {
+					return "admin/priced-product";
+				}
+				if (product.getClass().equals(LimitedProduct.class)) {
+					return "admin/limited-product";
+				}
+				return "admin/product";
+			} else {
+				return "redirect:/admin/categories/" + category.getId();
+			}
+		} else {
+			return "redirect:/admin/categories";
 		}
-		if (product.getClass().equals(LimitedProduct.class)) {
-			return "admin/limited-product";
-		}
-		return "admin/product";
 	}
 
 	@RequestMapping(value = "/admin/categories", method = POST)
@@ -71,21 +88,24 @@ public class AdministrationController {
 	public String receiveAPostRequestOnACategorysProducts(Model model, @PathVariable Long categoryId,
 			@RequestParam String type, @RequestParam String productName, @RequestParam(required = false) String image,
 			@RequestParam(defaultValue = "0") int maximumQuantity, @RequestParam(defaultValue = "0") int price) {
-		Category category = categoryRepo.findOne(categoryId);
-		if (type.equals("Product")) {
-			Product product = new Product(productName, category, image);
-			productRepo.save(product);
-		} else if (type.equals("LimitedProduct")) {
-			LimitedProduct product = new LimitedProduct(productName, category, image, maximumQuantity);
-			productRepo.save(product);
-		} else if (type.equals("PricedProduct")) {
-			PricedProduct product = new PricedProduct(productName, category, image, maximumQuantity, price);
-			productRepo.save(product);
+		Optional<Category> potentialCategory = categoryRepo.findById(categoryId);
+		if (potentialCategory.isPresent()) {
+			Category category = potentialCategory.get();
+			if (type.equals("Product")) {
+				Product product = new Product(productName, category, image);
+				productRepo.save(product);
+			} else if (type.equals("LimitedProduct")) {
+				LimitedProduct product = new LimitedProduct(productName, category, image, maximumQuantity);
+				productRepo.save(product);
+			} else if (type.equals("PricedProduct")) {
+				PricedProduct product = new PricedProduct(productName, category, image, maximumQuantity, price);
+				productRepo.save(product);
+			}
+			entityManager.flush();
+			entityManager.clear();
+			category = categoryRepo.findById(categoryId).get();
+			model.addAttribute("category", category);
 		}
-		entityManager.flush();
-		entityManager.clear();
-		category = categoryRepo.findOne(categoryId);
-		model.addAttribute("category", category);
 		return "redirect:/admin/categories/" + categoryId;
 	}
 }

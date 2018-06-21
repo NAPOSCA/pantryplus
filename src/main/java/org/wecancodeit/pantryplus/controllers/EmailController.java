@@ -1,6 +1,7 @@
 package org.wecancodeit.pantryplus.controllers;
 
 import java.util.Map;
+import java.util.Optional;
 
 import javax.annotation.Resource;
 import javax.mail.MessagingException;
@@ -13,7 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.thymeleaf.context.Context;
-import org.thymeleaf.spring4.SpringTemplateEngine;
+import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.wecancodeit.pantryplus.cart.Cart;
 import org.wecancodeit.pantryplus.cart.CartRepository;
 
@@ -34,15 +35,21 @@ public class EmailController {
 	@RequestMapping("/email")
 	public String home(@RequestParam long cartId) {
 		try {
-			Cart cart = cartRepo.findOne(cartId);
-			String name;
-			String firstname = cart.getUser().getFirstName();
-			String lastname = cart.getUser().getLastName();
-			name = firstname + " " + lastname;
-			String subject = name + "'s Order";
-			Map<String, Object> message = cart.toModel();
-			sendEmail(subject, message);
-			return "redirect:/email-success.html";
+			// Cart cart = cartRepo.findOne(cartId);
+			Optional<Cart> potentialCart = cartRepo.findById(cartId);
+			if (potentialCart.isPresent()) {
+				Cart cart = potentialCart.get();
+				String name;
+				String firstname = cart.getUser().getFirstName();
+				String lastname = cart.getUser().getLastName();
+				name = firstname + " " + lastname;
+				String subject = name + "'s Order";
+				Map<String, Object> message = cart.toModel();
+				sendEmail(subject, message);
+				return "redirect:/email-success.html";
+			} else {
+				return "redirect:/email-failure.html?error=" + "Cart not found";
+			}
 		} catch (Exception exThrown) {
 			return "redirect:/email-failure.html?error=" + exThrown;
 		}

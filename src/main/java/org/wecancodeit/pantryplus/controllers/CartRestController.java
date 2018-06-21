@@ -79,8 +79,7 @@ public class CartRestController {
 
 	@RequestMapping(path = "/carts/{cartId}", method = DELETE)
 	public void receiveDeleteRequestOnCart(@PathVariable long cartId) {
-
-		cartRepo.delete(cartId);
+		cartRepo.deleteById(cartId);
 	}
 
 	Cart tellCartToIncreaseProductQuantityByOne(long cartId, long productId) {
@@ -163,11 +162,11 @@ public class CartRestController {
 	}
 
 	private Cart retrieveCartBy(long cartId) {
-		return cartRepo.findOne(cartId);
+		return cartRepo.findById(cartId).get();
 	}
 
 	private Product retrieveProductBy(long productId) {
-		Product product = productRepo.findOne(productId);
+		Product product = productRepo.findById(productId).get();
 		return product;
 	}
 
