@@ -30,7 +30,7 @@ public class Product {
 	@OneToMany(mappedBy = "product")
 	private Collection<LineItem> lineItem;
 
-	protected Product() {
+	public Product() {
 	}
 
 	public Product(String name, Category category) {

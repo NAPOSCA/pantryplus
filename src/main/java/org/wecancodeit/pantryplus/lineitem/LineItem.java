@@ -25,7 +25,7 @@ public class LineItem {
 	@ManyToOne
 	protected Product product;
 
-	protected LineItem() {
+	public LineItem() {
 	}
 
 	public LineItem(Cart cart, Product product) {

@@ -91,8 +91,7 @@ public class Cart {
 		return meatPoundsUsed;
 	}
 
-	@SuppressWarnings("unused")
-	private Cart() {
+	public Cart() {
 	}
 
 	public Cart(User user) {

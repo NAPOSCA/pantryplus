@@ -13,7 +13,7 @@ public class PricedProduct extends LimitedProduct {
 		return price;
 	}
 
-	protected PricedProduct() {
+	public PricedProduct() {
 		super();
 	}
 

@@ -21,7 +21,6 @@ public class CountedLineItem extends LineItem {
 	}
 
 	public CountedLineItem() {
-
 	}
 
 	public CountedLineItem(Cart cart, Product product, int quantity) {

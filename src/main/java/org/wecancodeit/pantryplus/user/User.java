@@ -34,8 +34,7 @@ public class User {
 
 	private String address;
 
-	@SuppressWarnings("unused")
-	private User() {
+	public User() {
 	}
 
 	public User(String firstName, String lastName, int familySize, int schoolAgeChildren, boolean hasInfants,

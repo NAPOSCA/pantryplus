@@ -9,7 +9,7 @@ public class LimitedProduct extends Product {
 
 	private int maximumQuantity;
 
-	protected LimitedProduct() {
+	public LimitedProduct() {
 	}
 
 	public LimitedProduct(String name, Category category, int maximumQuantity) {
