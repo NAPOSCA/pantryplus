@@ -30,4 +30,25 @@ public class ProductTest {
 	public void shouldHaveProductEqualsItself() {
 		assertThat(underTest.equals(underTest), is(true));
 	}
+	
+	@Test
+	public void shouldHaveImageCan() {
+		underTest = new Product("Can", null, "can.png");
+		String image = underTest.getImage();
+		assertThat(image, is("can.png"));
+	}
+	
+	@Test
+	public void shouldHaveImageBread() {
+		underTest = new Product("Bread", null, "bread.png");
+		String image = underTest.getImage();
+		assertThat(image, is("bread.png"));
+	}
+	
+	@Test
+	public void shouldGetNameFromImageConstructor() {
+		underTest = new Product("Cheese", null, "cheese.png");
+		String name = underTest.getName();
+		assertThat(name, is("Cheese"));
+	}
 }
