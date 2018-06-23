@@ -1,10 +1,6 @@
 package org.wecancodeit.pantryplus.category;
 
-import static java.util.Arrays.asList;
-import static javax.persistence.GenerationType.IDENTITY;
-
 import java.util.Collection;
-import java.util.HashSet;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,26 +13,24 @@ import org.wecancodeit.pantryplus.product.Product;
 public class Category {
 
 	@Id
-	@GeneratedValue(strategy = IDENTITY)
+	@GeneratedValue
 	private long id;
 	private String name;
-
+	
 	@OneToMany(mappedBy = "category")
 	private Collection<Product> products;
 
-	@SuppressWarnings("unused")
-	private Category() {
+	public Category() {
 	}
 
-	public Category(String name, Product... products) {
+	public Category(String name) {
 		this.name = name;
-		this.products = new HashSet<Product>(asList(products));
 	}
 
 	public long getId() {
 		return id;
 	}
-
+	
 	public String getName() {
 		return name;
 	}

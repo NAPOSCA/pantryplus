@@ -1,7 +1,5 @@
 package org.wecancodeit.pantryplus.product;
 
-import static javax.persistence.GenerationType.IDENTITY;
-
 import java.util.Collection;
 
 import javax.persistence.Entity;
@@ -17,21 +15,21 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Product {
-
+	
 	@Id
-	@GeneratedValue(strategy = IDENTITY)
+	@GeneratedValue
 	private long id;
 	private String name;
 	private String image;
-
+	
 	@JsonIgnore
 	@ManyToOne
 	private Category category;
-
+	
 	@JsonIgnore
 	@OneToMany(mappedBy = "product")
-	private Collection<LineItem> lineItem;
-
+	private Collection<LineItem> lineItems;
+	
 	public Product() {
 	}
 
@@ -41,15 +39,14 @@ public class Product {
 	}
 
 	public Product(String name, Category category, String image) {
-		this.name = name;
-		this.category = category;
+		this(name, category);
 		this.image = image;
 	}
 
 	public long getId() {
 		return id;
 	}
-
+	
 	public String getImage() {
 		return image;
 	}
@@ -57,29 +54,7 @@ public class Product {
 	public String getName() {
 		return name;
 	}
-
-	@Override
-	public int hashCode() {
-		return ((Long) id).hashCode();
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (obj == null) {
-			return false;
-		}
-
-		if (getClass() != obj.getClass()) {
-			return false;
-		}
-
-		if (id == ((Product) obj).id) {
-			return true;
-		}
-
-		return false;
-	}
-
+	
 	public Category getCategory() {
 		return category;
 	}
