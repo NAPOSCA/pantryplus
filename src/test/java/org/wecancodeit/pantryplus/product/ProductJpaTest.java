@@ -31,44 +31,48 @@ public class ProductJpaTest {
 	private ProductRepository productRepo;
 
 	private Category category;
-	private Product product1;
-	private Product product2;
+	private Product product;
+	private Product anotherProduct;
+
+	private long categoryId;
+
+	private long productId;
+
+	private long anotherProductId;
 
 	@Before
 	public void setUp() {
 		category = new Category("fruit");
-		product1 = new Product("pineapple", category);
-		product2 = new Product("apple", category);
+		product = new Product("pineapple", category);
+		anotherProduct = new Product("apple", category);
 		category = categoryRepo.save(category);
-		product1 = productRepo.save(product1);
-		product2 = productRepo.save(product2);
+		categoryId = category.getId();
+		product = productRepo.save(product);
+		productId = product.getId();
+		anotherProduct = productRepo.save(anotherProduct);
+		anotherProductId = anotherProduct.getId();
+		entityManager.flush();
+		entityManager.clear();
 	}
 
 	@Test
 	public void shouldSaveAndLoadCategory() {
-		long categoryId = category.getId();
-		entityManager.flush();
-		entityManager.clear();
 		category = categoryRepo.findOne(categoryId);
 		assertThat(category.getName(), is("fruit"));
 	}
 
 	@Test
 	public void shouldSaveAndLoadProduct() {
-		long productId = product1.getId();
-		entityManager.flush();
-		entityManager.clear();
-		product1 = productRepo.findOne(productId);
-		assertThat(product1.getName(), is("pineapple"));
+		product = productRepo.findOne(productId);
+		assertThat(product.getName(), is("pineapple"));
 	}
 
 	@Test
 	public void shouldSaveManyProductsToOneCategory() {
-		long categoryId = category.getId();
-		entityManager.flush();
-		entityManager.clear();
 		category = categoryRepo.findOne(categoryId);
-		assertThat(category.getProducts(), containsInAnyOrder(product1, product2));
+		product = productRepo.findOne(productId);
+		anotherProduct = productRepo.findOne(anotherProductId);
+		assertThat(category.getProducts(), containsInAnyOrder(product, anotherProduct));
 	}
 
 }
