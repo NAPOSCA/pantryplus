@@ -134,6 +134,7 @@ public class CartJpaTest {
 		entityManager.flush();
 		entityManager.clear();
 		lineItem = lineItemRepo.findOne(lineItemId);
+		product = productRepo.findOne(productId);
 		assertThat(lineItem.getProduct(), is(product));
 	}
 
