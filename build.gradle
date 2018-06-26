@@ -52,7 +52,7 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-mail')
 	compile('org.springframework.data:spring-data-rest-hal-browser')
 	runtime('org.springframework.boot:spring-boot-devtools')
-	runtime('org.postgresql:postgresql')
+	runtime('org.postgresql:postgresql:42.2.2')
 	testCompile('com.h2database:h2')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
