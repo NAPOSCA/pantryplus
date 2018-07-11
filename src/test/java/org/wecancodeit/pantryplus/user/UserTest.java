@@ -11,7 +11,7 @@ public class UserTest {
 
 	@Test
 	public void shouldCalculateCouponTotalForOneOrTwoPersonFamily() {
-		User user = new User("firstName", "lastName", 1, 0, false, date, "00000", "1234 Main St", "January 1st, 1969");
+		PantryUser user = new PantryUser("firstName", "lastName", 1, 0, false, date, "00000", "1234 Main St", "January 1st, 1969");
 		int couponTotal = user.calculateCouponLimit();
 
 		assertThat(couponTotal, is(10));
@@ -19,7 +19,7 @@ public class UserTest {
 
 	@Test
 	public void shouldCalculateCouponTotalForThreePersonFamily() {
-		User user = new User("firstName", "lastName", 3, 0, false, date, "00000", "1234 Main St", "January 1st, 1969");
+		PantryUser user = new PantryUser("firstName", "lastName", 3, 0, false, date, "00000", "1234 Main St", "January 1st, 1969");
 		int couponTotal = user.calculateCouponLimit();
 
 		assertThat(couponTotal, is(20));
@@ -27,7 +27,7 @@ public class UserTest {
 
 	@Test
 	public void shouldCalculateMeatTotalForOneOrTwoPersonFamily() {
-		User user = new User("firstName", "lastName", 1, 0, false, date, "00000", "1234 Main St", "January 1st, 1969");
+		PantryUser user = new PantryUser("firstName", "lastName", 1, 0, false, date, "00000", "1234 Main St", "January 1st, 1969");
 		int meatTotal = user.calculateMeatLimit();
 
 		assertThat(meatTotal, is(4));
@@ -35,7 +35,7 @@ public class UserTest {
 
 	@Test
 	public void shouldCalculateMeatTotalForThreeToFivePersonFamily() {
-		User user = new User("firstName", "lastName", 3, 0, false, date, "00000", "1234 Main St", "January 1st, 1969");
+		PantryUser user = new PantryUser("firstName", "lastName", 3, 0, false, date, "00000", "1234 Main St", "January 1st, 1969");
 		int meatTotal = user.calculateMeatLimit();
 
 		assertThat(meatTotal, is(6));
@@ -43,7 +43,7 @@ public class UserTest {
 
 	@Test
 	public void shouldCalculateMeatTotalForSixOrMorePersonFamily() {
-		User user = new User("firstName", "lastName", 6, 0, false, date, "00000", "1234 Main St", "January 1st, 1969");
+		PantryUser user = new PantryUser("firstName", "lastName", 6, 0, false, date, "00000", "1234 Main St", "January 1st, 1969");
 		int meatTotal = user.calculateMeatLimit();
 
 		assertThat(meatTotal, is(8));
@@ -52,7 +52,7 @@ public class UserTest {
 	@Test
 	public void shouldTakeZipCode12345() {
 		String zip = "12345";
-		User underTest = new User("firstName", "lastName", 1, 1, true, date, zip, "1234 Main St", "January 1st, 1969");
+		PantryUser underTest = new PantryUser("firstName", "lastName", 1, 1, true, date, zip, "1234 Main St", "January 1st, 1969");
 		String check = underTest.getZipCode();
 
 		assertThat(check, is(zip));
@@ -61,7 +61,7 @@ public class UserTest {
 	@Test
 	public void shouldTakeZipCode54321() {
 		String zip = "54321";
-		User underTest = new User("firstName", "lastName", 1, 1, true, date, zip, "1234 Main St", "January 1st, 1969");
+		PantryUser underTest = new PantryUser("firstName", "lastName", 1, 1, true, date, zip, "1234 Main St", "January 1st, 1969");
 		String check = underTest.getZipCode();
 
 		assertThat(check, is(zip));
@@ -70,7 +70,7 @@ public class UserTest {
 	@Test
 	public void shouldAddFamilySizeToModel() {
 		int familySize = 4;
-		User underTest = new User("firstName", "lastName", familySize, 0, true, date, "", "", "January 1st, 1969");
+		PantryUser underTest = new PantryUser("firstName", "lastName", familySize, 0, true, date, "", "", "January 1st, 1969");
 		int actual = (int) underTest.toModel().get("familySize");
 		assertThat(actual, is(familySize));
 	}
@@ -78,7 +78,7 @@ public class UserTest {
 	@Test
 	public void shouldAddBirthdateToModel() {
 		String birthdate = "January 1st, 1969";
-		User underTest = new User("firstName", "lastName", 0, 0, true, date, "", "", birthdate);
+		PantryUser underTest = new PantryUser("firstName", "lastName", 0, 0, true, date, "", "", birthdate);
 		String actual = (String) underTest.toModel().get("birthdate");
 		assertThat(actual, is(birthdate));
 	}
@@ -86,7 +86,7 @@ public class UserTest {
 	@Test
 	public void shouldAddAddressToModel() {
 		String address = "your house";
-		User underTest = new User("firstName", "lastName", 0, 0, true, date, "", address, "January 1st, 1969");
+		PantryUser underTest = new PantryUser("firstName", "lastName", 0, 0, true, date, "", address, "January 1st, 1969");
 		String actual = (String) underTest.toModel().get("address");
 		assertThat(actual, is(address));
 	}
@@ -94,7 +94,7 @@ public class UserTest {
 	@Test
 	public void shouldAddSacToModel() {
 		int sacs = 2;
-		User underTest = new User("firstName", "lastName", 6, sacs, true, date, "", "", "January 1st, 1969");
+		PantryUser underTest = new PantryUser("firstName", "lastName", 6, sacs, true, date, "", "", "January 1st, 1969");
 		int actual = (int) underTest.toModel().get("schoolAgeChildren");
 		assertThat(actual, is(sacs));
 	}

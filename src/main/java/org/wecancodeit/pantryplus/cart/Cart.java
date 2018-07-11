@@ -1,11 +1,11 @@
 package org.wecancodeit.pantryplus.cart;
 
 import static java.util.stream.Collectors.toSet;
+import static javax.persistence.GenerationType.IDENTITY;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-import java.util.stream.Stream;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,7 +18,7 @@ import org.wecancodeit.pantryplus.lineitem.LineItem;
 import org.wecancodeit.pantryplus.product.LimitedProduct;
 import org.wecancodeit.pantryplus.product.PricedProduct;
 import org.wecancodeit.pantryplus.product.Product;
-import org.wecancodeit.pantryplus.user.User;
+import org.wecancodeit.pantryplus.user.PantryUser;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -26,12 +26,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Cart {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = IDENTITY)
 	private long id;
 
 	@JsonIgnore
 	@ManyToOne
-	private User user;
+	private PantryUser user;
 
 	@OneToMany(mappedBy = "cart", orphanRemoval = true)
 	Set<LineItem> lineItems;
@@ -40,7 +40,7 @@ public class Cart {
 
 	private int meatPoundsUsed;
 
-	public User getUser() {
+	public PantryUser getUser() {
 		return user;
 	}
 
@@ -95,7 +95,7 @@ public class Cart {
 	private Cart() {
 	}
 
-	public Cart(User user) {
+	public Cart(PantryUser user) {
 		this.user = user;
 	}
 
@@ -117,9 +117,9 @@ public class Cart {
 	}
 
 	public void refreshCouponsUsed() {
-		Stream<LineItem> lineItemStream = getLineItems().stream().filter(item -> isCountedLineItem(item));
-		Stream<CountedLineItem> countedLineItemStream = lineItemStream.map(item -> (CountedLineItem) item);
-		couponsUsed = countedLineItemStream.mapToInt(item -> item.getCouponsUsed()).sum();
+		couponsUsed = getLineItems().stream()
+				.mapToInt(lineItem -> isCountedLineItem(lineItem) ? ((CountedLineItem) lineItem).getCouponsUsed() : 0)
+				.sum();
 	}
 
 	private boolean isCountedLineItem(LineItem item) {

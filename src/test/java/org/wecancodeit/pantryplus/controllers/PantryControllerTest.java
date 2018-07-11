@@ -21,7 +21,7 @@ import org.wecancodeit.pantryplus.category.Category;
 import org.wecancodeit.pantryplus.category.CategoryRepository;
 import org.wecancodeit.pantryplus.lineitem.CountedLineItem;
 import org.wecancodeit.pantryplus.lineitem.LineItem;
-import org.wecancodeit.pantryplus.user.User;
+import org.wecancodeit.pantryplus.user.PantryUser;
 import org.wecancodeit.pantryplus.user.UserRepository;
 
 public class PantryControllerTest {
@@ -52,7 +52,7 @@ public class PantryControllerTest {
 	private Long cartId = 1L;
 
 	@Mock
-	private User user;
+	private PantryUser user;
 	
 	@Mock
 	private LineItem lineItem;

@@ -20,7 +20,7 @@ import org.wecancodeit.pantryplus.lineitem.CountedLineItem;
 import org.wecancodeit.pantryplus.lineitem.LineItemRepository;
 import org.wecancodeit.pantryplus.product.Product;
 import org.wecancodeit.pantryplus.product.ProductRepository;
-import org.wecancodeit.pantryplus.user.User;
+import org.wecancodeit.pantryplus.user.PantryUser;
 import org.wecancodeit.pantryplus.user.UserRepository;
 
 @RunWith(SpringRunner.class)
@@ -50,7 +50,7 @@ public class CartRestControllerTest {
 	private Cart cart;
 	private long cartId;
 
-	private User user;
+	private PantryUser user;
 
 	@Before
 	public void setup() {

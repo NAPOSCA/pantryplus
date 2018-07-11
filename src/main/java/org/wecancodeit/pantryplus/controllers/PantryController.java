@@ -16,7 +16,7 @@ import org.wecancodeit.pantryplus.category.CategoryRepository;
 import org.wecancodeit.pantryplus.lineitem.CountedLineItem;
 import org.wecancodeit.pantryplus.lineitem.LineItem;
 import org.wecancodeit.pantryplus.lineitem.LineItemRepository;
-import org.wecancodeit.pantryplus.user.User;
+import org.wecancodeit.pantryplus.user.PantryUser;
 import org.wecancodeit.pantryplus.user.UserRepository;
 
 @Controller
@@ -47,7 +47,7 @@ public class PantryController {
 		if (zipCode.equals("Other")){
 			return "redirect:/invalid-zipcode";
 		}
-		User user = new User(firstName, lastName, familySize, schoolkidsCount, infants, pickUpDate, zipCode, address,
+		PantryUser user = new PantryUser(firstName, lastName, familySize, schoolkidsCount, infants, pickUpDate, zipCode, address,
 				birthdate);
 		user = userRepo.save(user);
 		Cart cart = cartRepo.save(new Cart(user));

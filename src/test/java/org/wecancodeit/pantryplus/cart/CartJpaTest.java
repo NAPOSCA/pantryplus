@@ -27,7 +27,7 @@ import org.wecancodeit.pantryplus.product.LimitedProduct;
 import org.wecancodeit.pantryplus.product.PricedProduct;
 import org.wecancodeit.pantryplus.product.Product;
 import org.wecancodeit.pantryplus.product.ProductRepository;
-import org.wecancodeit.pantryplus.user.User;
+import org.wecancodeit.pantryplus.user.PantryUser;
 import org.wecancodeit.pantryplus.user.UserRepository;
 
 @RunWith(SpringRunner.class)
@@ -52,7 +52,7 @@ public class CartJpaTest {
 	@Resource
 	private CategoryRepository categoryRepo;
 
-	private User user;
+	private PantryUser user;
 	private long userId;
 	private Cart cart;
 	private long cartId;
@@ -84,7 +84,7 @@ public class CartJpaTest {
 		lastName = "lasty namey";
 		familySize = 4;
 		address = "1234 Main St";
-		user = new User(firstName, lastName, familySize, 1, false, "2018-04-09", "43201", address, birthdate);
+		user = new PantryUser(firstName, lastName, familySize, 1, false, "2018-04-09", "43201", address, birthdate);
 		cart = new Cart(user);
 		anotherCart = new Cart(user);
 		otherCategory = new Category("FOOOBAAAAR");

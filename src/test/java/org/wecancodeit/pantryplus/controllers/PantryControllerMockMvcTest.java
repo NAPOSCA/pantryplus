@@ -19,7 +19,7 @@ import org.wecancodeit.pantryplus.cart.Cart;
 import org.wecancodeit.pantryplus.cart.CartRepository;
 import org.wecancodeit.pantryplus.category.CategoryRepository;
 import org.wecancodeit.pantryplus.lineitem.LineItemRepository;
-import org.wecancodeit.pantryplus.user.User;
+import org.wecancodeit.pantryplus.user.PantryUser;
 import org.wecancodeit.pantryplus.user.UserRepository;
 
 @RunWith(SpringRunner.class)
@@ -45,7 +45,7 @@ public class PantryControllerMockMvcTest {
 	Cart cart;
 
 	@Mock
-	User user;
+	PantryUser user;
 
 	long cartId = 1L;
 

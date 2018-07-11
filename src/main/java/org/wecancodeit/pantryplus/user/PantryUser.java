@@ -1,5 +1,7 @@
 package org.wecancodeit.pantryplus.user;
 
+import static javax.persistence.GenerationType.IDENTITY;
+
 import java.time.ZonedDateTime;
 import java.util.Collection;
 import java.util.HashMap;
@@ -13,10 +15,10 @@ import javax.persistence.OneToMany;
 import org.wecancodeit.pantryplus.cart.Cart;
 
 @Entity
-public class User {
+public class PantryUser {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = IDENTITY)
 	private long id;
 
 	@OneToMany(mappedBy = "user")
@@ -35,10 +37,10 @@ public class User {
 	private String address;
 
 	@SuppressWarnings("unused")
-	private User() {
+	private PantryUser() {
 	}
 
-	public User(String firstName, String lastName, int familySize, int schoolAgeChildren, boolean hasInfants,
+	public PantryUser(String firstName, String lastName, int familySize, int schoolAgeChildren, boolean hasInfants,
 			String pickupDateString, String zipCode, String address, String birthdate) {
 		this.firstName = firstName;
 		this.lastName = lastName;
